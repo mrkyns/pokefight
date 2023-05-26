@@ -7,6 +7,10 @@
     font-family: "Pokefont";
     src: url(../public/fonts/ThirteenPixelFontsRegular.ttf);
   }
+  @font-face {
+    font-family: "Code";
+    src: url(../public/fonts/SourceCodePro.ttf);
+  }
 }
 
 body {

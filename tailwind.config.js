@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         pokefont: ["Pokefont", "sans-serif"],
+        code: ["Code", "sans-serif"],
       },
       backgroundImage: {
         pattern: "url('images/body_bg.png')",
