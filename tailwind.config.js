@@ -40,17 +40,17 @@ module.exports = {
       },
       keyframes: {
         landingPage: {
-          "0%": { opacity: "0" },
-          "25%": { opacity: "0" },
-          "40%": { opacity: "1" },
-          "55%": { opacity: "0" },
-          "70%": { opacity: "1" },
-          "85%": { opacity: "0" },
-          "100%": { opacity: "1" },
+          "0%, 65%": { opacity: "0" },
+          "35%, 100%": { opacity: "1" },
+        },
+        welcomme: {
+          "0%": { opacity: "1" },
+          "100%": { opacity: "0" },
         },
       },
       animation: {
-        landingPage: "landingPage 10s ease-in-out forwards",
+        landingPage: "landingPage 1.5s 2s 2 ease-in-out forwards",
+        welcomme: "welcomme 1s 1s ease-in-out forwards",
       },
     },
   },

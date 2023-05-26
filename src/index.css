@@ -22,6 +22,8 @@ body {
   --creator_bg: rgba(103, 168, 20, 0.5);
   --leader: #c8981b;
   --leader_bg: rgba(200, 152, 27, 0.5);
+  --nav: #b7b7b7;
+  --nav_bg: rgba(183, 183, 183, 0.5);
 }
 
 /* ==========================
@@ -52,7 +54,7 @@ body {
 .navigation a::after {
   display: block;
   position: absolute;
-  right: 10px;
+  right: 5px;
   top: -50px;
   border-radius: 10px;
   height: 44px;
@@ -72,7 +74,7 @@ body {
   transform: translateY(55px);
 }
 
-.navigation a::after.active {
+.navigation a.active::after {
   display: block;
   position: absolute;
   border-radius: 10px;
@@ -83,13 +85,15 @@ body {
   transform: translateY(55px);
 }
 
-.navigation a:hover.pokedex {
+.navigation a:hover.pokedex,
+.navigation a.active.pokedex {
   background-color: var(--pokedex);
   box-shadow: 0 5px 8px var(--pokedex_bg);
 }
 
-.navigation a:hover.pokedex span {
-  transform: translateX(-65px);
+.navigation a:hover.pokedex span,
+.navigation a.active.pokedex span {
+  transform: translateX(-60px);
 }
 
 .navigation a.pokedex::after {
@@ -100,13 +104,15 @@ body {
   border: 2px solid var(--pokedex);
 }
 
-.navigation a:hover.fight {
+.navigation a:hover.fight,
+.navigation a.active.fight {
   background-color: var(--fight);
   box-shadow: 0 5px 8px var(--fight_bg);
 }
 
-.navigation a:hover.fight span {
-  transform: translateX(-80px);
+.navigation a:hover.fight span,
+.navigation a.active.fight span {
+  transform: translateX(-75px);
 }
 
 .navigation a.fight:after {
@@ -117,13 +123,15 @@ body {
   border: 2px solid var(--fight);
 }
 
-.navigation a:hover.creator {
+.navigation a:hover.creator,
+.navigation a.active.creator {
   background-color: var(--creator);
   box-shadow: 0 5px 8px var(--creator_bg);
 }
 
-.navigation a:hover.creator span {
-  transform: translateX(-45px);
+.navigation a:hover.creator span,
+.navigation a.active.creator span {
+  transform: translateX(-35px);
 }
 
 .navigation a.creator:after {
@@ -134,13 +142,15 @@ body {
   border: 2px solid var(--creator);
 }
 
-.navigation a:hover.leader {
+.navigation a:hover.leader,
+.navigation a.active.leader {
   background-color: var(--leader);
   box-shadow: 0 5px 8px var(--leader_bg);
 }
 
-.navigation a:hover.leader span {
-  transform: translateX(-30px);
+.navigation a:hover.leader span,
+.navigation a.active.leader span {
+  transform: translateX(-25px);
 }
 
 .navigation a.leader:after {
@@ -149,6 +159,45 @@ body {
   background-size: 32px 32px;
   background-color: var(--leader_bg);
   border: 2px solid var(--leader);
+}
+
+.nav_default,
+.nav_pokedex,
+.nav_fight,
+.nav_creator,
+.nav_leader {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.nav_default:hover,
+.nav_default.active {
+  background-color: var(--nav);
+  box-shadow: 0 5px 8px var(--nav_bg);
+}
+
+.nav_pokedex:hover,
+.nav_pokedex.active {
+  background-color: var(--pokedex);
+  box-shadow: 0 5px 8px var(--pokedex_bg);
+}
+
+.nav_fight:hover,
+.nav_fight.active {
+  background-color: var(--fight);
+  box-shadow: 0 5px 8px var(--fight_bg);
+}
+
+.nav_creator:hover,
+.nav_creator.active {
+  background-color: var(--creator);
+  box-shadow: 0 5px 8px var(--creator_bg);
+}
+
+.nav_leader:hover,
+.nav_leader.active {
+  background-color: var(--leader);
+  box-shadow: 0 5px 8px var(--leader_bg);
 }
 
 /* ==========================
