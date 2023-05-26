@@ -1,54 +1,19 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useContext } from "react";
+import { DataContext } from "../context/DataContext";
 import DualRange from "./DualRange";
 
 export default function Filter() {
-  const [checkedTypes, setCheckedTypes] = useState([]);
-  const [minHP, setMinHP] = useState(1);
-  const [maxHP, setMaxHP] = useState(255);
-  const [minAttack, setMinAttack] = useState(5);
-  const [maxAttack, setMaxAttack] = useState(181);
-  const [minDefense, setMinDefense] = useState(5);
-  const [maxDefense, setMaxDefense] = useState(230);
-  const [minSpeed, setMinSpeed] = useState(5);
-  const [maxSpeed, setMaxSpeed] = useState(160);
-  // console.log("checked: ", checkedTypes);
-
-  const [queryObj, setQueryObj] = useState({
-    type: [],
-    minHP,
-    maxHP,
-    minAttack,
-    maxAttack,
-    minDefense,
-    maxDefense,
-    minSpeed,
-    maxSpeed,
-  });
-
-  useEffect(() => {
-    const pokeTypes = checkedTypes.map((ref) => ref.current.value);
-    setQueryObj({
-      type: pokeTypes,
-      minHP,
-      maxHP,
-      minAttack,
-      maxAttack,
-      minDefense,
-      maxDefense,
-      minSpeed,
-      maxSpeed,
-    });
-  }, [
-    checkedTypes,
-    minHP,
-    maxHP,
-    minAttack,
-    maxAttack,
-    minDefense,
-    maxDefense,
-    minSpeed,
-    maxSpeed,
-  ]);
+  const {
+    setCheckedTypes,
+    setMinHP,
+    setMaxHP,
+    setMinAttack,
+    setMaxAttack,
+    setMinDefense,
+    setMaxDefense,
+    setMinSpeed,
+    setMaxSpeed,
+  } = useContext(DataContext);
 
   // console.log(queryObj);
 
@@ -202,10 +167,6 @@ export default function Filter() {
       } else return [...newItem];
     });
   };
-
-  useEffect(() => {
-    console.log("Query changed!: ", queryObj);
-  }, [queryObj]);
 
   return (
     <div className="h-[715px] max-w-lg bg-[#2B2B2B] opacity-80 rounded-md shadow-xl my-auto ml-5">

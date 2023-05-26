@@ -50,6 +50,13 @@ export default function DualRange({ stat, range, setExtMin, setExtMax }) {
           // );
         }}
       />
+      <div
+        className="absolute top-[2px] h-1  bg-pokefigt blur-[2px]"
+        style={{
+          left: `${((dynamicMin - range[0]) / (range[1] - range[0])) * 100}%`,
+          right: `${((range[1] - dynamicMax) / (range[1] - range[0])) * 100}%`,
+        }}
+      ></div>
       <div className="mt-3">max: {dynamicMax}</div>
     </div>
   );
