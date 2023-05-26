@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export default function () {
+export default function Navigation() {
   return (
     <>
       <div className="mask"></div>
