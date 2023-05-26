@@ -8,3 +8,149 @@
     src: url(../public/fonts/ThirteenPixelFontsRegular.ttf);
   }
 }
+
+body {
+  --pokedex: #194485;
+  --pokedex_bg: rgba(25, 68, 133, 0.5);
+  --fight: #e51b1b;
+  --fight_bg: rgba(229, 27, 27, 0.5);
+  --creator: #67a814;
+  --creator_bg: rgba(103, 168, 20, 0.5);
+  --leader: #c8981b;
+  --leader_bg: rgba(200, 152, 27, 0.5);
+}
+
+/* ==========================
+      Navigation classes
+===========================*/
+
+.mask {
+  min-width: 1600px;
+  height: 50px;
+  position: absolute;
+  background-color: #2b2b2b;
+  z-index: 5;
+  margin-top: -30px;
+}
+
+.navigation a span {
+  transition: all 0.3s ease;
+}
+
+.navigation a:hover {
+  position: relative;
+}
+
+.navigation a:hover span {
+  transform: translateX(-65px);
+}
+
+.navigation a::after {
+  display: block;
+  position: absolute;
+  right: 10px;
+  top: -50px;
+  border-radius: 10px;
+  height: 44px;
+  width: 44px;
+  content: "";
+  transition: all 0.3s ease;
+}
+
+.navigation a:hover:after {
+  display: block;
+  position: absolute;
+  border-radius: 10px;
+  height: 44px;
+  width: 44px;
+  content: "";
+  box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.5);
+  transform: translateY(55px);
+}
+
+.navigation a::after.active {
+  display: block;
+  position: absolute;
+  border-radius: 10px;
+  height: 44px;
+  width: 44px;
+  content: "";
+  box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.5);
+  transform: translateY(55px);
+}
+
+.navigation a:hover.pokedex {
+  background-color: var(--pokedex);
+  box-shadow: 0 5px 8px var(--pokedex_bg);
+}
+
+.navigation a:hover.pokedex span {
+  transform: translateX(-65px);
+}
+
+.navigation a.pokedex::after {
+  background: url(./images/pokedex.png) no-repeat 0 0;
+  background-position: center;
+  background-size: 32px 32px;
+  background-color: var(--pokedex_bg);
+  border: 2px solid var(--pokedex);
+}
+
+.navigation a:hover.fight {
+  background-color: var(--fight);
+  box-shadow: 0 5px 8px var(--fight_bg);
+}
+
+.navigation a:hover.fight span {
+  transform: translateX(-80px);
+}
+
+.navigation a.fight:after {
+  background: url(./images/fight.png) no-repeat 0 0;
+  background-position: center;
+  background-size: 32px 32px;
+  background-color: var(--fight_bg);
+  border: 2px solid var(--fight);
+}
+
+.navigation a:hover.creator {
+  background-color: var(--creator);
+  box-shadow: 0 5px 8px var(--creator_bg);
+}
+
+.navigation a:hover.creator span {
+  transform: translateX(-45px);
+}
+
+.navigation a.creator:after {
+  background: url(./images/creators.png) no-repeat 0 0;
+  background-position: center;
+  background-size: 32px 32px;
+  background-color: var(--creator_bg);
+  border: 2px solid var(--creator);
+}
+
+.navigation a:hover.leader {
+  background-color: var(--leader);
+  box-shadow: 0 5px 8px var(--leader_bg);
+}
+
+.navigation a:hover.leader span {
+  transform: translateX(-30px);
+}
+
+.navigation a.leader:after {
+  background: url(./images/leaderboard.png) no-repeat 0 0;
+  background-position: center;
+  background-size: 32px 32px;
+  background-color: var(--leader_bg);
+  border: 2px solid var(--leader);
+}
+
+/* ==========================
+    Landing page classes
+===========================*/
+
+.landing_page svg {
+  width: 700px;
+}
