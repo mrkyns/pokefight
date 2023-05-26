@@ -1,6 +1,11 @@
 export default function Logo() {
   return (
-    <svg viewBox="0 0 603 314" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="700px"
+      viewBox="0 0 603 314"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M303.094 313.267C352.682 313.267 392.881 272.757 392.881 222.786C392.881 172.814 352.682 132.304 303.094 132.304C253.506 132.304 213.307 172.814 213.307 222.786C213.307 272.757 253.506 313.267 303.094 313.267Z"
         fill="black"

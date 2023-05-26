@@ -20,6 +20,10 @@ body {
   --leader_bg: rgba(200, 152, 27, 0.5);
 }
 
+/* ==========================
+      Navigation classes
+===========================*/
+
 .mask {
   min-width: 1600px;
   height: 50px;
@@ -141,4 +145,12 @@ body {
   background-size: 32px 32px;
   background-color: var(--leader_bg);
   border: 2px solid var(--leader);
+}
+
+/* ==========================
+    Landing page classes
+===========================*/
+
+.landing_page svg {
+  width: 700px;
 }

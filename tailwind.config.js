@@ -36,6 +36,20 @@ module.exports = {
         elementbBg: "#2b2b2b",
         pokemonBg: "#373737",
       },
+      keyframes: {
+        landingPage: {
+          "0%": { opacity: "0" },
+          "25%": { opacity: "0" },
+          "40%": { opacity: "1" },
+          "55%": { opacity: "0" },
+          "70%": { opacity: "1" },
+          "85%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+      },
+      animation: {
+        landingPage: "landingPage 10s ease-in-out forwards",
+      },
     },
   },
   plugins: [],
