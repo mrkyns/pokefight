@@ -1,55 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useContext } from "react";
+import { DataContext } from "../context/DataContext";
 import DualRange from "./DualRange";
 
 export default function Filter() {
-  const [checkedTypes, setCheckedTypes] = useState([]);
-  const [minHP, setMinHP] = useState(1);
-  const [maxHP, setMaxHP] = useState(255);
-  const [minAttack, setMinAttack] = useState(5);
-  const [maxAttack, setMaxAttack] = useState(181);
-  const [minDefense, setMinDefense] = useState(5);
-  const [maxDefense, setMaxDefense] = useState(230);
-  const [minSpeed, setMinSpeed] = useState(5);
-  const [maxSpeed, setMaxSpeed] = useState(160);
+  const {
+    setCheckedTypes,
+    setMinHP,
+    setMaxHP,
+    setMinAttack,
+    setMaxAttack,
+    setMinDefense,
+    setMaxDefense,
+    setMinSpeed,
+    setMaxSpeed,
+  } = useContext(DataContext);
 
-  const [queryObj, setQueryObj] = useState({
-    type: [],
-    minHP,
-    maxHP,
-    minAttack,
-    maxAttack,
-    minDefense,
-    maxDefense,
-    minSpeed,
-    maxSpeed,
-  });
-
-  useEffect(() => {
-    const pokeTypes = checkedTypes.map((ref) => ref.current.value);
-    setQueryObj({
-      type: pokeTypes,
-      minHP,
-      maxHP,
-      minAttack,
-      maxAttack,
-      minDefense,
-      maxDefense,
-      minSpeed,
-      maxSpeed,
-    });
-  }, [
-    checkedTypes,
-    minHP,
-    maxHP,
-    minAttack,
-    maxAttack,
-    minDefense,
-    maxDefense,
-    minSpeed,
-    maxSpeed,
-  ]);
-
-  console.log(queryObj);
+  // console.log(queryObj);
 
   const refBug = useRef(null);
   const refDark = useRef(null);
@@ -183,10 +149,10 @@ export default function Filter() {
   const refsArr = Object.keys(pokeTypes).map((type) => pokeTypes[type].ref);
 
   const handleFormChange = (e) => {
-    // e.preventDefault();
     const checkedPokeTypes = refsArr.filter(
       (checkboxRef) => checkboxRef.current.checked
     );
+    console.log("form change");
     // console.log(checkedPokeTypes);
     setCheckedTypes((prev) => {
       const newItem = checkedPokeTypes.filter((item) => !prev.includes(item));
@@ -201,20 +167,16 @@ export default function Filter() {
       } else return [...newItem];
     });
   };
-  // console.log(checkedTypes);
+
   return (
     <div className="h-[715px] max-w-lg bg-[#2B2B2B] opacity-80 rounded-md shadow-xl my-auto ml-5">
       <h2 className="text-5xl p-6 font-pokefont">Filters</h2>
-      <form
-        action="#"
-        method="get"
-        onChange={handleFormChange}
-        className="font-code text-sm"
-      >
+      <form className="font-code text-sm">
         <div className="grid grid-cols-3  gap-y-4  justify-items-center">
           {Object.keys(pokeTypes).map((type, ind) => {
             return (
               <label
+                onClick={handleFormChange}
                 key={`${type}-${ind}`}
                 htmlFor={type}
                 className="relative grid h-8 w-32 mx-2 place-content-center selection:bg-transparent cursor-pointer shadow-lg active:shadow-none  active:translate-y-px transition-all duration-200 font-code"
