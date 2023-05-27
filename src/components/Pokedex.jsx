@@ -6,7 +6,7 @@ import { DataContext } from "../context/DataContext";
 export default function Pokedex() {
   const { allPokemons } = useContext(DataContext);
 
-  console.log(allPokemons);
+  // console.log(allPokemons);
 
   return (
     <div className="grid items-center">

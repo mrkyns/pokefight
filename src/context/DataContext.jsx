@@ -15,6 +15,7 @@ export default function DataContextProvider({ children }) {
   const [maxDefense, setMaxDefense] = useState(230);
   const [minSpeed, setMinSpeed] = useState(5);
   const [maxSpeed, setMaxSpeed] = useState(160);
+  const [page, setPage] = useState(0);
 
   const [queryObj, setQueryObj] = useState({
     type: [],
@@ -26,6 +27,7 @@ export default function DataContextProvider({ children }) {
     maxDefense,
     minSpeed,
     maxSpeed,
+    page,
   });
 
   useEffect(() => {
@@ -61,7 +63,7 @@ export default function DataContextProvider({ children }) {
 
       setAllPokemons(data.data);
     };
-    fetchEmAll();
+    // fetchEmAll();
   }, []);
 
   useEffect(() => {
@@ -71,12 +73,35 @@ export default function DataContextProvider({ children }) {
 
       setCreators(data.data);
     };
-    fetchCreators();
+    // fetchCreators();
   }, []);
 
   // Fetch by filter
   useEffect(() => {
     console.log("Query changed!: ", queryObj);
+
+    const fetchByFilters = async (queryObj) => {
+      try {
+        const res = await fetch(
+          "https://pokefight-api.onrender.com/filtered/",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(queryObj),
+          }
+        );
+        const data = await res.json();
+        console.log(data);
+        setAllPokemons(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    fetchByFilters(queryObj);
   }, [queryObj]);
 
   // // console.log(allPokemons);
@@ -107,6 +132,8 @@ export default function DataContextProvider({ children }) {
         setMaxSpeed,
         queryObj,
         setQueryObj,
+        page,
+        setPage,
       }}
     >
       {children}
