@@ -79,8 +79,8 @@ export default function DataContextProvider({ children }) {
     console.log("Query changed!: ", queryObj);
   }, [queryObj]);
 
-  // console.log(allPokemons);
-  // console.log(creators);
+  // // console.log(allPokemons);
+  // // console.log(creators);
 
   return (
     <DataContext.Provider

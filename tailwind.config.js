@@ -38,6 +38,9 @@ module.exports = {
         elementbBg: "#2b2b2b",
         pokemonBg: "#373737",
       },
+      boxShadow: {
+        shadow: "5px 5px 8px rgba(0, 0, 0, 0.5)",
+      },
       keyframes: {
         landingPage: {
           "0%, 65%": { opacity: "0" },

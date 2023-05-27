@@ -207,3 +207,21 @@ body {
 .landing_page svg {
   width: 700px;
 }
+
+/* ==========================
+    Pokedex page classes
+===========================*/
+
+.pokemon:hover {
+  transform: translateY(-10px);
+}
+
+.pokemon:hover h2 {
+  transform: translateY(15px);
+  background-color: var(--pokedex);
+  box-shadow: 0 5px 8px var(--pokedex_bg);
+}
+
+.pokemon:hover p {
+  transform: translateY(0);
+}

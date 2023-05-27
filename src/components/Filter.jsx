@@ -169,7 +169,7 @@ export default function Filter() {
   };
 
   return (
-    <div className="h-[715px] max-w-lg bg-[#2B2B2B] opacity-80 rounded-md shadow-xl my-auto ml-5">
+    <div className="h-[715px] max-w-lg bg-elementbBg border-2 border-elementbBg bg-opacity-50 rounded-xl my-auto shadow-shadow">
       <h2 className="text-5xl p-6 font-pokefont">Filters</h2>
       <form className="font-code text-sm">
         <div className="grid grid-cols-3  gap-y-4  justify-items-center">
@@ -179,7 +179,7 @@ export default function Filter() {
                 onClick={handleFormChange}
                 key={`${type}-${ind}`}
                 htmlFor={type}
-                className="relative grid h-8 w-32 mx-2 place-content-center selection:bg-transparent cursor-pointer shadow-lg active:shadow-none  active:translate-y-px transition-all duration-200 font-code"
+                className="relative grid h-8 w-32 mx-2 place-content-center selection:bg-transparent cursor-pointer shadow-lg opacity-90 active:shadow-none  active:translate-y-px transition-all duration-200 font-code"
               >
                 <input
                   ref={pokeTypes[type].ref}
@@ -187,7 +187,7 @@ export default function Filter() {
                   name="pokemons"
                   id={type}
                   value={type}
-                  className={`appearance-none h-8 w-32 bg-stone-700 hover:opacity-30 hover:checked:opacity-90 ${pokeTypes[type].color} ${pokeTypes[type].hover} hover:after:blur-sm checked:after:blur-sm after:content-[''] after:inset-0 after:absolute ${pokeTypes[type].after} rounded-lg after:rounded-xl absolute -z-10 transition-all duration-200`}
+                  className={`appearance-none h-8 w-32 bg-pokemonBg cursor-pointer opacity-80 hover:opacity-30 hover:checked:opacity-90 ${pokeTypes[type].color} ${pokeTypes[type].hover} hover:after:blur-sm checked:after:blur-sm after:content-[''] after:inset-0 after:absolute ${pokeTypes[type].after} rounded-lg after:rounded-xl absolute -z-10 transition-all duration-200`}
                 />
                 {type}
               </label>
