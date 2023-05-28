@@ -8,9 +8,9 @@ import DataContextProvider from "./context/DataContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <DataContextProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <DataContextProvider>
       <App />
-    </BrowserRouter>
-  </DataContextProvider>
+    </DataContextProvider>
+  </BrowserRouter>
 );

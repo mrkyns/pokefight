@@ -1,9 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { DataContext } from "../context/DataContext";
 
-export default function () {
+export default function Navigation() {
   const { pathname } = useLocation();
   const [nav, setNav] = useState("");
+  const [searchCheck, setSearchCheck] = useState(false);
+  const [input, setInput] = useState("");
+  const inputRef = useRef(null);
+  const { setSingleSearch } = useContext(DataContext);
+
+  const handleInput = (event) => {
+    setInput(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSingleSearch(input);
+    setInput("");
+    inputRef.current.value = "";
+    setSearchCheck(false);
+  };
+
+  useEffect(() => {
+    if (searchCheck) inputRef.current.focus();
+  }, [searchCheck]);
 
   useEffect(() => {
     if (pathname.includes("pokedex")) {
@@ -63,7 +84,31 @@ export default function () {
           <span className="nav_default relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg">
             D
           </span>
-          <span className={nav}>S</span>
+          <button
+            onClick={() => setSearchCheck((prev) => !prev)}
+            htmlFor="search-check"
+            className=" nav_default relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg rounded-tr-xl"
+          >
+            S
+          </button>
+          <form
+            className={`absolute flex right-80 top-20 ${
+              searchCheck ? "block" : "hidden"
+            }`}
+            onSubmit={handleSubmit}
+          >
+            <input
+              type="text"
+              name="search"
+              id="search"
+              autoFocus="true"
+              spellCheck="false"
+              onChange={handleInput}
+              className="text-elementbBg"
+              ref={inputRef}
+            />
+            <button className="bg-neutral-100 text-elementbBg">sub</button>
+          </form>
         </div>
       </div>
     </>

@@ -5,7 +5,7 @@ import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 
 export default function Pokemon() {
-  const { allPokemons } = useContext(DataContext);
+  const { allPokemons, IQO, setQueryObj } = useContext(DataContext);
   const { id } = useParams();
   const pokemon = allPokemons?.find((pokemon) => pokemon.id === Number(id));
   console.log(pokemon);
@@ -179,6 +179,7 @@ export default function Pokemon() {
           <div className="flex flex-col gap-3">
             {/* go back button */}
             <NavLink
+              onClick={() => setQueryObj(IQO)}
               to="/pokedex"
               className="h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear hover:bg-grass hover:bg-opacity-50 hover:border-grass cursor-pointer"
             >

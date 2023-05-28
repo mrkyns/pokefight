@@ -1,22 +1,40 @@
 import { useState, useEffect, createContext } from "react";
-import { useParams } from "react-router";
+import { useNavigate } from "react-router";
 
 export const DataContext = createContext();
 
 export default function DataContextProvider({ children }) {
+  const navigate = useNavigate();
+
+  // initial query object
+  const IQO = {
+    type: [],
+    minHP: 1,
+    maxHP: 255,
+    minAttack: 5,
+    maxAttack: 181,
+    minDefense: 5,
+    maxDefense: 230,
+    minSpeed: 5,
+    maxSpeed: 160,
+    page: 0,
+  };
+
   const [allPokemons, setAllPokemons] = useState({});
   const [creators, setCreators] = useState({});
 
-  const [checkedTypes, setCheckedTypes] = useState([]);
-  const [minHP, setMinHP] = useState(1);
-  const [maxHP, setMaxHP] = useState(255);
-  const [minAttack, setMinAttack] = useState(5);
-  const [maxAttack, setMaxAttack] = useState(181);
-  const [minDefense, setMinDefense] = useState(5);
-  const [maxDefense, setMaxDefense] = useState(230);
-  const [minSpeed, setMinSpeed] = useState(5);
-  const [maxSpeed, setMaxSpeed] = useState(160);
-  const [page, setPage] = useState(0);
+  const [checkedTypes, setCheckedTypes] = useState(IQO.type);
+  const [minHP, setMinHP] = useState(IQO.minHP);
+  const [maxHP, setMaxHP] = useState(IQO.maxHP);
+  const [minAttack, setMinAttack] = useState(IQO.minAttack);
+  const [maxAttack, setMaxAttack] = useState(IQO.maxAttack);
+  const [minDefense, setMinDefense] = useState(IQO.minDefense);
+  const [maxDefense, setMaxDefense] = useState(IQO.maxDefense);
+  const [minSpeed, setMinSpeed] = useState(IQO.minSpeed);
+  const [maxSpeed, setMaxSpeed] = useState(IQO.maxSpeed);
+  const [page, setPage] = useState(IQO.page);
+
+  const [singleSearch, setSingleSearch] = useState("");
 
   const [queryObj, setQueryObj] = useState({
     type: [],
@@ -119,9 +137,30 @@ export default function DataContextProvider({ children }) {
     }
   };
 
+  // single search
+
+  useEffect(() => {
+    if (!Object.keys(allPokemons).length) return;
+    const fetchOne = async (singleSearch) => {
+      const trimmedQuery = singleSearch.trim();
+      const res = await fetch(
+        `https://pokefight-api.onrender.com/pokemons/${trimmedQuery}`
+      );
+      const data = await res.json();
+      // console.log("data.data: ", data.data);
+      if (!data.data.length) return;
+      setAllPokemons(data.data);
+      navigate(`/pokedex/${data.data[0].id}`);
+    };
+    fetchOne(singleSearch);
+  }, [singleSearch]);
+
+  console.log(singleSearch);
+
   return (
     <DataContext.Provider
       value={{
+        IQO,
         allPokemons,
         creators,
         checkedTypes,
@@ -147,6 +186,8 @@ export default function DataContextProvider({ children }) {
         page,
         setPage,
         pokemonSerial,
+        singleSearch,
+        setSingleSearch,
       }}
     >
       {children}
