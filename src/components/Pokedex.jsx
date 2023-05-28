@@ -112,8 +112,9 @@ export default function Pokedex() {
                         {pokemon.type[0]}
                       </p>
                     ) : (
-                      pokemon.type.map((type) => (
+                      pokemon.type.map((type, ind) => (
                         <p
+                          key={type + ind}
                           className={`w-1/2 h-[245px] flex justify-center items-end pb-4 ${pokeTypes[type].color} translate-y-[260px] transition-all duration-300 ease-linear`}
                         >
                           {type}
