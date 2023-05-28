@@ -4,7 +4,6 @@ import { NavLink, useLocation } from "react-router-dom";
 export default function () {
   const { pathname } = useLocation();
   const [nav, setNav] = useState("");
-  const navObject = useLocation();
 
   useEffect(() => {
     if (pathname.includes("pokedex")) {

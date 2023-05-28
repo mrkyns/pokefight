@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext } from "react";
+import { useParams } from "react-router";
 
 export const DataContext = createContext();
 
@@ -83,7 +84,7 @@ export default function DataContextProvider({ children }) {
     const fetchByFilters = async (queryObj) => {
       try {
         const res = await fetch(
-          "https://pokefight-api.onrender.com/filtered/",
+          "https://pokefight-api.onrender.com/pokemons/filtered/",
           {
             method: "POST",
             headers: {
@@ -95,7 +96,7 @@ export default function DataContextProvider({ children }) {
         );
         const data = await res.json();
         console.log(data);
-        setAllPokemons(data);
+        setAllPokemons(data.data);
       } catch (error) {
         console.log(error.message);
       }
@@ -104,8 +105,19 @@ export default function DataContextProvider({ children }) {
     fetchByFilters(queryObj);
   }, [queryObj]);
 
-  // // console.log(allPokemons);
+  console.log(allPokemons);
   // // console.log(creators);
+
+  //function to create serial nummer for pokemon pokemonSerial(pokemon.id)
+  const pokemonSerial = (id) => {
+    if (id?.length === 3) {
+      return `#0${id}`;
+    } else if (id?.length === 2) {
+      return `#00${id}`;
+    } else {
+      return `#000${id}`;
+    }
+  };
 
   return (
     <DataContext.Provider
@@ -134,6 +146,7 @@ export default function DataContextProvider({ children }) {
         setQueryObj,
         page,
         setPage,
+        pokemonSerial,
       }}
     >
       {children}

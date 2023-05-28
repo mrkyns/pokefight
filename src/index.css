@@ -225,3 +225,103 @@ body {
 .pokemon:hover p {
   transform: translateY(0);
 }
+
+/* ==========================
+    single pokemon page classes
+===========================*/
+
+.pokemon_fight:hover {
+  background-color: var(--fight_bg);
+  border: 2px solid var(--fight);
+  position: relative;
+}
+
+.pokemon_fight::after {
+  display: block;
+  position: absolute;
+  right: -55px;
+  border-radius: 10px;
+  height: 48px;
+  width: 48px;
+  content: "";
+  background: url(./images/fight.png) no-repeat 0 0;
+  background-position: center;
+  background-size: 44px 44px;
+  transition: all 0.3s ease;
+}
+
+.pokemon_fight:hover:after {
+  right: 20px;
+}
+
+.pokemon_fight:hover span {
+  transform: translateX(-80px);
+}
+
+/* ==========================
+    Fight page classes
+===========================*/
+
+.fight_pokemon:hover {
+  background-color: var(--fight_bg);
+  border: 2px solid var(--fight);
+  position: relative;
+}
+
+.fight_pokemon::after {
+  display: block;
+  position: absolute;
+  right: -55px;
+  border-radius: 10px;
+  height: 48px;
+  width: 48px;
+  content: "";
+  background: url(./images/fight.png) no-repeat 0 0;
+  background-position: center;
+  background-size: 44px 44px;
+  transition: all 0.3s ease;
+}
+
+.fight_pokemon:hover:after {
+  right: 20px;
+}
+
+.fight_pokemon:hover span {
+  transform: translateX(-70px);
+}
+
+.fight_pokemon_select:hover {
+  border: 2px solid var(--fight);
+}
+
+.fight_pokemon_select::before {
+  content: "chose pokemon";
+  position: absolute;
+  left: -2px;
+  bottom: 215px;
+  display: flex;
+  justify-content: center;
+  width: 240px;
+  height: 40px;
+  padding: 5px 10px;
+  background-color: var(--fight_bg);
+  border: 2px solid var(--fight);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.fight_pokemon_select:hover:before {
+  content: "chose pokemon";
+  position: absolute;
+  left: -2px;
+  bottom: -2px;
+  display: flex;
+  justify-content: center;
+  width: 240px;
+  height: 40px;
+  padding: 5px 10px;
+  background-color: var(--fight_bg);
+  border: 2px solid var(--fight);
+  border-radius: 12px;
+  z-index: 5;
+}
