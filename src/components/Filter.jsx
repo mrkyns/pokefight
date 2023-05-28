@@ -169,7 +169,7 @@ export default function Filter() {
   };
 
   return (
-    <div className="h-[715px] max-w-lg bg-elementbBg border-2 border-elementbBg bg-opacity-50 rounded-xl my-auto shadow-shadow">
+    <div className="h-[715px] max-w-lg bg-elementbBg border-2 border-elementbBg bg-opacity-50 rounded-xl my-auto shadow-shadow dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
       <h2 className="text-5xl p-6 font-pokefont">Filters</h2>
       <form className="font-code text-sm">
         <div className="grid grid-cols-3  gap-y-4  justify-items-center">

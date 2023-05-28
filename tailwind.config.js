@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
@@ -10,6 +11,7 @@ module.exports = {
       backgroundImage: {
         pattern: "url('images/body_bg.png')",
         menu: "url('images/menu_bg.svg')",
+        menu_dark: "url('images/menu_bg_w.svg')",
         menu_sm: "url('images/menu_bg_sm.svg')",
       },
       colors: {
@@ -36,10 +38,13 @@ module.exports = {
         pokecreator: "#67a814",
         pokeleader: "#c8981b ",
         elementbBg: "#2b2b2b",
+        elementbBg_w: "#b7b7b7",
         pokemonBg: "#373737",
+        bgColor: "#cbcbcb",
       },
       boxShadow: {
         shadow: "5px 5px 8px rgba(0, 0, 0, 0.5)",
+        shadow_w: "5px 5px 8px rgba(0, 0, 0, 0.2)",
       },
       keyframes: {
         landingPage: {

@@ -1,6 +1,9 @@
 import { useEffect, useState, useRef, useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { DataContext } from "../context/DataContext";
+import SearchIcon from "./SearchIcon";
+import { ThemeContext } from "../context/ThemeContext";
+import DarkModeIcon from "./DarkModeIcon";
 
 export default function Navigation() {
   const { pathname } = useLocation();
@@ -9,6 +12,7 @@ export default function Navigation() {
   const [input, setInput] = useState("");
   const inputRef = useRef(null);
   const { setSingleSearch } = useContext(DataContext);
+  const { toggleDarkMode } = useContext(ThemeContext);
 
   const handleInput = (event) => {
     setInput(event.target.value);
@@ -29,23 +33,23 @@ export default function Navigation() {
   useEffect(() => {
     if (pathname.includes("pokedex")) {
       setNav(
-        "nav_pokedex relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg rounded-se-xl"
+        "nav_pokedex relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl"
       );
     } else if (pathname.includes("fight")) {
       setNav(
-        "nav_fight relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg rounded-se-xl"
+        "nav_fight relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl"
       );
     } else if (pathname.includes("creators")) {
       setNav(
-        "nav_creator relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg rounded-se-xl"
+        "nav_creator relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl"
       );
     } else if (pathname.includes("leaderboard")) {
       setNav(
-        "nav_leader relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg rounded-se-xl"
+        "nav_leader relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl"
       );
     } else {
       setNav(
-        "nav_default relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg rounded-se-xl"
+        "nav_default relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl"
       );
     }
   }, [pathname]);
@@ -53,17 +57,17 @@ export default function Navigation() {
   return (
     <>
       <div className="mask"></div>
-      <div className="navigation font-code bg-menu bg-no-repeat bg-[center_top] mt-[-40px] min-w-[1600px] h-[90px] flex flex-wrap items-end justify-between px-12">
+      <div className="navigation font-code bg-menu dark:bg-menu_dark bg-no-repeat bg-[center_top] mt-[-40px] min-w-[1600px] h-[90px] flex flex-wrap items-end justify-between px-12">
         <div className="flex gap-1">
           <NavLink
             to="/pokedex"
-            className="pokedex relative flex justify-center items-center no-underline w-[210px] h-[30px] bg-pokemonBg rounded-ss-xl"
+            className="pokedex relative flex justify-center items-center no-underline w-[210px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-ss-xl"
           >
             <span>pokedex</span>
           </NavLink>
           <NavLink
             to="/fight"
-            className="fight relative flex justify-center items-center no-underline w-[210px] h-[30px] bg-pokemonBg rounded-se-xl"
+            className="fight relative flex justify-center items-center no-underline w-[210px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl"
           >
             <span>fight</span>
           </NavLink>
@@ -71,25 +75,28 @@ export default function Navigation() {
         <div className="flex gap-1">
           <NavLink
             to="/creators"
-            className="creator relative flex justify-center items-center no-underline w-[165px] h-[30px] bg-pokemonBg rounded-ss-xl"
+            className="creator relative flex justify-center items-center no-underline w-[165px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-ss-xl"
           >
             <span>creators</span>
           </NavLink>
           <NavLink
             to="/leaderboard"
-            className="leader relative flex justify-center items-center no-underline w-[165px] h-[30px] bg-pokemonBg"
+            className="leader relative flex justify-center items-center no-underline w-[165px] h-[30px] bg-pokemonBg dark:bg-bgColor "
           >
             <span>leaderboard</span>
           </NavLink>
-          <span className="nav_default relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg">
-            D
+          <span
+            onClick={toggleDarkMode}
+            className="nav_default relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor "
+          >
+            <DarkModeIcon />
           </span>
           <button
             onClick={() => setSearchCheck((prev) => !prev)}
             htmlFor="search-check"
-            className=" nav_default relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg rounded-tr-xl"
+            className={nav}
           >
-            S
+            <SearchIcon />
           </button>
           <form
             className={`absolute flex right-80 top-20 ${

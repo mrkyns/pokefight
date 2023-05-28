@@ -39,6 +39,15 @@ body {
   margin-top: -30px;
 }
 
+.dark .mask {
+  min-width: 1600px;
+  height: 50px;
+  position: absolute;
+  background-color: #fff;
+  z-index: 5;
+  margin-top: -30px;
+}
+
 .navigation a span {
   transition: all 0.3s ease;
 }
@@ -49,6 +58,11 @@ body {
 
 .navigation a:hover span {
   transform: translateX(-65px);
+}
+
+.dark .navigation a:hover span,
+.dark .navigation a.active span {
+  color: #fff;
 }
 
 .navigation a::after {
@@ -220,6 +234,7 @@ body {
   transform: translateY(15px);
   background-color: var(--pokedex);
   box-shadow: 0 5px 8px var(--pokedex_bg);
+  color: #fff;
 }
 
 .pokemon:hover p {

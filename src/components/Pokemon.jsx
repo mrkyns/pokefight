@@ -9,78 +9,115 @@ export default function Pokemon() {
   const { id } = useParams();
   const pokemon = allPokemons?.find((pokemon) => pokemon.id === Number(id));
   console.log(pokemon);
+
   const pokeTypes = {
     Bug: {
       color: "bg-bug",
       text: "text-bug",
+      hover_bg: "hover:bg-bug",
+      hover_b: "hover:border-bug",
     },
     Dark: {
       color: "bg-dark",
       text: "text-dark",
+      hover_bg: "hover:bg-dark",
+      hover_b: "hover:border-dark",
     },
     Dragon: {
       color: "bg-dragon",
       text: "text-dragon",
+      hover_bg: "hover:bg-dragon",
+      hover_b: "hover:border-dragon",
     },
     Electric: {
       color: "bg-electric",
-      text: "text-electic",
+      text: "text-electric",
+      hover_bg: "hover:bg-electric",
+      hover_b: "hover:border-electric",
     },
     Fairy: {
       color: "bg-fairy",
       text: "text-fairy",
+      hover_bg: "hover:bg-fairy",
+      hover_b: "hover:border-fairy",
     },
     Fighting: {
       color: "bg-fighting",
       text: "text-fighting",
+      hover_bg: "hover:bg-fighting",
+      hover_b: "hover:border-fighting",
     },
     Fire: {
       color: "bg-fire",
       text: "text-fire",
+      hover_bg: "hover:bg-fire",
+      hover_b: "hover:border-fire",
     },
     Flying: {
       color: "bg-flying",
       text: "text-flying",
+      hover_bg: "hover:bg-flying",
+      hover_b: "hover:border-flying",
     },
     Ghost: {
       color: "bg-ghost",
       text: "text-ghost",
+      hover_bg: "hover:bg-ghost",
+      hover_b: "hover:border-ghost",
     },
     Grass: {
       color: "bg-grass",
       text: "text-grass",
+      hover_bg: "hover:bg-grass",
+      hover_b: "hover:border-grass",
     },
     Ground: {
       color: "bg-ground",
       text: "text-ground",
+      hover_bg: "hover:bg-ground",
+      hover_b: "hover:border-ground",
     },
     Ice: {
       color: "bg-ice",
       text: "text-ice",
+      hover_bg: "hover:bg-ice",
+      hover_b: "hover:border-ice",
     },
     Normal: {
       color: "bg-normal",
       text: "text-normal",
+      hover_bg: "hover:bg-bug",
+      hover_b: "hover:border-bug",
     },
     Poison: {
       color: "bg-poison",
       text: "text-poison",
+      hover_bg: "hover:bg-poison",
+      hover_b: "hover:border-poison",
     },
     Psychic: {
       color: "bg-psyhic",
       text: "text-psyhic",
+      hover_bg: "hover:bg-psyhic",
+      hover_b: "hover:border-psyhic",
     },
     Rock: {
       color: "bg-rock",
       text: "text-rock",
+      hover_bg: "hover:bg-rock",
+      hover_b: "hover:border-rock",
     },
     Steel: {
       color: "bg-steel",
       text: "text-steel",
+      hover_bg: "hover:bg-steel",
+      hover_b: "hover:border-steel",
     },
     Water: {
       color: "bg-water",
       text: "text-water",
+      hover_bg: "hover:bg-water",
+      hover_b: "hover:border-water",
     },
   };
 
@@ -181,20 +218,31 @@ export default function Pokemon() {
             <NavLink
               onClick={() => setQueryObj(IQO)}
               to="/pokedex"
-              className="h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear hover:bg-grass hover:bg-opacity-50 hover:border-grass cursor-pointer"
+              className={`h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear ${
+                pokeTypes[pokemon.type[0]].hover_bg
+              } hover:bg-opacity-50 ${pokeTypes[pokemon.type[0]].hover_b}`}
             >
               go back
             </NavLink>
             {/* select pokemon button */}
-            <div className="h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear hover:bg-grass hover:bg-opacity-50 hover:border-grass cursor-pointer">
+            <div
+              className={`h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear ${
+                pokeTypes[pokemon.type[0]].hover_bg
+              } hover:bg-opacity-50 ${
+                pokeTypes[pokemon.type[0]].hover_b
+              } cursor-pointer`}
+            >
               choose pokemon
             </div>
             {/* go to fight button */}
-            <div className="pokemon_fight h-[95px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear cursor-pointer overflow-hidden relative">
+            <NavLink
+              to="/fight"
+              className="pokemon_fight h-[95px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear cursor-pointer overflow-hidden relative"
+            >
               <span className="transition-all duration-300 ease-linear cursor-pointer">
                 go to fight
               </span>
-            </div>
+            </NavLink>
           </div>
         </div>
         {/* classes for image and backgoround light */}
