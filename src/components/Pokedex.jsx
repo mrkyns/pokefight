@@ -73,7 +73,7 @@ export default function Pokedex() {
       <div className="flex justify-center gap-4">
         <div className="flex flex-col gap-4">
           {/* title */}
-          <div className="flex justify-between font-pokefont text-5xl w-[500px] h-[80px] p-4 rounded-xl bg-pokedex border-2 border-pokedex bg-opacity-50 shadow-shadow">
+          <div className="flex justify-between font-pokefont dark:text-white text-5xl w-[500px] h-[80px] p-4 rounded-xl bg-pokedex border-2 border-pokedex bg-opacity-50 shadow-shadow dark:shadow-shadow_w">
             <span>Pokedex</span>
             <img
               src="./images/pokedex.png"
@@ -84,12 +84,12 @@ export default function Pokedex() {
           <Filter />
         </div>
         {/* pokemons */}
-        <div className="min-w-[1080px] bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow font-code p-6 grid grid-cols-4  gap-8  justify-items-center">
+        <div className="min-w-[1080px] bg-elementbBg dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow font-code p-6 grid grid-cols-4  gap-8  justify-items-center">
           {Object.keys(allPokemons).length > 0 &&
             allPokemons?.map((pokemon) => (
               <NavLink to={`/pokedex/${pokemon.id}`} key={pokemon.id}>
                 {/* pokemon card start */}
-                <div className="pokemon w-[230px] h-[250px] bg-pokemonBg relative rounded-xl cursor-pointer transition-all duration-300 ease-linear">
+                <div className="pokemon w-[230px] h-[250px] bg-pokemonBg dark:bg-elementbBg_w relative rounded-xl cursor-pointer transition-all duration-300 ease-linear">
                   <span className="absolute m-2 font-pokefont text-xl z-10">
                     {pokemonSerial(pokemon.id)}
                   </span>
@@ -98,7 +98,7 @@ export default function Pokedex() {
                     alt="image of pokemon name"
                     className="z-10 absolute top-[-15px]"
                   />
-                  <h2 className=" absolute bottom-0 w-full h-[30px] flex justify-center items-center  bg-elementbBg rounded-xl z-20 transition-all duration-300 ease-linear">
+                  <h2 className="absolute bottom-0 w-full h-[30px] flex justify-center items-center  bg-elementbBg dark:bg-white rounded-xl z-20 transition-all duration-300 ease-linear">
                     {pokemon.name.english}
                   </h2>
                   {/* function for type checking */}

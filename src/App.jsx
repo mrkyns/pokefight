@@ -10,7 +10,7 @@ function App() {
   const dark = true;
 
   return (
-    <div className="text-white font-code box-border bg-pattern bg-auto bg-repeat bg-black min-h-screen flex flex-col items-center">
+    <div className="text-white dark:text-black font-code box-border bg-pattern bg-auto bg-repeat bg-black dark:bg-bgColor min-h-screen flex flex-col items-center">
       <Navigation />
 
       <Loader />
