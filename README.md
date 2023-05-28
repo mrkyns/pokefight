@@ -29,7 +29,7 @@ Project API:
 Backend: https://github.com/StephanUllmann/pokefight_api
 
 ## Project deploy
-https://wbs-pokefight.netlify.app
+
 
 ## Project clone
 
