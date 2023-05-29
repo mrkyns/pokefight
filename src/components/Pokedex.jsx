@@ -66,14 +66,14 @@ export default function Pokedex() {
   // console.log("thise is my pokemons", allPokemons);
 
   return (
-    <div className="grid items-center">
-      <div className="flex justify-center mb-9">
+    <div className="grid items-center justify-center w-full">
+      <div className="flex justify-center mb-9 mt-9 poke_l:mt-0 ">
         <LogoSm />
       </div>
-      <div className="flex justify-center gap-4">
+      <div className="flex justify-center flex-col poke_l:flex-row gap-4">
         <div className="flex flex-col gap-4">
           {/* title */}
-          <div className="flex justify-between font-pokefont dark:text-white text-5xl w-[500px] h-[80px] p-4 rounded-xl bg-pokedex border-2 border-pokedex bg-opacity-50 shadow-shadow dark:shadow-shadow_w">
+          <div className="flex justify-between font-pokefont dark:text-white text-5xl poke_l:w-[500px] h-[80px] p-4 rounded-xl bg-pokedex border-2 border-pokedex bg-opacity-50 shadow-shadow dark:shadow-shadow_w">
             <span>Pokedex</span>
             <img
               src="./images/pokedex.png"
@@ -84,7 +84,7 @@ export default function Pokedex() {
           <Filter />
         </div>
         {/* pokemons */}
-        <div className="min-w-[1080px] bg-elementbBg dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow font-code p-6 grid grid-cols-4  gap-8  justify-items-center">
+        <div className="max-w-[1080px] bg-elementbBg dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow font-code p-6 grid poke_xl:grid-cols-4 poke_l:grid-cols-2 poke_data:grid-cols-3 tablet_s:grid-cols-3 pokedex_1:grid-cols-2 gap-4  justify-items-center">
           {Object.keys(allPokemons).length > 0 &&
             allPokemons?.map((pokemon) => (
               <NavLink to={`/pokedex/${pokemon.id}`} key={pokemon.id}>

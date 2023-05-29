@@ -3,6 +3,15 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
+    screens: {
+      poke_xl: "1600px",
+      poke_data: "1350px",
+      poke_l: "1200px",
+      tablet: "1024px",
+      tablet_s: "768px",
+      mobile: "500px",
+      pokedex_1: "600px",
+    },
     extend: {
       fontFamily: {
         pokefont: ["Pokefont", "sans-serif"],
@@ -13,6 +22,7 @@ module.exports = {
         menu: "url('images/menu_bg.svg')",
         menu_dark: "url('images/menu_bg_w.svg')",
         menu_sm: "url('images/menu_bg_sm.svg')",
+        menu_dark_sm: "url('images/menu_bg_sm_w.svg')",
       },
       colors: {
         bug: "#729f3f",

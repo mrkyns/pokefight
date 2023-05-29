@@ -5,6 +5,8 @@ import LandingPage from "./components/LandingPage";
 import Pokedex from "./components/Pokedex";
 import Pokemon from "./components/Pokemon";
 import Fight from "./components/Fight";
+import Creators from "./components/Creators";
+import Creator from "./components/Creator";
 
 function App() {
   const dark = true;
@@ -24,6 +26,8 @@ function App() {
         <Route path="/pokedex" element={<Pokedex />} />
         <Route path="/pokedex/:id" element={<Pokemon />} />
         <Route path="/fight" element={<Fight />} />
+        <Route path="/creators" element={<Creators />} />
+        <Route path="/creator" element={<Creator />} />
       </Routes>
     </div>
   );
