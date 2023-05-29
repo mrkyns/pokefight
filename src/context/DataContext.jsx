@@ -20,7 +20,8 @@ export default function DataContextProvider({ children }) {
     page: 0,
   };
 
-  const [allPokemons, setAllPokemons] = useState({});
+  const [allPokemons, setAllPokemons] = useState([]);
+
   const [creators, setCreators] = useState({});
 
   const [checkedTypes, setCheckedTypes] = useState(IQO.type);
@@ -33,6 +34,7 @@ export default function DataContextProvider({ children }) {
   const [minSpeed, setMinSpeed] = useState(IQO.minSpeed);
   const [maxSpeed, setMaxSpeed] = useState(IQO.maxSpeed);
   const [page, setPage] = useState(IQO.page);
+  const [pokeAmount, setPokeAmount] = useState(0);
 
   const [singleSearch, setSingleSearch] = useState("");
 
@@ -61,6 +63,7 @@ export default function DataContextProvider({ children }) {
       maxDefense,
       minSpeed,
       maxSpeed,
+      page,
     });
   }, [
     checkedTypes,
@@ -72,18 +75,20 @@ export default function DataContextProvider({ children }) {
     maxDefense,
     minSpeed,
     maxSpeed,
+    page,
   ]);
+  console.log(queryObj);
 
-  useEffect(() => {
-    const fetchEmAll = async () => {
-      console.log("fetching all");
-      const res = await fetch("https://pokefight-api.onrender.com/pokemons/");
-      const data = await res.json();
+  // useEffect(() => {
+  //   const fetchEmAll = async () => {
+  //     console.log("fetching all");
+  //     const res = await fetch("https://pokefight-api.onrender.com/pokemons/");
+  //     const data = await res.json();
 
-      setAllPokemons(data.data);
-    };
-    // fetchEmAll();
-  }, []);
+  //     setAllPokemons(data.data);
+  //   };
+  //   // fetchEmAll();
+  // }, []);
 
   useEffect(() => {
     const fetchCreators = async () => {
@@ -92,7 +97,7 @@ export default function DataContextProvider({ children }) {
 
       setCreators(data.data);
     };
-    // fetchCreators();
+    fetchCreators();
   }, []);
 
   // Fetch by filter
@@ -113,8 +118,9 @@ export default function DataContextProvider({ children }) {
           }
         );
         const data = await res.json();
-        console.log(data);
+        console.log("amount: ", data.amount);
         setAllPokemons(data.data);
+        setPokeAmount(data.amount);
       } catch (error) {
         console.log(error.message);
       }
@@ -149,13 +155,16 @@ export default function DataContextProvider({ children }) {
       const data = await res.json();
       // console.log("data.data: ", data.data);
       if (!data.data.length) return;
-      setAllPokemons(data.data);
+      setAllPokemons((prev) => [...prev, data.data[0]]);
+      setPokeAmount((prev) => prev++);
       navigate(`/pokedex/${data.data[0].id}`);
     };
     fetchOne(singleSearch);
   }, [singleSearch]);
 
-  console.log(singleSearch);
+  // Fetch random Wild Pokemon
+
+  // console.log(singleSearch);
 
   return (
     <DataContext.Provider
@@ -188,6 +197,8 @@ export default function DataContextProvider({ children }) {
         pokemonSerial,
         singleSearch,
         setSingleSearch,
+        pokeAmount,
+        setPokeAmount,
       }}
     >
       {children}

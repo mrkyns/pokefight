@@ -65,10 +65,20 @@ module.exports = {
           "0%": { opacity: "1" },
           "100%": { opacity: "0" },
         },
+        appear: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        grow: {
+          "0%": { width: "0%" },
+          "100%": { width: "100%" },
+        },
       },
       animation: {
         landingPage: "landingPage 1.5s 2s 2 ease-in-out forwards",
         welcomme: "welcomme 1s 1s ease-in-out forwards",
+        appear: "appear 300ms ease-out both",
+        grow: "grow 400ms ease-out both",
       },
     },
   },
