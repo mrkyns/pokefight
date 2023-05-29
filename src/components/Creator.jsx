@@ -13,11 +13,11 @@ export default function () {
             <span>Miroslav Ljubicic</span>
           </div>
           {/* date of birth */}
-          <span className="flex justify-center items-center font-pokefont dark:text-white text-4xl poke_l:w-[650px] h-[80px] p-4 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:shadow-shadow_w">
+          <span className="flex justify-center items-center font-pokefont text-4xl poke_l:w-[650px] h-[80px] p-4 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
             25 oct 1981
           </span>
           {/* bio of creator */}
-          <span className="flex justify-center items-center dark:text-white poke_l:w-[650px] p-4 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:shadow-shadow_w">
+          <span className="flex justify-center items-center poke_l:w-[650px] p-4 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
             after completing studies for management in information systems, he
             started working in a printing house as a graphic designer, where he
             also completed certification for graphic design. After several years
@@ -28,7 +28,7 @@ export default function () {
             as one of the group projects.
           </span>
           {/* email of creator */}
-          <span className="flex justify-center items-center font-pokefont dark:text-white text-4xl poke_l:w-[650px] h-[80px] p-4 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:shadow-shadow_w">
+          <span className="flex justify-center items-center font-pokefont text-4xl poke_l:w-[650px] h-[80px] p-4 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
             mrky@pokefight.com
           </span>
           {/* hobbies of cretor */}

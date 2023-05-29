@@ -7,6 +7,7 @@ import Pokemon from "./components/Pokemon";
 import Fight from "./components/Fight";
 import Creators from "./components/Creators";
 import Creator from "./components/Creator";
+import Leaderboard from "./components/Leaderboard";
 
 function App() {
   const dark = true;
@@ -28,6 +29,7 @@ function App() {
         <Route path="/fight" element={<Fight />} />
         <Route path="/creators" element={<Creators />} />
         <Route path="/creator" element={<Creator />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
       <span className="block my-10 opacity-20">
         PokeFight | Group 05 | WBS Cooding School 2023

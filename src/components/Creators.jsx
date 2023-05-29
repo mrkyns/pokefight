@@ -51,12 +51,16 @@ export default function () {
         </div>
       </div>
       {/* creators page info box */}
-      <div className="relative h-[680px] mt-[-380px] flex flex-col justify-center items-center">
+      <div className="relative h-[640px] mt-[-380px] flex flex-col justify-center items-center">
         <LogoCreator />
         <h1 className="mt-10 font-pokefont text-4xl">creators of PokeFight</h1>
       </div>
       {/* links for tech stack */}
-      <div className="flex justify-center gap-3">
+      <div className="flex flex-wrap justify-center gap-3">
+        {/* title */}
+        <span className="flex w-full justify-center font-pokefont text-xl">
+          Tech Stack
+        </span>
         {/* react link start */}
         <a
           href="https://react.dev/"
