@@ -24,6 +24,8 @@ body {
   --leader_bg: rgba(200, 152, 27, 0.5);
   --nav: #b7b7b7;
   --nav_bg: rgba(183, 183, 183, 0.5);
+  --nav_dark: #878787;
+  --nav_bg_dark: rgba(135, 135, 135, 0.5);
 }
 
 /* ==========================
@@ -46,6 +48,16 @@ body {
   background-color: #fff;
   z-index: 5;
   margin-top: -30px;
+}
+
+@media (width <= 1600px) {
+  .mask {
+    min-width: 1131px;
+  }
+
+  .dark .mask {
+    min-width: 1131px;
+  }
 }
 
 .navigation a span {
@@ -179,7 +191,12 @@ body {
 .nav_pokedex,
 .nav_fight,
 .nav_creator,
-.nav_leader {
+.nav_leader,
+.dark .nav_default,
+.dark .nav_pokedex,
+.dark .nav_fight,
+.dark .nav_creator,
+.dark .nav_leader {
   transition: all 0.3s ease;
   cursor: pointer;
 }
@@ -190,26 +207,40 @@ body {
   box-shadow: 0 5px 8px var(--nav_bg);
 }
 
+.dark .nav_default:hover,
+.dark .nav_default.active {
+  background-color: var(--nav_dark);
+  box-shadow: 0 5px 8px var(--nav_bg_dark);
+}
+
 .nav_pokedex:hover,
-.nav_pokedex.active {
+.nav_pokedex.active,
+.dark .nav_pokedex:hover,
+.dark .nav_pokedex.active {
   background-color: var(--pokedex);
   box-shadow: 0 5px 8px var(--pokedex_bg);
 }
 
 .nav_fight:hover,
-.nav_fight.active {
+.nav_fight.active,
+.dark .nav_fight:hover,
+.dark .nav_fight.active {
   background-color: var(--fight);
   box-shadow: 0 5px 8px var(--fight_bg);
 }
 
 .nav_creator:hover,
-.nav_creator.active {
+.nav_creator.active,
+.dark .nav_creator:hover,
+.dark .nav_creator.active {
   background-color: var(--creator);
   box-shadow: 0 5px 8px var(--creator_bg);
 }
 
 .nav_leader:hover,
-.nav_leader.active {
+.nav_leader.active,
+.dark .nav_leader:hover,
+.dark .nav_leader.active {
   background-color: var(--leader);
   box-shadow: 0 5px 8px var(--leader_bg);
 }
@@ -241,17 +272,29 @@ body {
   transform: translateY(0);
 }
 
-/* ==========================
-    single pokemon page classes
-===========================*/
+/* ============================
+  filter classes
+=============================*/
 
-.pokemon_fight:hover {
+.filter {
+  height: 95px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* ============================
+  single pokemon page classes
+=============================*/
+
+.pokemon_fight:hover,
+.dark .pokemon_fight:hover {
   background-color: var(--fight_bg);
   border: 2px solid var(--fight);
   position: relative;
 }
 
-.pokemon_fight::after {
+.pokemon_fight::after,
+.dark .pokemon_fight::after {
   display: block;
   position: absolute;
   right: -55px;
@@ -265,11 +308,13 @@ body {
   transition: all 0.3s ease;
 }
 
-.pokemon_fight:hover:after {
+.pokemon_fight:hover:after,
+.dark .pokemon_fight:hover:after {
   right: 20px;
 }
 
-.pokemon_fight:hover span {
+.pokemon_fight:hover span,
+.dark .pokemon_fight:hover span {
   transform: translateX(-80px);
 }
 
@@ -277,13 +322,15 @@ body {
     Fight page classes
 ===========================*/
 
-.fight_pokemon:hover {
+.fight_pokemon:hover,
+.dark .fight_pokemon:hover {
   background-color: var(--fight_bg);
   border: 2px solid var(--fight);
   position: relative;
 }
 
-.fight_pokemon::after {
+.fight_pokemon::after,
+.dark .fight_pokemon::after {
   display: block;
   position: absolute;
   right: -55px;
@@ -297,19 +344,23 @@ body {
   transition: all 0.3s ease;
 }
 
-.fight_pokemon:hover:after {
+.fight_pokemon:hover:after,
+.dark .fight_pokemon:hover:after {
   right: 20px;
 }
 
-.fight_pokemon:hover span {
+.fight_pokemon:hover span,
+.dark .fight_pokemon:hover span {
   transform: translateX(-70px);
 }
 
-.fight_pokemon_select:hover {
+.fight_pokemon_select:hover,
+.dark .fight_pokemon_select:hover {
   border: 2px solid var(--fight);
 }
 
-.fight_pokemon_select::before {
+.fight_pokemon_select::before,
+.dark .fight_pokemon_select::before {
   content: "chose pokemon";
   position: absolute;
   left: -2px;
@@ -325,7 +376,8 @@ body {
   transition: all 0.3s ease;
 }
 
-.fight_pokemon_select:hover:before {
+.fight_pokemon_select:hover:before,
+.dark .fight_pokemon_select:hover:before {
   content: "chose pokemon";
   position: absolute;
   left: -2px;
@@ -339,4 +391,105 @@ body {
   border: 2px solid var(--fight);
   border-radius: 12px;
   z-index: 5;
+}
+
+/* ==========================
+    Fight page classes
+===========================*/
+
+.creator_left:hover div,
+.creator_right:hover div {
+  border: 2px solid var(--creator);
+}
+
+.creator_left:hover span {
+  left: -75px;
+}
+
+.creator_right:hover span {
+  right: -75px;
+}
+
+.react:hover,
+.dark .react:hover {
+  background-color: #0e4f73;
+}
+
+.react:hover span {
+  transform: translateX(-35px);
+}
+
+.react:hover img {
+  right: 10px;
+}
+
+.node:hover,
+.dark .node:hover {
+  background-color: #509941;
+}
+
+.node:hover span {
+  transform: translateX(-25px);
+}
+
+.node:hover img {
+  right: 10px;
+}
+
+.mongo:hover,
+.dark .mongo:hover {
+  background-color: #00ed64;
+}
+
+.mongo:hover span {
+  transform: translateX(-25px);
+}
+
+.mongo:hover img {
+  right: 10px;
+}
+
+.tailwind:hover,
+.dark .tailwind:hover {
+  background-color: #38bdf8;
+}
+
+.tailwind:hover span {
+  transform: translateX(-25px);
+}
+
+.tailwind:hover img {
+  right: 8px;
+}
+
+/* ==========================
+  Leaderborad page classes
+===========================*/
+
+.gold {
+  background: linear-gradient(
+    180deg,
+    rgba(221, 161, 8, 0.5) 0%,
+    rgba(247, 208, 6, 0.5) 100%
+  );
+  border: 2px solid #c8981b;
+}
+
+.silver {
+  background: linear-gradient(
+    180deg,
+    rgba(122, 120, 115, 0.5) 0%,
+    rgba(252, 252, 252, 0.5) 100%
+  );
+  border: 2px solid #b3b3b3;
+  box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.5);
+}
+
+.bronze {
+  background: linear-gradient(
+    180deg,
+    rgba(156, 66, 15, 0.5) 0%,
+    rgba(218, 135, 88, 0.5) 100%
+  );
+  border: 2px solid #944214;
 }
