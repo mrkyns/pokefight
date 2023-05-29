@@ -97,7 +97,7 @@ export default function DataContextProvider({ children }) {
 
       setCreators(data.data);
     };
-    // fetchCreators();
+    fetchCreators();
   }, []);
 
   // Fetch by filter
@@ -106,14 +106,17 @@ export default function DataContextProvider({ children }) {
 
     const fetchByFilters = async (queryObj) => {
       try {
-        const res = await fetch("http://localhost:5555/pokemons/filtered/", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(queryObj),
-        });
+        const res = await fetch(
+          "https://pokefight-api.onrender.com/pokemons/filtered/",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(queryObj),
+          }
+        );
         const data = await res.json();
         console.log("amount: ", data.amount);
         setAllPokemons(data.data);
