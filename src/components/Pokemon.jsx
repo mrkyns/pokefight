@@ -1,11 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import LogoSm from "./LogoSm";
 import { DataContext } from "../context/DataContext";
+import { FightContext } from "../context/FightContext";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 
 export default function Pokemon() {
-  const { allPokemons, IQO, setQueryObj } = useContext(DataContext);
+  const { allPokemons } = useContext(DataContext);
+  const { setSelectablePokes } = useContext(FightContext);
   const { id } = useParams();
   const pokemon = allPokemons?.find((pokemon) => pokemon.id === Number(id));
   console.log(pokemon);
@@ -216,7 +218,7 @@ export default function Pokemon() {
           <div className="flex flex-col gap-3">
             {/* go back button */}
             <NavLink
-              onClick={() => setQueryObj(IQO)}
+              // onClick={() => setQueryObj(IQO)}
               to="/pokedex"
               className={`h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear ${
                 pokeTypes[pokemon.type[0]].hover_bg
@@ -225,7 +227,8 @@ export default function Pokemon() {
               go back
             </NavLink>
             {/* select pokemon button */}
-            <div
+            <button
+              onClick={() => setSelectablePokes((prev) => [...prev, pokemon])}
               className={`h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear ${
                 pokeTypes[pokemon.type[0]].hover_bg
               } hover:bg-opacity-50 ${
@@ -233,7 +236,7 @@ export default function Pokemon() {
               } cursor-pointer`}
             >
               choose pokemon
-            </div>
+            </button>
             {/* go to fight button */}
             <NavLink
               to="/fight"
