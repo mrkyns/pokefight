@@ -57,7 +57,7 @@ export default function Navigation() {
   return (
     <>
       <div className="mask"></div>
-      <div className="navigation font-code bg-menu dark:bg-menu_dark bg-no-repeat bg-[center_top] mt-[-40px] min-w-[1600px] h-[90px] flex flex-wrap items-end justify-between px-12">
+      <div className="navigation font-code min-w-full poke_l:min-w-[1130px] poke_xl:min-w-[1600px] bg-elementbBg dark:bg-white poke_l:bg-transparent dark:poke_l:bg-transparent poke_l:bg-menu_sm dark:poke_l:bg-menu_dark_sm poke_xl:bg-menu dark:poke_xl:bg-menu_dark bg-no-repeat bg-[center_top] mt-[-40px] h-[90px] flex flex-wrap items-end justify-between px-12">
         <div className="flex gap-1">
           <NavLink
             to="/pokedex"
