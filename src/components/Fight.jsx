@@ -18,7 +18,7 @@ export default function Fight() {
           />
         </div>
         {/* content */}
-        <div className="min-w-[1080px] bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow font-code p-6 flex flex-col items-center gap-4 justify-items-center relative mb-[100px] dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
+        <div className="min-w-[1080px] bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow font-code p-6 flex flex-col items-center gap-4 justify-items-center relative mb-[20px] dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
           {/* player names */}
           <div className="w-full flex justify-between px-8 pt-5 pb-8">
             <span className="font-pokefont text-4xl">Player</span>

@@ -8,6 +8,8 @@ import DarkModeIcon from "./DarkModeIcon";
 export default function Navigation() {
   const { pathname } = useLocation();
   const [nav, setNav] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const [searchBtn, setSearchBtn] = useState("");
   const [searchCheck, setSearchCheck] = useState(false);
   const [input, setInput] = useState("");
   const inputRef = useRef(null);
@@ -26,6 +28,7 @@ export default function Navigation() {
     setSearchCheck(false);
   };
 
+  // checking for color change on search navigation button
   useEffect(() => {
     if (searchCheck) inputRef.current.focus();
   }, [searchCheck]);
@@ -50,6 +53,56 @@ export default function Navigation() {
     } else {
       setNav(
         "nav_default relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl"
+      );
+    }
+  }, [pathname]);
+
+  // checking for color on search input filed
+  useEffect(() => {
+    if (pathname.includes("pokedex")) {
+      setSearchInput(
+        "flex justify-center items-center text-3xl w-[650px] h-[60px] p-4 rounded-xl bg-pokedex border-2 border-pokedex bg-opacity-60 shadow-shadow dark:bg-pokedex dark:bg-opacity-60 dark:border-pokedex dark:shadow-shadow_w z-10"
+      );
+    } else if (pathname.includes("fight")) {
+      setSearchInput(
+        "flex justify-center items-center text-3xl w-[650px] h-[60px] p-4 rounded-xl bg-pokefigt border-2 border-pokefigt bg-opacity-60 shadow-shadow dark:bg-pokefigt dark:bg-opacity-60 dark:border-pokefigt dark:shadow-shadow_w z-10"
+      );
+    } else if (pathname.includes("creators")) {
+      setSearchInput(
+        "flex justify-center items-center text-3xl w-[650px] h-[60px] p-4 rounded-xl bg-pokecreator border-2 border-pokecreator bg-opacity-60 shadow-shadow dark:bg-pokecreator dark:bg-opacity-60 dark:border-pokecreator dark:shadow-shadow_w z-10"
+      );
+    } else if (pathname.includes("leaderboard")) {
+      setSearchInput(
+        "flex justify-center items-center text-3xl w-[650px] h-[60px] p-4 rounded-xl bg-pokeleader border-2 border-pokeleader bg-opacity-60 shadow-shadow dark:bg-pokeleader dark:bg-opacity-60 dark:border-pokeleader dark:shadow-shadow_w z-10"
+      );
+    } else {
+      setSearchInput(
+        "flex justify-center items-center text-3xl w-[650px] h-[60px] p-4 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-80 shadow-shadow dark:bg-bgColor dark:bg-opacity-60 dark:border-white dark:shadow-shadow_w z-10"
+      );
+    }
+  }, [pathname]);
+
+  // checking for color on search button
+  useEffect(() => {
+    if (pathname.includes("pokedex")) {
+      setSearchBtn(
+        "flex justify-center items-center w-[60px] h-[60px] p-2 rounded-xl bg-pokedex border-2 border-pokedex bg-opacity-60 shadow-shadow dark:bg-pokedex dark:bg-opacity-60 dark:border-pokedex dark:shadow-shadow_w z-10"
+      );
+    } else if (pathname.includes("fight")) {
+      setSearchBtn(
+        "flex justify-center items-center w-[60px] h-[60px] p-2 rounded-xl bg-pokefigt border-2 border-pokefigt bg-opacity-60 shadow-shadow dark:bg-pokefigt dark:bg-opacity-60 dark:border-pokefigt dark:shadow-shadow_w z-10"
+      );
+    } else if (pathname.includes("creators")) {
+      setSearchBtn(
+        "flex justify-center items-center w-[60px] h-[60px] p-2 rounded-xl bg-pokecreator border-2 border-pokecreator bg-opacity-60 shadow-shadow dark:bg-pokecreator dark:bg-opacity-60 dark:border-pokecreator dark:shadow-shadow_w z-10"
+      );
+    } else if (pathname.includes("leaderboard")) {
+      setSearchBtn(
+        "flex justify-center items-center w-[60px] h-[60px] p-2 rounded-xl bg-pokeleader border-2 border-pokeleader bg-opacity-60 shadow-shadow dark:bg-pokeleader dark:bg-opacity-60 dark:border-pokeleader dark:shadow-shadow_w z-10"
+      );
+    } else {
+      setSearchBtn(
+        "flex justify-center items-center w-[60px] h-[60px] p-2 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-80 shadow-shadow dark:bg-bgColor dark:bg-opacity-60 dark:border-white dark:shadow-shadow_w z-10"
       );
     }
   }, [pathname]);
@@ -99,7 +152,7 @@ export default function Navigation() {
             <SearchIcon />
           </button>
           <form
-            className={`absolute flex right-80 top-20 ${
+            className={`absolute flex right-80 top-20 gap-4 ${
               searchCheck ? "block" : "hidden"
             }`}
             onSubmit={handleSubmit}
@@ -111,10 +164,12 @@ export default function Navigation() {
               autoFocus="true"
               spellCheck="false"
               onChange={handleInput}
-              className="text-elementbBg"
+              className={searchInput}
               ref={inputRef}
             />
-            <button className="bg-neutral-100 text-elementbBg">sub</button>
+            <button className={searchBtn}>
+              <SearchIcon />
+            </button>
           </form>
         </div>
       </div>
