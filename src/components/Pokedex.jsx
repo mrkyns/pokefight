@@ -83,36 +83,59 @@ export default function Pokedex() {
       <div className="flex justify-center flex-col poke_l:flex-row gap-4">
         <div className="flex flex-col gap-4">
           {/* title */}
-          <div className="flex justify-between font-pokefont dark:text-white text-5xl poke_l:w-[500px] h-[80px] p-4 rounded-xl bg-pokedex border-2 border-pokedex bg-opacity-50 shadow-shadow dark:shadow-shadow_w">
-            <span>Pokedex</span>
-            <img
-              src="./images/pokedex.png"
-              alt="icon for pokedex"
-              className="w-[48px]"
-            />
+          <div className="flex poke gap-4">
+            <div className="flex justify-between font-pokefont dark:text-white text-5xl w-full h-[80px] p-4 rounded-xl bg-pokedex border-2 border-pokedex bg-opacity-50 shadow-shadow dark:shadow-shadow_w">
+              <span>Pokedex</span>
+              <img
+                src="./images/pokedex.png"
+                alt="icon for pokedex"
+                className="w-[48px]"
+              />
+            </div>
+            {/* selected pokemons with nitification */}
+            <div className="relative dark:text-white text-5xl w-[90px] poke_l:w-[100px] h-[80px] rounded-xl bg-pokedex border-2 border-pokedex bg-opacity-50 shadow-shadow dark:shadow-shadow_w">
+              <img src="../images/001.png" alt="1st selected pokemon" />
+              <span className="absolute top-[-12px] right-[-12px] flex justify-center items-center bg-elementbBg w-[25px] p-1 rounded-full text-[16px]">
+                6
+              </span>
+            </div>
           </div>
           <Filter />
         </div>
         {/* pokemons */}
-        <div className="max-w-[1080px] bg-elementbBg dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow font-code p-6 grid poke_xl:grid-cols-4 poke_l:grid-cols-2 poke_data:grid-cols-3 tablet_s:grid-cols-3 pokedex_1:grid-cols-2 gap-4  justify-items-center">
+        <div className="relative max-w-[1080px] bg-elementbBg dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow font-code p-6 grid poke_xl:grid-cols-4 poke_l:grid-cols-2 poke_data:grid-cols-3 tablet_s:grid-cols-3 pokedex_1:grid-cols-2 gap-4  justify-items-center mt-4 poke_l:mt-0">
           {/* Load more button */}
           {moreCanBeLoaded && (
-            <div className="absolute top-1/2 right-[-15px] flex justify-center origin-top-right rotate-90">
+            // <div className="absolute top-1/2 right-[-15px] flex justify-center gap-4 origin-top-right rotate-90">
+            //   <button
+            //     onClick={handleLoadMore}
+            //     className={`w-[150px] h-[30px] rounded-xl bg-pokedex flex justify-center items-center`}
+            //   >
+            //     next page
+            //   </button>
+            // </div>
+            <div className="absolute top-[-15px] right-0 flex justify-center gap-4">
+              <button
+                onClick={handleLoadPrev}
+                className={`w-[150px] h-[30px] rounded-xl flex justify-center items-center bg-elementbBg  border-2 border-elementbBg transition-all duration-300 ease-linear cursor-pointer hover:bg-pokedex  hover:border-elementbBg dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:hover:bg-pokedex  dark:hover:border-white dark:hover:text-white`}
+              >
+                previous page
+              </button>
               <button
                 onClick={handleLoadMore}
-                className={`w-[130px] h-[30px] rounded-xl bg-pokedex flex justify-center items-center`}
+                className={`w-[150px] h-[30px] rounded-xl flex justify-center items-center bg-elementbBg  border-2 border-elementbBg transition-all duration-300 ease-linear cursor-pointer hover:bg-pokedex  hover:border-elementbBg dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:hover:bg-pokedex  dark:hover:border-white dark:hover:text-white`}
               >
-                load more
+                next page
               </button>
             </div>
           )}
           {prevCanBeLoaded && (
-            <div className="absolute top-1/2 -left-32 flex justify-center origin-top-right rotate-90">
+            <div className="absolute top-1/2 -left-[115px] flex justify-center origin-top-right rotate-90">
               <button
                 onClick={handleLoadPrev}
-                className={`w-[130px] h-[30px] rounded-xl bg-pokedex flex justify-center items-center`}
+                className={`w-[150px] h-[30px] rounded-xl bg-pokedex flex justify-center items-center`}
               >
-                previous
+                previous page
               </button>
             </div>
           )}

@@ -254,19 +254,32 @@ export default function Pokemon() {
             {/* classes for buttons */}
             <div className="flex flex-col gap-3">
               {/* go back button */}
-              <NavLink
-                // onClick={() => setQueryObj(IQO)}
-                to="/pokedex"
-                className={`h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w ${
-                  pokeTypes[pokemon.type[0]].hover_bg
-                } hover:bg-opacity-50 ${pokeTypes[pokemon.type[0]].hover_b} ${
-                  pokeTypes[pokemon.type[0]].dark_hover_bg
-                } dark:hover:bg-opacity-50 ${
-                  pokeTypes[pokemon.type[0]].dark_hover_b
-                }`}
-              >
-                go back
-              </NavLink>
+              <div className="flex justify-between gap-4">
+                <NavLink
+                  // onClick={() => setQueryObj(IQO)}
+                  to="/pokedex"
+                  className={`pokemon_select w-full h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w ${
+                    pokeTypes[pokemon.type[0]].hover_bg
+                  } hover:bg-opacity-50 ${pokeTypes[pokemon.type[0]].hover_b} ${
+                    pokeTypes[pokemon.type[0]].dark_hover_bg
+                  } dark:hover:bg-opacity-50 ${
+                    pokeTypes[pokemon.type[0]].dark_hover_b
+                  }`}
+                >
+                  go back
+                </NavLink>
+                {/* selected pokemons with nitification */}
+                <div className="relative dark:text-white text-5xl w-[80px] poke_l:w-[90px] h-[70px] rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:shadow-shadow_w">
+                  <img src="../images/001.png" alt="1st selected pokemon" />
+                  <span
+                    className={`absolute top-[-12px] right-[-12px] flex justify-center items-center ${
+                      pokeTypes[pokemon.type[0]].color
+                    } w-[25px] p-1 rounded-full text-[16px]`}
+                  >
+                    6
+                  </span>
+                </div>
+              </div>
               {/* select pokemon button */}
               <button
                 onClick={() => setSelectablePokes((prev) => [...prev, pokemon])}
@@ -278,7 +291,7 @@ export default function Pokemon() {
                   pokeTypes[pokemon.type[0]].dark_hover_b
                 } cursor-pointer dark:cursor-pointer`}
               >
-                choose pokemon
+                select pokemon
               </button>
               {/* go to fight button */}
               <NavLink

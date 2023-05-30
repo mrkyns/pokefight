@@ -140,7 +140,28 @@ export default function Fight() {
           />
         </div>
         {/* content */}
-        <div className="min-w-[1080px] bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow font-code p-6 flex flex-col items-center gap-4 justify-items-center relative mb-[20px] dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
+        <div className="min-w-[1080px] min-h-[650px] bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow font-code p-6 flex flex-col items-center gap-4 justify-items-center relative mb-[20px] dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
+          {/* selected pokemons */}
+          <div className="absolute left-[-45px] top-[17px] flex flex-col gap-6 z-30">
+            {/* pokemon selected card start */}
+            <div className="fight_select-poke overflow-hidden flex flex-col justify-center gap-[2px]">
+              <div className="absolute w-[85px] h-[100px] flex justify-center items-center bg-elementbBg dark:bg-elementbBg_w rounded-xl z-10">
+                <img
+                  src="../images/001.png"
+                  alt="pokemon name image"
+                  className="w-[90%]"
+                />
+              </div>
+              <span className="ml-[83px] bg-pokefigt bg-opacity-50 rounded-e-xl px-3 border-2 border-pokefigt font-pokefont text-xl translate-x-[-250px] transition-all duration-300 ease-linear">
+                Bulbasur
+              </span>
+              <p className="ml-[83px] bg-pokemonBg dark:bg-white rounded-e-xl px-3 text-l translate-x-[-250px]  transition-all duration-300 ease-linear">
+                H:60, A:62, D:63,
+                <br />
+                SA:80, SD:80, S:60
+              </p>
+            </div>
+          </div>
           {/* player names */}
           <div className="w-full flex justify-between px-8 pt-5 pb-8">
             <span className="font-pokefont text-4xl">Player</span>
@@ -157,7 +178,7 @@ export default function Fight() {
             <div>
               <div
                 onClick={openSelection}
-                className="fight_pokemon_select flex justify-center items-center w-[240px] h-[210px] rounded-xl border-2 border-elementbBg dark:border-elementbBg_w overflow-hidden transition-all duration-300 ease-linear cursor-pointer z-[5]"
+                className="flex justify-center items-center w-[240px] h-[210px] rounded-xl border-2 border-elementbBg dark:border-elementbBg_w overflow-hidden transition-all duration-300 ease-linear cursor-pointer z-[5]"
               >
                 <div className="flex justify-center items-center w-[240px] h-[210px] z-10 bg-elementbBg dark:bg-elementbBg_w border-2 border-elementbBg dark:border-elementbBg_w">
                   {Object.keys(selectedPokemon).length > 0 && (
@@ -190,6 +211,39 @@ export default function Fight() {
                   })}
                 </div>
               )}
+              {/* stast for selected player pokemon */}
+              <div className="flex justify-between">
+                {/* healt points */}
+                <div className="fight_stat_none w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
+                  <h4 className="text-sm opacity-50">hp</h4>
+                  <span className="font-pokefont text-xl">60</span>
+                </div>
+                {/* attack points */}
+                <div className="fight_stat_none w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
+                  <h4 className="text-sm opacity-50">at</h4>
+                  <span className="font-pokefont text-xl">62</span>
+                </div>
+                {/* defense points */}
+                <div className="fight_stat_none w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
+                  <h4 className="text-sm opacity-50">df</h4>
+                  <span className="font-pokefont text-xl">63</span>
+                </div>
+                {/* special attack points */}
+                <div className="fight_stat_none w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
+                  <h4 className="text-sm opacity-50">sa</h4>
+                  <span className="font-pokefont text-xl">80</span>
+                </div>
+                {/* special defense points */}
+                <div className="fight_stat_none w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
+                  <h4 className="text-sm opacity-50">sd</h4>
+                  <span className="font-pokefont text-xl">80</span>
+                </div>
+                {/* speed points */}
+                <div className="fight_stat_none w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
+                  <h4 className="text-sm opacity-50">sp</h4>
+                  <span className="font-pokefont text-xl">60</span>
+                </div>
+              </div>
             </div>
             {/* pokemon fight stats */}
             {Object.keys(selectedPokemon).length > 0 &&
@@ -245,6 +299,40 @@ export default function Fight() {
                     ))}
                 </div>
               )}
+
+              {/* stast for random wild pokemon */}
+              <div className="flex justify-between">
+                {/* healt points */}
+                <div className="fight_stat_hp w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
+                  <h4 className="text-sm opacity-50">hp</h4>
+                  <span className="font-pokefont text-xl">60</span>
+                </div>
+                {/* attack points */}
+                <div className="fight_stat_att w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
+                  <h4 className="text-sm opacity-50">at</h4>
+                  <span className="font-pokefont text-xl">62</span>
+                </div>
+                {/* defense points */}
+                <div className="fight_stat_def w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
+                  <h4 className="text-sm opacity-50">df</h4>
+                  <span className="font-pokefont text-xl">63</span>
+                </div>
+                {/* special attack points */}
+                <div className="fight_stat_att w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
+                  <h4 className="text-sm opacity-50">sa</h4>
+                  <span className="font-pokefont text-xl">80</span>
+                </div>
+                {/* special defense points */}
+                <div className="fight_stat_def w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
+                  <h4 className="text-sm opacity-50">sd</h4>
+                  <span className="font-pokefont text-xl">80</span>
+                </div>
+                {/* speed points */}
+                <div className="fight_stat_spp w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
+                  <h4 className="text-sm opacity-50">sp</h4>
+                  <span className="font-pokefont text-xl">60</span>
+                </div>
+              </div>
             </div>
           </div>
           {/* button to start fight */}

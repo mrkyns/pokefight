@@ -383,8 +383,69 @@ body {
   left: 55px;
 }
 
+.fight_select-poke {
+  cursor: pointer;
+}
+
+.fight_select-poke div {
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.fight_select-poke:hover div {
+  border: 2px solid var(--fight);
+}
+
+.fight_select-poke:hover span {
+  transform: scaleX(1);
+}
+
+.fight_select-poke:hover p {
+  transform: scaleX(1);
+}
+
+.fight_stat_none {
+  background: linear-gradient(
+    180deg,
+    rgba(43, 43, 43, 0) 0%,
+    rgba(83, 83, 83, 0.5) 100%
+  );
+}
+
+.fight_stat_hp {
+  background: linear-gradient(
+    180deg,
+    rgba(43, 43, 43, 0) 0%,
+    rgba(103, 168, 20, 0.5) 100%
+  );
+}
+
+.fight_stat_att {
+  background: linear-gradient(
+    180deg,
+    rgba(43, 43, 43, 0) 0%,
+    rgba(230, 27, 27, 0.5) 100%
+  );
+}
+
+.fight_stat_def {
+  background: linear-gradient(
+    180deg,
+    rgba(43, 43, 43, 0) 0%,
+    rgba(25, 68, 133, 0.5) 100%
+  );
+}
+
+.fight_stat_spp {
+  background: linear-gradient(
+    180deg,
+    rgba(43, 43, 43, 0) 0%,
+    rgba(200, 152, 27, 0.5) 100%
+  );
+}
+
 /* ==========================
-    Fight page classes
+    Creators page classes
 ===========================*/
 
 .creator_left:hover div,
