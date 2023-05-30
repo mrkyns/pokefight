@@ -183,7 +183,8 @@ export default function Fight() {
                         key={time + ind}
                         src="../images/win.png"
                         alt=""
-                        className="w-[32px]"
+                        className="w-[32px] animate-appear"
+                        style={{ animationDelay: "4.5s" }}
                       />
                     );
                   })}
@@ -238,7 +239,8 @@ export default function Fight() {
                         key={time + ind}
                         src="../images/win.png"
                         alt=""
-                        className="w-[32px]"
+                        className="w-[32px] animate-appear"
+                        style={{ animationDelay: "4.5s" }}
                       />
                     ))}
                 </div>

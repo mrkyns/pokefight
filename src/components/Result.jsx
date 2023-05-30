@@ -1,6 +1,9 @@
 export default function Result({ isPlayerWinner, pokemon }) {
   return (
-    <div className="mb-16 flex flex-col gap-10">
+    <div
+      className="mb-16 flex flex-col gap-10 animate-appear"
+      style={{ animationDelay: "5s" }}
+    >
       {isPlayerWinner ? (
         <>
           {" "}
