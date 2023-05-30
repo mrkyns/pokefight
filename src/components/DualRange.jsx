@@ -1,8 +1,15 @@
 import { useState } from "react";
 
-export default function DualRange({ stat, range, setExtMin, setExtMax }) {
-  const [dynamicMax, setDynamicMax] = useState(range[1]);
-  const [dynamicMin, setDynamicMin] = useState(range[0]);
+export default function DualRange({
+  stat,
+  range,
+  setExtMin,
+  setExtMax,
+  startMin,
+  startMax,
+}) {
+  const [dynamicMax, setDynamicMax] = useState(startMax);
+  const [dynamicMin, setDynamicMin] = useState(startMin);
 
   return (
     <div className="w-4/5 relative mx-auto my-10 flex justify-between">

@@ -52,18 +52,27 @@ export default function DataContextProvider({ children }) {
   });
 
   useEffect(() => {
-    const pokeTypes = checkedTypes.map((ref) => ref.current.value);
-    setQueryObj({
-      type: pokeTypes,
-      minHP,
-      maxHP,
-      minAttack,
-      maxAttack,
-      minDefense,
-      maxDefense,
-      minSpeed,
-      maxSpeed,
-      page,
+    setQueryObj((prev) => {
+      const pokeTypes =
+        checkedTypes.length > 0 && checkedTypes !== undefined
+          ? checkedTypes.map((ref) => {
+              if (ref.current?.value !== undefined) return ref.current?.value;
+              else return;
+            })
+          : [...prev.type];
+      const insertTypes = pokeTypes.filter((item) => item !== undefined);
+      return {
+        type: insertTypes.slice(0, 2),
+        minHP,
+        maxHP,
+        minAttack,
+        maxAttack,
+        minDefense,
+        maxDefense,
+        minSpeed,
+        maxSpeed,
+        page,
+      };
     });
   }, [
     checkedTypes,

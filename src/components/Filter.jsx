@@ -13,6 +13,7 @@ export default function Filter() {
     setMaxDefense,
     setMinSpeed,
     setMaxSpeed,
+    queryObj,
   } = useContext(DataContext);
 
   // console.log(queryObj);
@@ -166,6 +167,15 @@ export default function Filter() {
   };
   const refsArr = Object.keys(pokeTypes).map((type) => pokeTypes[type].ref);
 
+  useEffect(() => {
+    refsArr.forEach((ref) => {
+      if (queryObj.type.includes(ref.current.id)) {
+        ref.current.checked = true;
+        setCheckedTypes((prev) => [...prev, ref]);
+      }
+    });
+  }, []);
+
   const handleFormChange = (e) => {
     const checkedPokeTypes = refsArr.filter(
       (checkboxRef) => checkboxRef.current.checked
@@ -259,24 +269,32 @@ export default function Filter() {
           range={[1, 255]}
           setExtMin={setMinHP}
           setExtMax={setMaxHP}
+          startMin={queryObj.minHP}
+          startMax={queryObj.maxHP}
         />
         <DualRange
           stat={"attack"}
           range={[5, 181]}
           setExtMin={setMinAttack}
           setExtMax={setMaxAttack}
+          startMin={queryObj.minAttack}
+          startMax={queryObj.maxAttack}
         />
         <DualRange
           stat={"defense"}
           range={[5, 230]}
           setExtMin={setMinDefense}
           setExtMax={setMaxDefense}
+          startMin={queryObj.minDefense}
+          startMax={queryObj.maxDefense}
         />
         <DualRange
           stat={"speed"}
           range={[5, 160]}
           setExtMin={setMinSpeed}
           setExtMax={setMaxSpeed}
+          startMin={queryObj.minSpeed}
+          startMax={queryObj.maxSpeed}
         />
       </form>
     </div>
