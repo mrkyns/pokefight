@@ -29,7 +29,7 @@ function App() {
         <Route path="/pokedex/:id" element={<Pokemon />} />
         <Route path="/fight" element={<Fight />} />
         <Route path="/creators" element={<Creators />} />
-        <Route path="/creator" element={<Creator />} />
+        <Route path="/creators/:name" element={<Creator />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
       <span className="block my-10 opacity-20">
