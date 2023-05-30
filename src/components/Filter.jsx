@@ -14,6 +14,7 @@ export default function Filter() {
     setMinSpeed,
     setMaxSpeed,
     queryObj,
+    setPage,
   } = useContext(DataContext);
 
   // console.log(queryObj);
@@ -171,7 +172,10 @@ export default function Filter() {
     refsArr.forEach((ref) => {
       if (queryObj.type.includes(ref.current.id)) {
         ref.current.checked = true;
-        setCheckedTypes((prev) => [...prev, ref]);
+        setCheckedTypes((prev) => {
+          const filtered = prev.filter((item) => item !== undefined);
+          return [...filtered, ref];
+        });
       }
     });
   }, []);
@@ -194,6 +198,7 @@ export default function Filter() {
         return [...prev, ...newItem];
       } else return [...newItem];
     });
+    setPage(0);
   };
 
   //functions for checking sccren size and open and close filters

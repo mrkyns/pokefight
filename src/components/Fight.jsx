@@ -17,7 +17,6 @@ export default function Fight() {
   const { pokemonSerial } = useContext(DataContext);
 
   const selectionModalRef = useRef(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const winCountPlayer = useRef(0);
   const winCountWild = useRef(0);
   const [battleHasStarted, setBattleHasStarted] = useState(false);
@@ -28,9 +27,6 @@ export default function Fight() {
     setBattleHasStarted(false);
     winCountPlayer.current = 0;
     winCountWild.current = 0;
-    setIsModalOpen(false);
-    selectionModalRef.current.close();
-    // if (Object.keys(selectedPokemon).length > 0)
   };
 
   useEffect(() => {
@@ -110,11 +106,6 @@ export default function Fight() {
     },
   };
 
-  const openSelection = () => {
-    setIsModalOpen(true);
-    selectionModalRef.current.show();
-  };
-
   const startBattle = () => {
     setVictoriesPlayer(
       ["HP", "Attack", "Defense", "Sp. Attack", "Sp. Defense", "Speed"].filter(
@@ -122,6 +113,35 @@ export default function Fight() {
       )
     );
     setBattleHasStarted(true);
+  };
+
+  const statAbbr = {
+    HP: { abb: "hp", grad: "fight_stat_hp", color: "bg-[rgb(103,_168,_20)]" },
+    Attack: {
+      abb: "at",
+      grad: "fight_stat_att",
+      color: "bg-[rgb(230,_27,_27)]",
+    },
+    Defense: {
+      abb: "df",
+      grad: "fight_stat_def",
+      color: "bg-[rgb(25,_68,_133)]",
+    },
+    "Sp. Attack": {
+      abb: "sa",
+      grad: "fight_stat_att",
+      color: "bg-[rgb(230,_27,_27)]",
+    },
+    "Sp. Defense": {
+      abb: "sd",
+      grad: "fight_stat_def",
+      color: "bg-[rgb(25,_68,_133)]",
+    },
+    Speed: {
+      abb: "sp",
+      grad: "fight_stat_spp",
+      color: "bg-[rgb(200,_152,_27)]",
+    },
   };
 
   return (
@@ -144,23 +164,34 @@ export default function Fight() {
           {/* selected pokemons */}
           <div className="absolute left-[-45px] top-[17px] flex flex-col gap-6 z-30">
             {/* pokemon selected card start */}
-            <div className="fight_select-poke overflow-hidden flex flex-col justify-center gap-[2px]">
-              <div className="absolute w-[85px] h-[100px] flex justify-center items-center bg-elementbBg dark:bg-elementbBg_w rounded-xl z-10">
-                <img
-                  src="../images/001.png"
-                  alt="pokemon name image"
-                  className="w-[90%]"
-                />
-              </div>
-              <span className="ml-[83px] bg-pokefigt bg-opacity-50 rounded-e-xl px-3 border-2 border-pokefigt font-pokefont text-xl translate-x-[-250px] transition-all duration-300 ease-linear">
-                Bulbasur
-              </span>
-              <p className="ml-[83px] bg-pokemonBg dark:bg-white rounded-e-xl px-3 text-l translate-x-[-250px]  transition-all duration-300 ease-linear">
-                H:60, A:62, D:63,
-                <br />
-                SA:80, SD:80, S:60
-              </p>
-            </div>
+            {selectablePokes.length > 0 &&
+              selectablePokes.map((poke, ind) => (
+                <div
+                  onClick={() => {
+                    setSelectedPokemon(poke);
+                    setBattleHasStarted(false);
+                  }}
+                  className="fight_select-poke overflow-hidden flex flex-col justify-center gap-[2px]"
+                >
+                  <div className="absolute w-[85px] h-[100px] flex justify-center items-center bg-elementbBg dark:bg-elementbBg_w rounded-xl z-10">
+                    <img
+                      src={poke.sprite}
+                      alt={poke.name.english}
+                      className="w-[90%]"
+                    />
+                  </div>
+                  <span className="ml-[83px] bg-pokefigt bg-opacity-50 rounded-e-xl px-3 border-2 border-pokefigt font-pokefont text-xl translate-x-[-250px] transition-all duration-300 ease-linear">
+                    {poke.name.english}
+                  </span>
+                  <p className="ml-[83px] bg-pokemonBg dark:bg-white rounded-e-xl px-3 text-l translate-x-[-250px]  transition-all duration-300 ease-linear">
+                    H:{poke.base.HP}, A:{poke.base.Attack}, D:
+                    {poke.base.Defense},
+                    <br />
+                    SA:{poke.base["Sp. Attack"]}, SD:{poke.base["Sp. Defense"]},
+                    S:{poke.base.Speed}
+                  </p>
+                </div>
+              ))}
           </div>
           {/* player names */}
           <div className="w-full flex justify-between px-8 pt-5 pb-8">
@@ -176,10 +207,7 @@ export default function Fight() {
           {/* pokemon image and fight stistic */}
           <div className="w-full flex justify-between px-8 relative">
             <div>
-              <div
-                onClick={openSelection}
-                className="flex justify-center items-center w-[240px] h-[210px] rounded-xl border-2 border-elementbBg dark:border-elementbBg_w overflow-hidden transition-all duration-300 ease-linear cursor-pointer z-[5]"
-              >
+              <div className="flex justify-center items-center w-[240px] h-[210px] rounded-xl border-2 border-elementbBg dark:border-elementbBg_w overflow-hidden transition-all duration-300 ease-linear cursor-pointer z-[5]">
                 <div className="flex justify-center items-center w-[240px] h-[210px] z-10 bg-elementbBg dark:bg-elementbBg_w border-2 border-elementbBg dark:border-elementbBg_w">
                   {Object.keys(selectedPokemon).length > 0 && (
                     <img
@@ -213,36 +241,29 @@ export default function Fight() {
               )}
               {/* stast for selected player pokemon */}
               <div className="flex justify-between">
-                {/* healt points */}
-                <div className="fight_stat_none w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
-                  <h4 className="text-sm opacity-50">hp</h4>
-                  <span className="font-pokefont text-xl">60</span>
-                </div>
-                {/* attack points */}
-                <div className="fight_stat_none w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
-                  <h4 className="text-sm opacity-50">at</h4>
-                  <span className="font-pokefont text-xl">62</span>
-                </div>
-                {/* defense points */}
-                <div className="fight_stat_none w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
-                  <h4 className="text-sm opacity-50">df</h4>
-                  <span className="font-pokefont text-xl">63</span>
-                </div>
-                {/* special attack points */}
-                <div className="fight_stat_none w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
-                  <h4 className="text-sm opacity-50">sa</h4>
-                  <span className="font-pokefont text-xl">80</span>
-                </div>
-                {/* special defense points */}
-                <div className="fight_stat_none w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
-                  <h4 className="text-sm opacity-50">sd</h4>
-                  <span className="font-pokefont text-xl">80</span>
-                </div>
-                {/* speed points */}
-                <div className="fight_stat_none w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
-                  <h4 className="text-sm opacity-50">sp</h4>
-                  <span className="font-pokefont text-xl">60</span>
-                </div>
+                {battleHasStarted &&
+                  [
+                    "HP",
+                    "Attack",
+                    "Defense",
+                    "Sp. Attack",
+                    "Sp. Defense",
+                    "Speed",
+                  ].map((stat, ind) => (
+                    <div
+                      className={`${statAbbr[stat].grad} w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4 animate-appear`}
+                      style={{
+                        animationDelay: `${ind * 750}ms`,
+                      }}
+                    >
+                      <h4 className="text-sm opacity-50">
+                        {statAbbr[stat].abb}
+                      </h4>
+                      <span className="font-pokefont text-xl">
+                        {selectedPokemon.base[stat]}
+                      </span>
+                    </div>
+                  ))}
               </div>
             </div>
             {/* pokemon fight stats */}
@@ -254,6 +275,7 @@ export default function Fight() {
                   wild={randomWildPokemon}
                   winCountPlayer={winCountPlayer}
                   winCountWild={winCountWild}
+                  statAbbr={statAbbr}
                 />
               )}
             {/* Wild Pokemon */}
@@ -302,53 +324,49 @@ export default function Fight() {
 
               {/* stast for random wild pokemon */}
               <div className="flex justify-between">
-                {/* healt points */}
-                <div className="fight_stat_hp w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
-                  <h4 className="text-sm opacity-50">hp</h4>
-                  <span className="font-pokefont text-xl">60</span>
-                </div>
-                {/* attack points */}
-                <div className="fight_stat_att w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
-                  <h4 className="text-sm opacity-50">at</h4>
-                  <span className="font-pokefont text-xl">62</span>
-                </div>
-                {/* defense points */}
-                <div className="fight_stat_def w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
-                  <h4 className="text-sm opacity-50">df</h4>
-                  <span className="font-pokefont text-xl">63</span>
-                </div>
-                {/* special attack points */}
-                <div className="fight_stat_att w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
-                  <h4 className="text-sm opacity-50">sa</h4>
-                  <span className="font-pokefont text-xl">80</span>
-                </div>
-                {/* special defense points */}
-                <div className="fight_stat_def w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
-                  <h4 className="text-sm opacity-50">sd</h4>
-                  <span className="font-pokefont text-xl">80</span>
-                </div>
-                {/* speed points */}
-                <div className="fight_stat_spp w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4">
-                  <h4 className="text-sm opacity-50">sp</h4>
-                  <span className="font-pokefont text-xl">60</span>
-                </div>
+                {battleHasStarted &&
+                  [
+                    "HP",
+                    "Attack",
+                    "Defense",
+                    "Sp. Attack",
+                    "Sp. Defense",
+                    "Speed",
+                  ].map((stat, ind) => (
+                    <div
+                      className={`${statAbbr[stat].grad} w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4 animate-appear`}
+                      style={{
+                        animationDelay: `${ind * 750}ms`,
+                      }}
+                    >
+                      <h4 className="text-sm opacity-50">
+                        {statAbbr[stat].abb}
+                      </h4>
+                      <span className="font-pokefont text-xl">
+                        {randomWildPokemon.base[stat]}
+                      </span>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
           {/* button to start fight */}
-          {!battleHasStarted && (
-            <div
-              onClick={startBattle}
-              className="fight_pokemon w-[430px] h-[95px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear cursor-pointer overflow-hidden relative my-14 dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w "
-            >
-              <span className="transition-all duration-300 ease-linear cursor-pointer">
-                start battle
-              </span>
-            </div>
-          )}
+          {!battleHasStarted &&
+            Object.keys(selectedPokemon).length > 0 &&
+            Object.keys(randomWildPokemon).length > 0 && (
+              <div
+                onClick={startBattle}
+                className="fight_pokemon w-[430px] h-[95px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear cursor-pointer overflow-hidden relative my-14 dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w "
+              >
+                <span className="transition-all duration-300 ease-linear cursor-pointer">
+                  start battle
+                </span>
+              </div>
+            )}
           {battleHasStarted && (
             <Result
               isPlayerWinner={victoriesPlayer.length > 3}
+              isTie={victoriesPlayer.length === 3}
               pokemon={selectedPokemon}
             />
           )}
@@ -358,76 +376,13 @@ export default function Fight() {
               onClick={reset}
               className="w-[255px] h-[41px] bg-elementbBg bg-opacity-90 border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w "
             >
-              reset fight
+              next fight
             </div>
             <div className="w-[255px] h-[41px] bg-elementbBg bg-opacity-90 border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:shadow-shadow_w dark:hover:bg-pokefigt dark:hover:bg-opacity-50 dark:hover:border-pokefigt">
               leaderboard
             </div>
           </div>
         </div>
-        {/* Dialog Backdrop */}
-        {isModalOpen && (
-          <div
-            onClick={() => {
-              setIsModalOpen(false);
-              selectionModalRef.current.close();
-            }}
-            className="absolute top-0 left-0 h-full w-full bg-fighting opacity-30  z-10"
-          ></div>
-        )}
-        {/* Selection Dialog */}
-        <dialog
-          className="bg-fighting rounded-xl [&::backdrop]:bg-gray-400 [&::backdrop]:bg-opacity-50 [&::backdrop]:w-screen [&::backdrop]:h-screen [&::backdrop]:z-30 absolute z-50"
-          ref={selectionModalRef}
-        >
-          <div className="flex gap-4">
-            {selectablePokes.length > 0 &&
-              selectablePokes.map((pokemon) => (
-                <div
-                  key={pokemon.name.french}
-                  onClick={() => {
-                    setSelectedPokemon(pokemon);
-                    setIsModalOpen(false);
-                    selectionModalRef.current.close();
-                  }}
-                  className="pokemon w-[230px] h-[250px] bg-pokemonBg dark:bg-elementbBg_w relative rounded-xl cursor-pointer transition-all duration-300 ease-linear"
-                >
-                  <span className="absolute m-2 font-pokefont text-xl z-10">
-                    {pokemonSerial(pokemon.id)}
-                  </span>
-                  <img
-                    src={pokemon.sprite}
-                    alt={pokemon.name.english}
-                    className="z-10 absolute top-[-15px]"
-                  />
-                  <h2 className="absolute bottom-0 w-full h-[30px] flex justify-center items-center  bg-elementbBg dark:bg-white rounded-xl z-20 transition-all duration-300 ease-linear">
-                    {pokemon.name.english}
-                  </h2>
-                  {/* function for type checking */}
-                  <div className="flex z-0  overflow-hidden rounded-xl">
-                    {pokemon.type.length === 1 ? (
-                      <p
-                        className={`w-full h-[245px] flex justify-center items-end pb-4 ${
-                          pokeTypes[pokemon.type[0]].color
-                        } translate-y-[260px] transition-all duration-300 ease-linear`}
-                      >
-                        {pokemon.type[0]}
-                      </p>
-                    ) : (
-                      pokemon.type.map((type, ind) => (
-                        <p
-                          key={type + ind}
-                          className={`w-1/2 h-[245px] flex justify-center items-end pb-4 ${pokeTypes[type].color} translate-y-[260px] transition-all duration-300 ease-linear`}
-                        >
-                          {type}
-                        </p>
-                      ))
-                    )}
-                  </div>
-                </div>
-              ))}
-          </div>
-        </dialog>
       </div>
     </>
   );
