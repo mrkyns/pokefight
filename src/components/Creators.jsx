@@ -4,6 +4,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import LogoSm from "./LogoSm";
 import { NavLink } from "react-router-dom";
 import LogoCreator from "./LogoCreator";
+import NoSearchResult from "./NoSearchResult";
 
 export default function () {
   const { creators } = useContext(DataContext);

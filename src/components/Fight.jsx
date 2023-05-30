@@ -157,24 +157,26 @@ export default function Fight() {
             <div>
               <div
                 onClick={openSelection}
-                className="fight_pokemon_select relative w-[240px] h-[210px] bg-elementbBg rounded-xl border-2 border-elementbBg dark:bg-elementbBg_w dark:border-elementbBg_w overflow-hidden transition-all duration-300 ease-linear cursor-pointer"
+                className="fight_pokemon_select flex justify-center items-center w-[240px] h-[210px] rounded-xl border-2 border-elementbBg dark:border-elementbBg_w overflow-hidden transition-all duration-300 ease-linear cursor-pointer z-[5]"
               >
-                {Object.keys(selectedPokemon).length > 0 && (
-                  <img
-                    className="w-full h-full object-contain -translate-y-3"
-                    src={
-                      Object.keys(selectedPokemon).length > 0 &&
-                      selectedPokemon.sprite
-                    }
-                    alt={`a wild ${
-                      Object.keys(selectedPokemon).length > 0 &&
-                      selectedPokemon.name.english
-                    }!`}
-                  />
-                )}
+                <div className="flex justify-center items-center w-[240px] h-[210px] z-10 bg-elementbBg dark:bg-elementbBg_w border-2 border-elementbBg dark:border-elementbBg_w">
+                  {Object.keys(selectedPokemon).length > 0 && (
+                    <img
+                      className="w-full h-full object-contain -translate-y-3"
+                      src={
+                        Object.keys(selectedPokemon).length > 0 &&
+                        selectedPokemon.sprite
+                      }
+                      alt={`a wild ${
+                        Object.keys(selectedPokemon).length > 0 &&
+                        selectedPokemon.name.english
+                      }!`}
+                    />
+                  )}
+                </div>
               </div>
               {battleHasStarted && (
-                <div className="w-[240px] flex justify-center gap-2 absolute bottom-[-15px] pointer-events-none">
+                <div className="w-[240px] flex justify-center gap-2 absolute bottom-[-15px] pointer-events-none z-10">
                   {victoriesPlayer.map((time, ind) => {
                     return (
                       <img

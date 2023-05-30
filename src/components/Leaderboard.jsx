@@ -16,7 +16,7 @@ export default function () {
       </div>
       <div className="flex flex-col gap-4">
         {/* card start */}
-        <div className="gold flex justify-between items-center w-[1080px] h-[80px] px-4 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
+        <div className="gold flex justify-between items-center w-[1080px] h-[80px] px-4 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:bg-bgColor dark:bg-opacity-50 dark:shadow-shadow_w">
           <div className="flex gap-4">
             <span className="font-pokefont text-2xl">#001</span>
             <span className="text-2xl">Reagan</span>
@@ -41,7 +41,7 @@ export default function () {
         </div>
         {/* card end */}
         {/* card start */}
-        <div className="silver flex justify-between items-center w-[1080px] h-[80px] px-4 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
+        <div className="silver flex justify-between items-center w-[1080px] h-[80px] px-4 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:bg-bgColor dark:bg-opacity-50 dark:shadow-shadow_w">
           <div className="flex gap-4">
             <span className="font-pokefont text-2xl">#002</span>
             <span className="text-2xl">Lilian</span>
@@ -66,7 +66,7 @@ export default function () {
         </div>
         {/* card end */}
         {/* card start */}
-        <div className="bronze flex justify-between items-center w-[1080px] h-[80px] px-4 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
+        <div className="bronze flex justify-between items-center w-[1080px] h-[80px] px-4 rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:bg-bgColor dark:bg-opacity-50 dark:shadow-shadow_w">
           <div className="flex gap-4">
             <span className="font-pokefont text-2xl">#003</span>
             <span className="text-2xl">Ali</span>

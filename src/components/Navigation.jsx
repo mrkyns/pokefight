@@ -125,7 +125,7 @@ export default function Navigation() {
             <span>fight</span>
           </NavLink>
         </div>
-        <div className="flex gap-1">
+        <div className="relative flex gap-1">
           <NavLink
             to="/creators"
             className="creator relative flex justify-center items-center no-underline w-[165px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-ss-xl"
@@ -152,7 +152,7 @@ export default function Navigation() {
             <SearchIcon />
           </button>
           <form
-            className={`absolute flex right-80 top-20 gap-4 ${
+            className={`absolute flex right-0 top-16 gap-4 ${
               searchCheck ? "block" : "hidden"
             }`}
             onSubmit={handleSubmit}
