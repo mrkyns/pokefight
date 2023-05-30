@@ -3,6 +3,7 @@ export default function FightStats({
   wild,
   winCountPlayer,
   winCountWild,
+  statAbbr,
 }) {
   console.log("start");
   return (
@@ -32,7 +33,6 @@ export default function FightStats({
               key={stat + ind}
               className="w-[390px] h-[24px] relative flex animate-appear justify-center items-center rounded-xl bg-elementbBg dark:bg-elementbBg_w opacity-0"
               style={{
-                // animation: `appear`,
                 animationDelay: `${ind * 750}ms`,
               }}
             >
@@ -46,7 +46,7 @@ export default function FightStats({
                   }}
                 >
                   <div
-                    className="absolute h-full right-0 rounded-s-xl bg-pokefigt animate-grow"
+                    className={`absolute h-full right-0 rounded-s-xl ${statAbbr[stat].color} animate-grow`}
                     style={{ animationDelay: `${ind * 750}ms` }}
                   ></div>
                 </div>
@@ -62,7 +62,7 @@ export default function FightStats({
                   }}
                 >
                   <div
-                    className="absolute h-full left-0 rounded-e-xl bg-pokefigt animate-grow"
+                    className={`absolute h-full left-0 rounded-e-xl ${statAbbr[stat].color} animate-grow`}
                     style={{ animationDelay: `${ind * 750}ms` }}
                   ></div>
                 </div>

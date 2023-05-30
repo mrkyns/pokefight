@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef, useState } from "react";
 import LogoSm from "./LogoSm";
 import { DataContext } from "../context/DataContext";
 import { FightContext } from "../context/FightContext";
@@ -6,11 +6,14 @@ import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 
 export default function Pokemon() {
-  const { allPokemons } = useContext(DataContext);
-  const { setSelectablePokes } = useContext(FightContext);
+  const { allPokemons, pokemonSerial } = useContext(DataContext);
+  const { addToSelection, selectablePokes } = useContext(FightContext);
   const { id } = useParams();
   const pokemon = allPokemons?.find((pokemon) => pokemon.id === Number(id));
   console.log(pokemon);
+  const selectedRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const selectionModalRef = useRef(null);
 
   const pokeTypes = {
     Bug: {
@@ -160,165 +163,255 @@ export default function Pokemon() {
   };
 
   return (
-    <div>
-      <div className="flex justify-center mb-9">
-        <LogoSm />
-      </div>
-      <div className="relative flex flex-wrap max-w-[1080px] bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow p-7 mx-8 dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
-        {/* classes for type */}
-        <div className="absolute w-[690px] bottom-0 right-[-15px] flex justify-center gap-3 origin-top-right rotate-90">
-          {pokemon.type.map((type) => (
-            <div
-              className={`w-[130px] h-[30px] rounded-xl ${pokeTypes[type].color} flex justify-center items-center`}
-            >
-              {type}
-            </div>
-          ))}
+    <>
+      <div>
+        <div className="flex justify-center mb-9">
+          <LogoSm />
         </div>
-        <div className="w-full mb-10">
-          {/* classes for title */}
-          <div className="font-pokefont relative inline text-8xl">
-            <span
-              className={`absolute bottom-[-10px] right-0 text-5xl ${
-                pokeTypes[pokemon.type[0]].text
-              } font-bold text-right`}
-            >
-              {pokemon.name.japanese}
-            </span>
-            {pokemon.name.english}
+        <div className="relative flex flex-wrap max-w-[1080px] bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow p-7 mx-8 dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
+          {/* classes for type */}
+          <div className="absolute w-[690px] bottom-0 right-[-15px] flex justify-center gap-3 origin-top-right rotate-90">
+            {pokemon.type.map((type) => (
+              <div
+                className={`w-[130px] h-[30px] rounded-xl ${pokeTypes[type].color} flex justify-center items-center`}
+              >
+                {type}
+              </div>
+            ))}
           </div>
-        </div>
-        {/* classes for stats */}
-        <div className="flex w-full flex-col-reverse tablet:flex-row">
-          <div className="w-full tablet:w-[40%] h-[550px] flex flex-col justify-between">
-            <div className="flex flex-col gap-3">
-              <div className="h-[25px] relative rounded-xl bg-elementbBg dark:bg-elementbBg_w overflow-hidden">
-                <p className="absolute z-10 font-pokefont px-3 opacity-50">
-                  health points
-                </p>
-                <span
-                  className="absolute h-full rounded-xl flex items-center px-3 font-pokefont bg-pokecreator"
-                  style={{ width: `${(pokemon.base.HP / 255) * 100}%` }}
-                ></span>
-              </div>
-              <div className="h-[25px] relative rounded-xl bg-elementbBg dark:bg-elementbBg_w overflow-hidden">
-                <p className="absolute z-10 font-pokefont px-3 opacity-50">
-                  attack
-                </p>
-                <span
-                  className="absolute h-full rounded-xl flex items-center px-3 font-pokefont bg-pokefigt"
-                  style={{ width: `${(pokemon.base.Attack / 181) * 100}%` }}
-                ></span>
-              </div>
-              <div className="h-[25px] relative rounded-xl bg-elementbBg dark:bg-elementbBg_w overflow-hidden">
-                <p className="absolute z-10 font-pokefont px-3 opacity-50">
-                  defense
-                </p>
-                <span
-                  className="absolute h-full rounded-xl flex items-center px-3 font-pokefont bg-pokedex"
-                  style={{ width: `${(pokemon.base.Defense / 230) * 100}%` }}
-                ></span>
-              </div>
-              <div className="h-[25px] relative rounded-xl bg-elementbBg dark:bg-elementbBg_w overflow-hidden">
-                <p className="absolute z-10 font-pokefont px-3 opacity-50">
-                  special attack
-                </p>
-                <span
-                  className="absolute h-full rounded-xl flex items-center px-3 font-pokefont bg-pokefigt"
-                  style={{
-                    width: `${(pokemon.base["Sp. Attack"] / 180) * 100}%`,
-                  }}
-                ></span>
-              </div>
-              <div className="h-[25px] relative rounded-xl bg-elementbBg dark:bg-elementbBg_w overflow-hidden">
-                <p className="absolute z-10 font-pokefont px-3 opacity-50">
-                  special defense
-                </p>
-                <span
-                  className="absolute h-full rounded-xl flex items-center px-3 font-pokefont bg-pokedex"
-                  style={{
-                    width: `${(pokemon.base["Sp. Defense"] / 180) * 100}%`,
-                  }}
-                ></span>
-              </div>
-              <div className="h-[25px] relative rounded-xl bg-elementbBg dark:bg-elementbBg_w overflow-hidden">
-                <p className="absolute z-10 font-pokefont px-3 opacity-50">
-                  speed
-                </p>
-                <span
-                  className="absolute h-full rounded-xl flex items-center px-3 font-pokefont bg-pokeleader"
-                  style={{ width: `${(pokemon.base.Speed / 160) * 100}%` }}
-                ></span>
-              </div>
+          <div className="w-full mb-10">
+            {/* classes for title */}
+            <div className="font-pokefont relative inline text-8xl">
+              <span
+                className={`absolute bottom-[-10px] right-0 text-5xl ${
+                  pokeTypes[pokemon.type[0]].text
+                } font-bold text-right`}
+              >
+                {pokemon.name.japanese}
+              </span>
+              {pokemon.name.english}
             </div>
-            {/* classes for buttons */}
-            <div className="flex flex-col gap-3">
-              {/* go back button */}
-              <div className="flex justify-between gap-4">
-                <NavLink
-                  // onClick={() => setQueryObj(IQO)}
-                  to="/pokedex"
-                  className={`pokemon_select w-full h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w ${
+          </div>
+          {/* classes for stats */}
+          <div className="flex w-full flex-col-reverse tablet:flex-row">
+            <div className="w-full tablet:w-[40%] h-[550px] flex flex-col justify-between">
+              <div className="flex flex-col gap-3">
+                <div className="h-[25px] relative rounded-xl bg-elementbBg dark:bg-elementbBg_w overflow-hidden">
+                  <p className="absolute z-10 font-pokefont px-3 opacity-50">
+                    health points
+                  </p>
+                  <span
+                    className="absolute h-full rounded-xl flex items-center px-3 font-pokefont bg-pokecreator"
+                    style={{ width: `${(pokemon.base.HP / 255) * 100}%` }}
+                  ></span>
+                </div>
+                <div className="h-[25px] relative rounded-xl bg-elementbBg dark:bg-elementbBg_w overflow-hidden">
+                  <p className="absolute z-10 font-pokefont px-3 opacity-50">
+                    attack
+                  </p>
+                  <span
+                    className="absolute h-full rounded-xl flex items-center px-3 font-pokefont bg-pokefigt"
+                    style={{ width: `${(pokemon.base.Attack / 181) * 100}%` }}
+                  ></span>
+                </div>
+                <div className="h-[25px] relative rounded-xl bg-elementbBg dark:bg-elementbBg_w overflow-hidden">
+                  <p className="absolute z-10 font-pokefont px-3 opacity-50">
+                    defense
+                  </p>
+                  <span
+                    className="absolute h-full rounded-xl flex items-center px-3 font-pokefont bg-pokedex"
+                    style={{ width: `${(pokemon.base.Defense / 230) * 100}%` }}
+                  ></span>
+                </div>
+                <div className="h-[25px] relative rounded-xl bg-elementbBg dark:bg-elementbBg_w overflow-hidden">
+                  <p className="absolute z-10 font-pokefont px-3 opacity-50">
+                    special attack
+                  </p>
+                  <span
+                    className="absolute h-full rounded-xl flex items-center px-3 font-pokefont bg-pokefigt"
+                    style={{
+                      width: `${(pokemon.base["Sp. Attack"] / 180) * 100}%`,
+                    }}
+                  ></span>
+                </div>
+                <div className="h-[25px] relative rounded-xl bg-elementbBg dark:bg-elementbBg_w overflow-hidden">
+                  <p className="absolute z-10 font-pokefont px-3 opacity-50">
+                    special defense
+                  </p>
+                  <span
+                    className="absolute h-full rounded-xl flex items-center px-3 font-pokefont bg-pokedex"
+                    style={{
+                      width: `${(pokemon.base["Sp. Defense"] / 180) * 100}%`,
+                    }}
+                  ></span>
+                </div>
+                <div className="h-[25px] relative rounded-xl bg-elementbBg dark:bg-elementbBg_w overflow-hidden">
+                  <p className="absolute z-10 font-pokefont px-3 opacity-50">
+                    speed
+                  </p>
+                  <span
+                    className="absolute h-full rounded-xl flex items-center px-3 font-pokefont bg-pokeleader"
+                    style={{ width: `${(pokemon.base.Speed / 160) * 100}%` }}
+                  ></span>
+                </div>
+              </div>
+              {/* classes for buttons */}
+              <div className="flex flex-col gap-3">
+                {/* go back button */}
+                <div className="flex justify-between gap-4">
+                  <NavLink
+                    // onClick={() => setQueryObj(IQO)}
+                    to="/pokedex"
+                    className={`pokemon_select w-full h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w ${
+                      pokeTypes[pokemon.type[0]].hover_bg
+                    } hover:bg-opacity-50 ${
+                      pokeTypes[pokemon.type[0]].hover_b
+                    } ${
+                      pokeTypes[pokemon.type[0]].dark_hover_bg
+                    } dark:hover:bg-opacity-50 ${
+                      pokeTypes[pokemon.type[0]].dark_hover_b
+                    }`}
+                  >
+                    go back
+                  </NavLink>
+                  {/* selected pokemons with nitification */}
+                  <div
+                    onClick={() => {
+                      setIsModalOpen(true);
+                      selectionModalRef.current.show();
+                    }}
+                    ref={selectedRef}
+                    className="relative dark:text-white text-5xl w-[80px] poke_l:w-[90px] h-[70px] rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:shadow-shadow_w cursor-pointer"
+                  >
+                    {selectablePokes.length > 0 ? (
+                      <img
+                        src={selectablePokes[selectablePokes.length - 1].sprite}
+                        alt={
+                          selectablePokes[selectablePokes.length - 1].name
+                            .english
+                        }
+                      />
+                    ) : (
+                      <img src="../images/001.png" alt="1st selected pokemon" />
+                    )}
+                    <span
+                      className={`absolute top-[-12px] right-[-12px] flex justify-center items-center ${
+                        pokeTypes[pokemon.type[0]].color
+                      } w-[25px] p-1 rounded-full text-[16px]`}
+                    >
+                      {selectablePokes.length}
+                    </span>
+                  </div>
+                </div>
+                {/* select pokemon button */}
+                <button
+                  onClick={() => {
+                    addToSelection(pokemon);
+                    selectedRef.current.classList.add("animate-ping");
+
+                    setTimeout(() => {
+                      selectedRef.current.classList.remove("animate-ping");
+                    }, 325);
+                  }}
+                  className={`h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w ${
                     pokeTypes[pokemon.type[0]].hover_bg
                   } hover:bg-opacity-50 ${pokeTypes[pokemon.type[0]].hover_b} ${
                     pokeTypes[pokemon.type[0]].dark_hover_bg
                   } dark:hover:bg-opacity-50 ${
                     pokeTypes[pokemon.type[0]].dark_hover_b
-                  }`}
+                  } cursor-pointer dark:cursor-pointer`}
                 >
-                  go back
-                </NavLink>
-                {/* selected pokemons with nitification */}
-                <div className="relative dark:text-white text-5xl w-[80px] poke_l:w-[90px] h-[70px] rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:shadow-shadow_w">
-                  <img src="../images/001.png" alt="1st selected pokemon" />
-                  <span
-                    className={`absolute top-[-12px] right-[-12px] flex justify-center items-center ${
-                      pokeTypes[pokemon.type[0]].color
-                    } w-[25px] p-1 rounded-full text-[16px]`}
-                  >
-                    6
+                  select pokemon
+                </button>
+                {/* go to fight button */}
+                <NavLink
+                  to="/fight"
+                  className="pokemon_fight h-[95px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear cursor-pointer overflow-hidden relative dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w"
+                >
+                  <span className="transition-all duration-300 ease-linear cursor-pointer">
+                    go to fight
                   </span>
-                </div>
+                </NavLink>
               </div>
-              {/* select pokemon button */}
-              <button
-                onClick={() => setSelectablePokes((prev) => [...prev, pokemon])}
-                className={`h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w ${
-                  pokeTypes[pokemon.type[0]].hover_bg
-                } hover:bg-opacity-50 ${pokeTypes[pokemon.type[0]].hover_b} ${
-                  pokeTypes[pokemon.type[0]].dark_hover_bg
-                } dark:hover:bg-opacity-50 ${
-                  pokeTypes[pokemon.type[0]].dark_hover_b
-                } cursor-pointer dark:cursor-pointer`}
-              >
-                select pokemon
-              </button>
-              {/* go to fight button */}
-              <NavLink
-                to="/fight"
-                className="pokemon_fight h-[95px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear cursor-pointer overflow-hidden relative dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w"
-              >
-                <span className="transition-all duration-300 ease-linear cursor-pointer">
-                  go to fight
-                </span>
-              </NavLink>
             </div>
-          </div>
-          {/* classes for image and backgoround light */}
-          <div className="w-full tablet:w-[60%] flex justify-center items-center relative">
-            <img
-              src={pokemon.sprite}
-              alt={pokemon.name.english}
-              className="z-10"
-            />
-            <div
-              className={`absolute w-[350px] h-[350px] ${
-                pokeTypes[pokemon.type[0]].color
-              } rounded-full blur-2xl`}
-            ></div>
+            {/* classes for image and backgoround light */}
+            <div className="w-full tablet:w-[60%] flex justify-center items-center relative">
+              <img
+                src={pokemon.sprite}
+                alt={pokemon.name.english}
+                className="z-10"
+              />
+              <div
+                className={`absolute w-[350px] h-[350px] ${
+                  pokeTypes[pokemon.type[0]].color
+                } rounded-full blur-2xl`}
+              ></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      {/* Dialog Backdrop */}
+      {isModalOpen && (
+        <div
+          onClick={() => {
+            setIsModalOpen(false);
+            selectionModalRef.current.close();
+          }}
+          className={`absolute top-0 left-0 h-full w-full ${
+            pokeTypes[pokemon.type[0]].color
+          } opacity-40 blur-3xl saturate-50 z-10`}
+        ></div>
+      )}
+      {/* Selection Dialog */}
+      <dialog
+        className={`${
+          pokeTypes[pokemon.type[0]].color
+        } rounded-xl top-64 absolute z-50 `}
+        ref={selectionModalRef}
+      >
+        <div className="grid grid-cols-3 gap-4">
+          {selectablePokes.length > 0 &&
+            selectablePokes.map((pokemon) => (
+              <div
+                key={pokemon.name.french}
+                className="pokemon w-[230px] h-[250px] bg-pokemonBg dark:bg-elementbBg_w relative rounded-xl cursor-pointer transition-all duration-300 ease-linear"
+              >
+                <span className="absolute m-2 font-pokefont text-xl z-10">
+                  {pokemonSerial(pokemon.id)}
+                </span>
+                <img
+                  src={pokemon.sprite}
+                  alt={pokemon.name.english}
+                  className="z-10 absolute top-[-15px]"
+                />
+                <h2 className="absolute bottom-0 w-full h-[30px] flex justify-center items-center  bg-elementbBg dark:bg-white rounded-xl z-20 transition-all duration-300 ease-linear">
+                  {pokemon.name.english}
+                </h2>
+                {/* function for type checking */}
+                <div className="flex z-0  overflow-hidden rounded-xl">
+                  {pokemon.type.length === 1 ? (
+                    <p
+                      className={`w-full h-[245px] flex justify-center items-end pb-4 ${
+                        pokeTypes[pokemon.type[0]].color
+                      } translate-y-[260px] transition-all duration-300 ease-linear`}
+                    >
+                      {pokemon.type[0]}
+                    </p>
+                  ) : (
+                    pokemon.type.map((type, ind) => (
+                      <p
+                        key={type + ind}
+                        className={`w-1/2 h-[245px] flex justify-center items-end pb-4 ${pokeTypes[type].color} translate-y-[260px] transition-all duration-300 ease-linear`}
+                      >
+                        {type}
+                      </p>
+                    ))
+                  )}
+                </div>
+              </div>
+            ))}
+        </div>
+      </dialog>
+    </>
   );
 }
