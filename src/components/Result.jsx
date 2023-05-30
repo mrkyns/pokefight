@@ -41,6 +41,17 @@ export default function Result({ isPlayerWinner, pokemon }) {
           </div>
         </>
       )}
+      <div className="font-pokefont relative">
+        <div className="text-9xl block">drawn</div>
+        <div className="w-[160px] text-3xl leading-7">at least no one lost</div>
+        <div>
+          <img
+            src="../images/pokeball.gif"
+            alt={pokemon.name.english}
+            className="absolute w-[160px] top-[85px] right-10"
+          />
+        </div>
+      </div>
     </div>
   );
 }
