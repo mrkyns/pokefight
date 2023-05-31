@@ -438,6 +438,7 @@ export default function Fight() {
               isPlayerWinner={victoriesPlayer.length > 3}
               isTie={victoriesPlayer.length === victoriesWild.length}
               pokemon={selectedPokemon}
+              points={appliedPoints}
             />
           )}
           {/* buttons to restart and to go to leader board */}

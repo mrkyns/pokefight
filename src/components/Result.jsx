@@ -1,4 +1,4 @@
-export default function Result({ isPlayerWinner, isTie, pokemon }) {
+export default function Result({ isPlayerWinner, isTie, pokemon, points }) {
   return (
     <div
       className="mb-16 flex flex-col gap-10 animate-appear"
@@ -11,6 +11,7 @@ export default function Result({ isPlayerWinner, isTie, pokemon }) {
             <div className="w-[160px] text-3xl leading-7">
               at least no one lost
             </div>
+            <div>{points} points</div>
             <div>
               <img
                 src="../images/pokeball.gif"
@@ -28,6 +29,7 @@ export default function Result({ isPlayerWinner, isTie, pokemon }) {
             <div className="w-[100px] text-3xl leading-7">
               winner poke dinner
             </div>
+            <div>{points} points</div>
             <div>
               <img
                 src={pokemon.sprite}
@@ -42,6 +44,7 @@ export default function Result({ isPlayerWinner, isTie, pokemon }) {
           <div className="font-pokefont relative">
             <div className="text-9xl block">defeat</div>
             <div className="w-[100px] text-3xl leading-7">ouch that hurt!</div>
+            <div>{points} points</div>
             <div>
               <img
                 src={pokemon.sprite}
