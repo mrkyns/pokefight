@@ -2,6 +2,7 @@ import LogoSm from "./LogoSm";
 import Result from "./Result";
 import { FightContext } from "../context/FightContext";
 import { useContext, useEffect, useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
 import FightStats from "./FightStats";
 
 export default function Fight() {
@@ -26,11 +27,13 @@ export default function Fight() {
   const [victoriesWild, setVictoriesWild] = useState([]);
   const [playerMultipliers, setPlayerMultipliers] = useState([]);
   const [wildMultipliers, setWildMultipliers] = useState([]);
+  const [appliedPoints, setAppliedPoints] = useState(0);
 
   const reset = async () => {
     await fetchWildPokemon();
     setBattleHasStarted(false);
     setSelectedPokemon({});
+    setAppliedPoints(0);
     winCountPlayer.current = 0;
     winCountWild.current = 0;
   };
@@ -101,6 +104,25 @@ export default function Fight() {
     });
     // console.log("Battle start: ", playerPoints, wildPoints);
 
+    const points = [
+      "HP",
+      "Attack",
+      "Defense",
+      "Sp. Attack",
+      "Sp. Defense",
+      "Speed",
+    ]
+      .map((stat, ind) => {
+        if (
+          playerPoints[ind] > wildPoints[ind] &&
+          selectedPokemon.base[stat] < randomWildPokemon.base[stat]
+        )
+          return 3;
+        if (playerPoints[ind] > wildPoints[ind]) return 1;
+        else return 0;
+      })
+      .reduce((acc, val) => acc + val, 0);
+
     const victoriesPLayerCalc = playerPoints.filter(
       (point, ind) => point > wildPoints[ind]
     );
@@ -110,6 +132,7 @@ export default function Fight() {
 
     console.log("victories");
 
+    setAppliedPoints(points);
     setVictoriesPlayer(victoriesPLayerCalc);
     setVictoriesWild(victoriesWildCalc);
 
@@ -122,7 +145,7 @@ export default function Fight() {
     const updatePlayerScores = async () => {
       const gameIsWon = victoriesPlayer.length > victoriesWild.length ? 1 : 0;
       const gameIsLost = victoriesPlayer.length < victoriesWild.length ? 1 : 0;
-      const points = victoriesPlayer.length > victoriesWild.length ? 1 : 0;
+      console.log("POINTS: ", appliedPoints);
       try {
         const res = await fetch("https://pokefight-api.onrender.com/players/", {
           method: "PUT",
@@ -134,7 +157,7 @@ export default function Fight() {
             name: playerName,
             wonGames: gameIsWon,
             lostGames: gameIsLost,
-            points: points,
+            points: appliedPoints,
           }),
         });
         const data = await res.json();
@@ -231,7 +254,9 @@ export default function Fight() {
             <span className="font-pokefont text-4xl">
               {playerNameSelected ? `${playerName}` : "Player"}
               {Object.keys(selectedPokemon).length > 0
-                ? `'s ${selectedPokemon.name.english}`
+                ? ["s", "x"].includes(playerName.at(-1))
+                  ? `' ${selectedPokemon.name.english}`
+                  : `'s ${selectedPokemon.name.english}`
                 : ""}
             </span>
             <span className="font-pokefont text-4xl">
@@ -423,9 +448,12 @@ export default function Fight() {
             >
               next fight
             </div>
-            <div className="w-[255px] h-[41px] bg-elementbBg bg-opacity-90 border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:shadow-shadow_w dark:hover:bg-pokefigt dark:hover:bg-opacity-50 dark:hover:border-pokefigt">
+            <NavLink
+              to={"/leaderboard"}
+              className="w-[255px] h-[41px] bg-elementbBg bg-opacity-90 border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:shadow-shadow_w dark:hover:bg-pokefigt dark:hover:bg-opacity-50 dark:hover:border-pokefigt"
+            >
               leaderboard
-            </div>
+            </NavLink>
           </div>
         </div>
       </div>

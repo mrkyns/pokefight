@@ -41,15 +41,15 @@ export default function FightStats({
               : `${Math.round(
                   ((wildPoints - playerPoints) / wildPoints) * 100
                 )}%`;
-          console.log(
-            stat,
-            " ",
-            playerPoints,
-            wildPoints,
-            statDiff,
-            winCountPlayer,
-            winCountWild
-          );
+          // console.log(
+          //   stat,
+          //   " ",
+          //   playerPoints,
+          //   wildPoints,
+          //   statDiff,
+          //   winCountPlayer,
+          //   winCountWild
+          // );
           return (
             <div
               key={stat + ind}
