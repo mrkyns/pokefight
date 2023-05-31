@@ -6,6 +6,10 @@ export default function FightContextProvider({ children }) {
   const [selectedPokemon, setSelectedPokemon] = useState({});
   const [selectablePokes, setSelectablePokes] = useState([]);
   const [randomWildPokemon, setRandomWildPokemon] = useState({});
+  const [playerName, setPlayerName] = useState("");
+  const [playerNameSelected, setPlayerNameSelected] = useState(false);
+
+  const [topPlayers, setTopPlayers] = useState([]);
 
   const fetchWildPokemon = async () => {
     const randomNum = Math.floor(Math.random() * 809);
@@ -29,6 +33,26 @@ export default function FightContextProvider({ children }) {
 
   const removeFromSelection = (pokemon) => {
     setSelectablePokes((prev) => prev.filter((poke) => poke.id !== pokemon.id));
+  };
+
+  const handlePlayerNameInput = (e) => {
+    setPlayerName(e.target.value);
+  };
+  const handlePlayerNameSubmit = (e) => {
+    e.preventDefault();
+    setPlayerName(e.target.children[0].value);
+    setPlayerNameSelected(true);
+  };
+
+  const fetchTopPlayers = async () => {
+    try {
+      const res = await fetch("https://pokefight-api.onrender.com/players/");
+      const data = await res.json();
+      if (!data.data.length) return;
+      setTopPlayers(data.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const multiplier = {
@@ -137,6 +161,14 @@ export default function FightContextProvider({ children }) {
         multiplier,
         addToSelection,
         removeFromSelection,
+        playerName,
+        setPlayerName,
+        playerNameSelected,
+        setPlayerNameSelected,
+        handlePlayerNameInput,
+        handlePlayerNameSubmit,
+        fetchTopPlayers,
+        topPlayers,
       }}
     >
       {children}
