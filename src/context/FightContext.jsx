@@ -27,6 +27,10 @@ export default function FightContextProvider({ children }) {
     else setSelectablePokes((prev) => [...prev.slice(1), pokemon]);
   };
 
+  const removeFromSelection = (pokemon) => {
+    setSelectablePokes((prev) => prev.filter((poke) => poke.id !== pokemon.id));
+  };
+
   const multiplier = {
     Bug: {
       half: ["Fighting", "Flying", "Poison", "Ghost", "Steel", "Fire", "Fairy"],
@@ -132,6 +136,7 @@ export default function FightContextProvider({ children }) {
         fetchWildPokemon,
         multiplier,
         addToSelection,
+        removeFromSelection,
       }}
     >
       {children}

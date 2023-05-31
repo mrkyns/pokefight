@@ -7,9 +7,12 @@ import { NavLink } from "react-router-dom";
 
 export default function Pokemon() {
   const { allPokemons, pokemonSerial } = useContext(DataContext);
-  const { addToSelection, selectablePokes } = useContext(FightContext);
+  const { addToSelection, selectablePokes, removeFromSelection } =
+    useContext(FightContext);
   const { id } = useParams();
-  const pokemon = allPokemons?.find((pokemon) => pokemon.id === Number(id));
+  const pokemon = [...allPokemons, ...selectablePokes]?.find(
+    (pokemon) => pokemon.id === Number(id)
+  );
   console.log(pokemon);
   const selectedRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -311,11 +314,13 @@ export default function Pokemon() {
                 <button
                   onClick={() => {
                     addToSelection(pokemon);
-                    selectedRef.current.classList.add("animate-ping");
+                    if (!selectablePokes.includes(pokemon)) {
+                      selectedRef.current.classList.add("animate-ping");
 
-                    setTimeout(() => {
-                      selectedRef.current.classList.remove("animate-ping");
-                    }, 325);
+                      setTimeout(() => {
+                        selectedRef.current.classList.remove("animate-ping");
+                      }, 325);
+                    }
                   }}
                   className={`h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w ${
                     pokeTypes[pokemon.type[0]].hover_bg
@@ -376,10 +381,21 @@ export default function Pokemon() {
         <div className="grid grid-cols-3 gap-4">
           {selectablePokes.length > 0 &&
             selectablePokes.map((pokemon) => (
-              <div
+              <NavLink
+                to={`/pokedex/${pokemon.id}`}
+                onClick={() => {
+                  setIsModalOpen(false);
+                  selectionModalRef.current.close();
+                }}
                 key={pokemon.name.french}
                 className="pokemon w-[230px] h-[250px] bg-pokemonBg dark:bg-elementbBg_w relative rounded-xl cursor-pointer transition-all duration-300 ease-linear"
               >
+                <button
+                  className="absolute -top-1 -right-1 bg-white py-1 px-2 z-50 rounded-3xl"
+                  onClick={() => removeFromSelection(pokemon)}
+                >
+                  remove
+                </button>
                 <span className="absolute m-2 font-pokefont text-xl z-10">
                   {pokemonSerial(pokemon.id)}
                 </span>
@@ -412,7 +428,7 @@ export default function Pokemon() {
                     ))
                   )}
                 </div>
-              </div>
+              </NavLink>
             ))}
         </div>
       </dialog>

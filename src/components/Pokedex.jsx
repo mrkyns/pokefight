@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 export default function Pokedex() {
   const { allPokemons, pokemonSerial, pokeAmount, page, setPage } =
     useContext(DataContext);
-  const { selectablePokes } = useContext(FightContext);
+  const { selectablePokes, removeFromSelection } = useContext(FightContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectionModalRef = useRef(null);
 
@@ -222,10 +222,21 @@ export default function Pokedex() {
         <div className="grid grid-cols-3 gap-4">
           {selectablePokes.length > 0 &&
             selectablePokes.map((pokemon) => (
-              <div
+              <NavLink
+                to={`/pokedex/${pokemon.id}`}
+                onClick={() => {
+                  setIsModalOpen(false);
+                  selectionModalRef.current.close();
+                }}
                 key={pokemon.name.french}
                 className="pokemon w-[230px] h-[250px] bg-pokemonBg dark:bg-elementbBg_w relative rounded-xl cursor-pointer transition-all duration-300 ease-linear"
               >
+                <button
+                  className="absolute -top-1 -right-1 bg-white py-1 px-2 z-50 rounded-3xl"
+                  onClick={() => removeFromSelection(pokemon)}
+                >
+                  remove
+                </button>
                 <span className="absolute m-2 font-pokefont text-xl z-10">
                   {pokemonSerial(pokemon.id)}
                 </span>
@@ -258,7 +269,7 @@ export default function Pokedex() {
                     ))
                   )}
                 </div>
-              </div>
+              </NavLink>
             ))}
         </div>
       </dialog>
