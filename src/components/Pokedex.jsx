@@ -222,7 +222,7 @@ export default function Pokedex() {
         <div className="grid grid-cols-3 gap-4">
           {selectablePokes.length > 0 &&
             selectablePokes.map((pokemon) => (
-              <NavLink
+              <div
                 to={`/pokedex/${pokemon.id}`}
                 onClick={() => {
                   setIsModalOpen(false);
@@ -237,39 +237,47 @@ export default function Pokedex() {
                 >
                   remove
                 </button>
-                <span className="absolute m-2 font-pokefont text-xl z-10">
-                  {pokemonSerial(pokemon.id)}
-                </span>
-                <img
-                  src={pokemon.sprite}
-                  alt={pokemon.name.english}
-                  className="z-10 absolute top-[-15px]"
-                />
-                <h2 className="absolute bottom-0 w-full h-[30px] flex justify-center items-center  bg-elementbBg dark:bg-white rounded-xl z-20 transition-all duration-300 ease-linear">
-                  {pokemon.name.english}
-                </h2>
-                {/* function for type checking */}
-                <div className="flex z-0  overflow-hidden rounded-xl">
-                  {pokemon.type.length === 1 ? (
-                    <p
-                      className={`w-full h-[245px] flex justify-center items-end pb-4 ${
-                        pokeTypes[pokemon.type[0]].color
-                      } translate-y-[260px] transition-all duration-300 ease-linear`}
-                    >
-                      {pokemon.type[0]}
-                    </p>
-                  ) : (
-                    pokemon.type.map((type, ind) => (
+                <NavLink
+                  to={`/pokedex/${pokemon.id}`}
+                  onClick={() => {
+                    setIsModalOpen(false);
+                    selectionModalRef.current.close();
+                  }}
+                >
+                  <span className="absolute m-2 font-pokefont text-xl z-10">
+                    {pokemonSerial(pokemon.id)}
+                  </span>
+                  <img
+                    src={pokemon.sprite}
+                    alt={pokemon.name.english}
+                    className="z-10 absolute top-[-15px]"
+                  />
+                  <h2 className="absolute bottom-0 w-full h-[30px] flex justify-center items-center  bg-elementbBg dark:bg-white rounded-xl z-20 transition-all duration-300 ease-linear">
+                    {pokemon.name.english}
+                  </h2>
+                  {/* function for type checking */}
+                  <div className="flex z-0  overflow-hidden rounded-xl">
+                    {pokemon.type.length === 1 ? (
                       <p
-                        key={type + ind}
-                        className={`w-1/2 h-[245px] flex justify-center items-end pb-4 ${pokeTypes[type].color} translate-y-[260px] transition-all duration-300 ease-linear`}
+                        className={`w-full h-[245px] flex justify-center items-end pb-4 ${
+                          pokeTypes[pokemon.type[0]].color
+                        } translate-y-[260px] transition-all duration-300 ease-linear`}
                       >
-                        {type}
+                        {pokemon.type[0]}
                       </p>
-                    ))
-                  )}
-                </div>
-              </NavLink>
+                    ) : (
+                      pokemon.type.map((type, ind) => (
+                        <p
+                          key={type + ind}
+                          className={`w-1/2 h-[245px] flex justify-center items-end pb-4 ${pokeTypes[type].color} translate-y-[260px] transition-all duration-300 ease-linear`}
+                        >
+                          {type}
+                        </p>
+                      ))
+                    )}
+                  </div>
+                </NavLink>
+              </div>
             ))}
         </div>
       </dialog>

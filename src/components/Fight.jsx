@@ -12,6 +12,11 @@ export default function Fight() {
     fetchWildPokemon,
     selectablePokes,
     multiplier,
+    playerName,
+    playerNameSelected,
+    handlePlayerNameInput,
+    handlePlayerNameSubmit,
+    fetchTopPlayers,
   } = useContext(FightContext);
 
   const winCountPlayer = useRef(0);
@@ -25,6 +30,7 @@ export default function Fight() {
   const reset = async () => {
     await fetchWildPokemon();
     setBattleHasStarted(false);
+    setSelectedPokemon({});
     winCountPlayer.current = 0;
     winCountWild.current = 0;
   };
@@ -110,6 +116,37 @@ export default function Fight() {
     setBattleHasStarted(true);
   };
 
+  useEffect(() => {
+    if (!battleHasStarted) return;
+
+    const updatePlayerScores = async () => {
+      const gameIsWon = victoriesPlayer.length > victoriesWild.length ? 1 : 0;
+      const gameIsLost = victoriesPlayer.length < victoriesWild.length ? 1 : 0;
+      const points = victoriesPlayer.length > victoriesWild.length ? 1 : 0;
+      try {
+        const res = await fetch("https://pokefight-api.onrender.com/players/", {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: playerName,
+            wonGames: gameIsWon,
+            lostGames: gameIsLost,
+            points: points,
+          }),
+        });
+        const data = await res.json();
+        console.log("update: ", data.data);
+        fetchTopPlayers();
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    updatePlayerScores();
+  }, [battleHasStarted]);
+
   const statAbbr = {
     HP: { abb: "hp", grad: "fight_stat_hp", color: "bg-[rgb(103,_168,_20)]" },
     Attack: {
@@ -191,7 +228,12 @@ export default function Fight() {
           </div>
           {/* player names */}
           <div className="w-full flex justify-between px-8 pt-5 pb-8">
-            <span className="font-pokefont text-4xl">Player</span>
+            <span className="font-pokefont text-4xl">
+              {playerNameSelected ? `${playerName}` : "Player"}
+              {Object.keys(selectedPokemon).length > 0
+                ? `'s ${selectedPokemon.name.english}`
+                : ""}
+            </span>
             <span className="font-pokefont text-4xl">
               A wild{" "}
               {Object.keys(randomWildPokemon).length > 0
@@ -262,6 +304,22 @@ export default function Fight() {
                   ))}
               </div>
             </div>
+            {!battleHasStarted && !playerNameSelected && (
+              <form onSubmit={handlePlayerNameSubmit}>
+                <input
+                  type="text"
+                  name="search"
+                  id="search"
+                  autoFocus="true"
+                  spellCheck="false"
+                  onChange={handlePlayerNameInput}
+                  value={playerName}
+                  className="text-elementbBg"
+                />
+                <button>Go!</button>
+              </form>
+            )}
+
             {/* pokemon fight stats */}
             {Object.keys(selectedPokemon).length > 0 &&
               Object.keys(randomWildPokemon).length > 0 &&
