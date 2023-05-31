@@ -281,7 +281,7 @@ export default function Pokemon() {
                       selectionModalRef.current.show();
                     }}
                     ref={selectedRef}
-                    className="relative dark:text-white text-5xl w-[80px] poke_l:w-[90px] h-[70px] rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:shadow-shadow_w cursor-pointer"
+                    className="relative flex justify-center items-center dark:text-white text-5xl w-[80px] poke_l:w-[90px] h-[70px] rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:shadow-shadow_w cursor-pointer"
                   >
                     {selectablePokes.length > 0 ? (
                       <img
@@ -292,7 +292,11 @@ export default function Pokemon() {
                         }
                       />
                     ) : (
-                      <img src="../images/001.png" alt="1st selected pokemon" />
+                      <img
+                        src="../images/openball.png"
+                        alt="1st selected pokemon"
+                        className="w-[90%]"
+                      />
                     )}
                     <span
                       className={`absolute top-[-12px] right-[-12px] flex justify-center items-center ${
