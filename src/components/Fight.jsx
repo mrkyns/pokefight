@@ -353,7 +353,7 @@ export default function Fight() {
           {battleHasStarted && (
             <Result
               isPlayerWinner={victoriesPlayer.length > 3}
-              isTie={victoriesPlayer.length === 3}
+              isTie={victoriesPlayer.length === victoriesWild.length}
               pokemon={selectedPokemon}
             />
           )}

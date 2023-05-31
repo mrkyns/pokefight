@@ -94,7 +94,7 @@ export default function FightStats({
                 alt=""
                 className={`absolute w-[28px] ${
                   playerPoints === wildPoints
-                    ? "left-0 right-0"
+                    ? "left-[180px]"
                     : playerPoints > wildPoints
                     ? "left-[-10px]"
                     : "right-[-10px]"
