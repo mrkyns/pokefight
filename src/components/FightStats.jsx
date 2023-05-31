@@ -4,26 +4,48 @@ export default function FightStats({
   winCountPlayer,
   winCountWild,
   statAbbr,
+  wildMultipliers,
+  playerMultipliers,
 }) {
   console.log("start");
+
+  console.log("Pl: ", playerMultipliers, "Wi: ", wildMultipliers);
+
   return (
     <div className="flex flex-col justify-between">
       {["HP", "Attack", "Defense", "Sp. Attack", "Sp. Defense", "Speed"].map(
         (stat, ind) => {
-          const winner = player.base[stat] > wild.base[stat] ? player : wild;
-          player.base[stat] > wild.base[stat]
-            ? winCountPlayer.current++
-            : winCountWild.current++;
-          const statDiff = `${Math.round(
-            (Math.abs(player.base[stat] - wild.base[stat]) /
-              winner.base[stat]) *
-              100
-          )}%`;
+          const playerPoints =
+            playerMultipliers.length === 0
+              ? player.base[stat]
+              : playerMultipliers.reduce(
+                  (acc, val) => acc * val,
+                  player.base[stat]
+                );
+          const wildPoints =
+            wildMultipliers.length === 0
+              ? wild.base[stat]
+              : wildMultipliers.reduce(
+                  (acc, val) => acc * val,
+                  wild.base[stat]
+                );
+
+          if (playerPoints > wildPoints) winCountPlayer.current += 1;
+          if (playerPoints < wildPoints) winCountWild.current += 1;
+
+          const statDiff =
+            playerPoints > wildPoints
+              ? `${Math.round(
+                  ((playerPoints - wildPoints) / playerPoints) * 100
+                )}%`
+              : `${Math.round(
+                  ((wildPoints - playerPoints) / wildPoints) * 100
+                )}%`;
           console.log(
             stat,
             " ",
-            player.base[stat],
-            wild.base[stat],
+            playerPoints,
+            wildPoints,
             statDiff,
             winCountPlayer,
             winCountWild
@@ -40,9 +62,7 @@ export default function FightStats({
                 <div
                   className={`absolute h-[24px] right-0 rounded-s-xl bg-transparent `}
                   style={{
-                    width: `${
-                      player.base[stat] > wild.base[stat] ? statDiff : "0"
-                    }`,
+                    width: `${playerPoints > wildPoints ? statDiff : "0"}`,
                   }}
                 >
                   <div
@@ -55,9 +75,7 @@ export default function FightStats({
                 <div
                   className={`absolute  h-[24px] left-0 rounded-e-xl bg-transparent`}
                   style={{
-                    width: `${
-                      player.base[stat] < wild.base[stat] ? statDiff : "0"
-                    }`,
+                    width: `${playerPoints < wildPoints ? statDiff : "0"}`,
                     animationDelay: `${ind * 750}ms`,
                   }}
                 >
@@ -75,7 +93,9 @@ export default function FightStats({
                 src="../images/win.png"
                 alt=""
                 className={`absolute w-[28px] ${
-                  player.base[stat] > wild.base[stat]
+                  playerPoints === wildPoints
+                    ? "left-0 right-0"
+                    : playerPoints > wildPoints
                     ? "left-[-10px]"
                     : "right-[-10px]"
                 } `}

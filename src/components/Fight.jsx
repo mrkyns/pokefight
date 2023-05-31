@@ -1,7 +1,6 @@
 import LogoSm from "./LogoSm";
 import Result from "./Result";
 import { FightContext } from "../context/FightContext";
-import { DataContext } from "../context/DataContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import FightStats from "./FightStats";
 
@@ -12,15 +11,16 @@ export default function Fight() {
     randomWildPokemon,
     fetchWildPokemon,
     selectablePokes,
-    // setSelectablePokes,
+    multiplier,
   } = useContext(FightContext);
-  const { pokemonSerial } = useContext(DataContext);
 
-  const selectionModalRef = useRef(null);
   const winCountPlayer = useRef(0);
   const winCountWild = useRef(0);
   const [battleHasStarted, setBattleHasStarted] = useState(false);
   const [victoriesPlayer, setVictoriesPlayer] = useState([]);
+  const [victoriesWild, setVictoriesWild] = useState([]);
+  const [playerMultipliers, setPlayerMultipliers] = useState([]);
+  const [wildMultipliers, setWildMultipliers] = useState([]);
 
   const reset = async () => {
     await fetchWildPokemon();
@@ -31,87 +31,82 @@ export default function Fight() {
 
   useEffect(() => {
     if (Object.keys(selectedPokemon).length > 0)
-      setVictoriesPlayer(
-        [
-          "HP",
-          "Attack",
-          "Defense",
-          "Sp. Attack",
-          "Sp. Defense",
-          "Speed",
-        ].filter(
-          (type) => selectedPokemon?.base[type] > randomWildPokemon?.base[type]
+      setPlayerMultipliers(
+        randomWildPokemon.type.flatMap((wildType) =>
+          selectedPokemon.type.map((playerType) => {
+            if (multiplier[playerType].half.includes(wildType)) return 0.75;
+            if (multiplier[playerType].double.includes(wildType)) return 1.5;
+            if (multiplier[playerType].zero.includes(wildType)) return 0.125;
+            return 1;
+          })
         )
       );
-  }, [selectedPokemon]);
+    if (
+      Object.keys(randomWildPokemon).length > 0 &&
+      Object.keys(selectedPokemon).length > 0
+    )
+      setWildMultipliers(
+        selectedPokemon.type.flatMap((playerType) =>
+          randomWildPokemon.type.map((wildType) => {
+            if (multiplier[wildType].half.includes(playerType)) return 0.75;
+            if (multiplier[wildType].double.includes(playerType)) return 1.5;
+            if (multiplier[wildType].zero.includes(playerType)) return 0.125;
+            return 1;
+          })
+        )
+      );
+  }, [selectedPokemon, randomWildPokemon, multiplier]);
 
   useEffect(() => {
     reset();
   }, []);
 
-  const pokeTypes = {
-    Bug: {
-      color: "bg-bug",
-    },
-    Dark: {
-      color: "bg-dark",
-    },
-    Dragon: {
-      color: "bg-dragon",
-    },
-    Electric: {
-      color: "bg-electric",
-    },
-    Fairy: {
-      color: "bg-fairy",
-    },
-    Fighting: {
-      color: "bg-fighting",
-    },
-    Fire: {
-      color: "bg-fire",
-    },
-    Flying: {
-      color: "bg-flying",
-    },
-    Ghost: {
-      color: "bg-ghost",
-    },
-    Grass: {
-      color: "bg-grass",
-    },
-    Ground: {
-      color: "bg-ground",
-    },
-    Ice: {
-      color: "bg-ice",
-    },
-    Normal: {
-      color: "bg-normal",
-    },
-    Poison: {
-      color: "bg-poison",
-    },
-    Psychic: {
-      color: "bg-psyhic",
-    },
-    Rock: {
-      color: "bg-rock",
-    },
-    Steel: {
-      color: "bg-steel",
-    },
-    Water: {
-      color: "bg-water",
-    },
-  };
-
   const startBattle = () => {
-    setVictoriesPlayer(
-      ["HP", "Attack", "Defense", "Sp. Attack", "Sp. Defense", "Speed"].filter(
-        (type) => selectedPokemon?.base[type] > randomWildPokemon?.base[type]
-      )
+    const playerPoints = [
+      "HP",
+      "Attack",
+      "Defense",
+      "Sp. Attack",
+      "Sp. Defense",
+      "Speed",
+    ].map((stat, ind) => {
+      return playerMultipliers.length === 0
+        ? selectedPokemon.base[stat]
+        : playerMultipliers.reduce(
+            (acc, val) => acc * val,
+            selectedPokemon.base[stat]
+          );
+    });
+
+    const wildPoints = [
+      "HP",
+      "Attack",
+      "Defense",
+      "Sp. Attack",
+      "Sp. Defense",
+      "Speed",
+    ].map((stat, ind) => {
+      return wildMultipliers.length === 0
+        ? randomWildPokemon.base[stat]
+        : wildMultipliers.reduce(
+            (acc, val) => acc * val,
+            randomWildPokemon.base[stat]
+          );
+    });
+    // console.log("Battle start: ", playerPoints, wildPoints);
+
+    const victoriesPLayerCalc = playerPoints.filter(
+      (point, ind) => point > wildPoints[ind]
     );
+    const victoriesWildCalc = wildPoints.filter(
+      (point, ind) => point > playerPoints[ind]
+    );
+
+    console.log("victories");
+
+    setVictoriesPlayer(victoriesPLayerCalc);
+    setVictoriesWild(victoriesWildCalc);
+
     setBattleHasStarted(true);
   };
 
@@ -167,6 +162,7 @@ export default function Fight() {
             {selectablePokes.length > 0 &&
               selectablePokes.map((poke, ind) => (
                 <div
+                  key={poke.name.english + ind}
                   onClick={() => {
                     setSelectedPokemon(poke);
                     setBattleHasStarted(false);
@@ -276,6 +272,8 @@ export default function Fight() {
                   winCountPlayer={winCountPlayer}
                   winCountWild={winCountWild}
                   statAbbr={statAbbr}
+                  wildMultipliers={wildMultipliers}
+                  playerMultipliers={playerMultipliers}
                 />
               )}
             {/* Wild Pokemon */}
@@ -296,29 +294,18 @@ export default function Fight() {
                 )}
               </div>
               {battleHasStarted && (
-                <div className="w-[240px] flex justify-center gap-2 absolute bottom-[-15px] pointer-events-none">
-                  {[
-                    "HP",
-                    "Attack",
-                    "Defense",
-                    "Sp. Attack",
-                    "Sp. Defense",
-                    "Speed",
-                  ]
-                    .filter(
-                      (type) =>
-                        selectedPokemon.base[type] <
-                        randomWildPokemon.base[type]
-                    )
-                    .map((time, ind) => (
+                <div className="w-[240px] flex justify-center gap-2 absolute bottom-[-15px] pointer-events-none z-10">
+                  {victoriesWild.map((time, ind) => {
+                    return (
                       <img
-                        key={time + ind}
+                        key={time + ind + "wild"}
                         src="../images/win.png"
                         alt=""
                         className="w-[32px] animate-appear"
                         style={{ animationDelay: "4.5s" }}
                       />
-                    ))}
+                    );
+                  })}
                 </div>
               )}
 
