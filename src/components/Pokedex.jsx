@@ -152,7 +152,7 @@ export default function Pokedex() {
             </div>
 
             {/* List of Pokemons */}
-            {Object.keys(allPokemons).length > 0 &&
+            {allPokemons.length > 0 &&
               allPokemons?.map(
                 (pokemon, ind) =>
                   ind < 12 && (
