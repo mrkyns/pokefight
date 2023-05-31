@@ -104,7 +104,7 @@ export default function Pokedex() {
                   setIsModalOpen(true);
                   selectionModalRef.current.show();
                 }}
-                className="relative dark:text-white text-5xl w-[90px] poke_l:w-[100px] h-[80px] rounded-xl bg-pokedex border-2 border-pokedex bg-opacity-50 shadow-shadow dark:shadow-shadow_w cursor-pointer"
+                className="flex justify-center items-center relative dark:text-white text-5xl w-[90px] poke_l:w-[100px] h-[80px] rounded-xl bg-pokedex border-2 border-pokedex bg-opacity-50 shadow-shadow dark:shadow-shadow_w cursor-pointer"
               >
                 {selectablePokes.length > 0 ? (
                   <img
@@ -114,7 +114,11 @@ export default function Pokedex() {
                     }
                   />
                 ) : (
-                  <img src="../images/001.png" alt="1st selected pokemon" />
+                  <img
+                    src="../images/openball.png"
+                    alt="1st selected pokemon"
+                    className="w-[90%]"
+                  />
                 )}
 
                 <span className="absolute top-[-12px] right-[-12px] flex justify-center items-center bg-elementbBg w-[25px] p-1 rounded-full text-[16px]">
