@@ -11,8 +11,10 @@ export default function FightContextProvider({ children }) {
   const [playerNameSelected, setPlayerNameSelected] = useState(false);
 
   const [topPlayers, setTopPlayers] = useState([]);
-
   const { allPokemons, setAllPokemons } = useContext(DataContext);
+
+  // loading variables for seting loader
+  const [leaderLoading, setLeaderLoading] = useState(true);
 
   const fetchWildPokemon = async () => {
     const randomNum = Math.floor(Math.random() * 809);
@@ -57,6 +59,7 @@ export default function FightContextProvider({ children }) {
       const data = await res.json();
       if (!data.data.length) return;
       setTopPlayers(data.data);
+      setLeaderLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -176,6 +179,7 @@ export default function FightContextProvider({ children }) {
         handlePlayerNameSubmit,
         fetchTopPlayers,
         topPlayers,
+        leaderLoading,
       }}
     >
       {children}

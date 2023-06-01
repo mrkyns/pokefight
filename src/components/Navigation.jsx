@@ -13,7 +13,7 @@ export default function Navigation() {
   const [searchCheck, setSearchCheck] = useState(false);
   const [input, setInput] = useState("");
   const inputRef = useRef(null);
-  const { setSingleSearch } = useContext(DataContext);
+  const { setSingleSearch, setPokemonLoading } = useContext(DataContext);
   const { toggleDarkMode } = useContext(ThemeContext);
 
   const handleInput = (event) => {
@@ -26,6 +26,7 @@ export default function Navigation() {
     setInput("");
     inputRef.current.value = "";
     setSearchCheck(false);
+    setPokemonLoading(true);
   };
 
   // checking for color change on search navigation button
@@ -36,23 +37,23 @@ export default function Navigation() {
   useEffect(() => {
     if (pathname.includes("pokedex")) {
       setNav(
-        "nav_pokedex relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl"
+        "nav_pokedex relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl focus:outline-none dark:focus:outline-none"
       );
     } else if (pathname.includes("fight")) {
       setNav(
-        "nav_fight relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl"
+        "nav_fight relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl focus:outline-none dark:focus:outline-none"
       );
     } else if (pathname.includes("creators")) {
       setNav(
-        "nav_creator relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl"
+        "nav_creator relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl focus:outline-none dark:focus:outline-none"
       );
     } else if (pathname.includes("leaderboard")) {
       setNav(
-        "nav_leader relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl"
+        "nav_leader relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl focus:outline-none dark:focus:outline-none"
       );
     } else {
       setNav(
-        "nav_default relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl"
+        "nav_default relative flex justify-center items-center no-underline w-[40px] h-[30px] bg-pokemonBg dark:bg-bgColor rounded-se-xl focus:outline-none dark:focus:outline-none"
       );
     }
   }, [pathname]);

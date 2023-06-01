@@ -24,6 +24,11 @@ export default function DataContextProvider({ children }) {
 
   const [creators, setCreators] = useState({});
 
+  // loading variables for seting loader
+  const [allPokemonsLoading, setAllPokemonsLoading] = useState(true);
+  const [creatorsLoading, setCreatorsLoading] = useState(true);
+  const [pokemonLoading, setPokemonLoading] = useState(false);
+
   const [checkedTypes, setCheckedTypes] = useState(IQO.type);
   const [minHP, setMinHP] = useState(IQO.minHP);
   const [maxHP, setMaxHP] = useState(IQO.maxHP);
@@ -106,6 +111,7 @@ export default function DataContextProvider({ children }) {
       const data = await res.json();
 
       setCreators(data.data);
+      setCreatorsLoading(false);
     };
     fetchCreators();
   }, []);
@@ -131,6 +137,7 @@ export default function DataContextProvider({ children }) {
         console.log("amount: ", data.amount);
         setAllPokemons(data.data);
         setPokeAmount(data.amount);
+        setAllPokemonsLoading(false);
       } catch (error) {
         console.log(error.message);
       }
@@ -142,11 +149,11 @@ export default function DataContextProvider({ children }) {
   console.log(allPokemons);
   // // console.log(creators);
 
-  //function to create serial nummer for pokemon pokemonSerial(pokemon.id)
+  //function to create serial number for pokemon pokemonSerial(pokemon.id)
   const pokemonSerial = (id) => {
-    if (id?.length === 3) {
+    if (String(id)?.length === 3) {
       return `#0${id}`;
-    } else if (id?.length === 2) {
+    } else if (String(id)?.length === 2) {
       return `#00${id}`;
     } else {
       return `#000${id}`;
@@ -167,6 +174,7 @@ export default function DataContextProvider({ children }) {
       if (!data.data.length) return;
       setAllPokemons((prev) => [...prev, data.data[0]]);
       setPokeAmount((prev) => prev++);
+      setPokemonLoading(false);
       navigate(`/pokedex/${data.data[0].id}`);
     };
     fetchOne(singleSearch);
@@ -210,6 +218,10 @@ export default function DataContextProvider({ children }) {
         setSingleSearch,
         pokeAmount,
         setPokeAmount,
+        allPokemonsLoading,
+        creatorsLoading,
+        pokemonLoading,
+        setPokemonLoading,
       }}
     >
       {children}

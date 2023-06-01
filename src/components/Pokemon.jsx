@@ -29,6 +29,7 @@ export default function Pokemon() {
     Bug: {
       color: "bg-bug",
       text: "text-bug",
+      border: "border-bug",
       hover_bg: "hover:bg-bug",
       hover_b: "hover:border-bug",
       dark_hover_bg: "dark:hover:bg-bug",
@@ -37,6 +38,7 @@ export default function Pokemon() {
     Dark: {
       color: "bg-dark",
       text: "text-dark",
+      border: "border-dark",
       hover_bg: "hover:bg-dark",
       hover_b: "hover:border-dark",
       dark_hover_bg: "dark:hover:bg-dark",
@@ -45,6 +47,7 @@ export default function Pokemon() {
     Dragon: {
       color: "bg-dragon",
       text: "text-dragon",
+      border: "border-dragon",
       hover_bg: "hover:bg-dragon",
       hover_b: "hover:border-dragon",
       dark_hover_bg: "dark:hover:bg-dragon",
@@ -53,6 +56,7 @@ export default function Pokemon() {
     Electric: {
       color: "bg-electric",
       text: "text-electric",
+      border: "border-electric",
       hover_bg: "hover:bg-electric",
       hover_b: "hover:border-electric",
       dark_hover_bg: "dark:hover:bg-electric",
@@ -61,6 +65,7 @@ export default function Pokemon() {
     Fairy: {
       color: "bg-fairy",
       text: "text-fairy",
+      border: "border-fairy",
       hover_bg: "hover:bg-fairy",
       hover_b: "hover:border-fairy",
       dark_hover_bg: "dark:hover:bg-fairy",
@@ -69,6 +74,7 @@ export default function Pokemon() {
     Fighting: {
       color: "bg-fighting",
       text: "text-fighting",
+      border: "border-fighting",
       hover_bg: "hover:bg-fighting",
       hover_b: "hover:border-fighting",
       dark_hover_bg: "dark:hover:bg-fighting",
@@ -77,6 +83,7 @@ export default function Pokemon() {
     Fire: {
       color: "bg-fire",
       text: "text-fire",
+      border: "border-fire",
       hover_bg: "hover:bg-fire",
       hover_b: "hover:border-fire",
       dark_hover_bg: "dark:hover:bg-fire",
@@ -85,6 +92,7 @@ export default function Pokemon() {
     Flying: {
       color: "bg-flying",
       text: "text-flying",
+      border: "border-flying",
       hover_bg: "hover:bg-flying",
       hover_b: "hover:border-flying",
       dark_hover_bg: "dark:hover:bg-flying",
@@ -93,6 +101,7 @@ export default function Pokemon() {
     Ghost: {
       color: "bg-ghost",
       text: "text-ghost",
+      border: "border-ghost",
       hover_bg: "hover:bg-ghost",
       hover_b: "hover:border-ghost",
       dark_hover_bg: "dark:hover:bg-ghost",
@@ -101,6 +110,7 @@ export default function Pokemon() {
     Grass: {
       color: "bg-grass",
       text: "text-grass",
+      border: "border-grass",
       hover_bg: "hover:bg-grass",
       hover_b: "hover:border-grass",
       dark_hover_bg: "dark:hover:bg-grass",
@@ -109,6 +119,7 @@ export default function Pokemon() {
     Ground: {
       color: "bg-ground",
       text: "text-ground",
+      border: "border-ground",
       hover_bg: "hover:bg-ground",
       hover_b: "hover:border-ground",
       dark_hover_bg: "dark:hover:bg-ground",
@@ -117,6 +128,7 @@ export default function Pokemon() {
     Ice: {
       color: "bg-ice",
       text: "text-ice",
+      border: "border-ice",
       hover_bg: "hover:bg-ice",
       hover_b: "hover:border-ice",
       dark_hover_bg: "dark:hover:bg-ice",
@@ -125,6 +137,7 @@ export default function Pokemon() {
     Normal: {
       color: "bg-normal",
       text: "text-normal",
+      border: "border-normal",
       hover_bg: "hover:bg-normal",
       hover_b: "hover:border-normal",
       dark_hover_bg: "dark:hover:bg-normal",
@@ -133,6 +146,7 @@ export default function Pokemon() {
     Poison: {
       color: "bg-poison",
       text: "text-poison",
+      border: "border-poison",
       hover_bg: "hover:bg-poison",
       hover_b: "hover:border-poison",
       dark_hover_bg: "dark:hover:bg-poison",
@@ -141,6 +155,7 @@ export default function Pokemon() {
     Psychic: {
       color: "bg-psyhic",
       text: "text-psyhic",
+      border: "border-psyhic",
       hover_bg: "hover:bg-psyhic",
       hover_b: "hover:border-psyhic",
       dark_hover_bg: "dark:hover:bg-psyhic",
@@ -149,6 +164,7 @@ export default function Pokemon() {
     Rock: {
       color: "bg-rock",
       text: "text-rock",
+      border: "border-rock",
       hover_bg: "hover:bg-rock",
       hover_b: "hover:border-rock",
       dark_hover_bg: "dark:hover:bg-rock",
@@ -157,6 +173,7 @@ export default function Pokemon() {
     Steel: {
       color: "bg-steel",
       text: "text-steel",
+      border: "border-steel",
       hover_bg: "hover:bg-steel",
       hover_b: "hover:border-steel",
       dark_hover_bg: "dark:hover:bg-steel",
@@ -165,6 +182,7 @@ export default function Pokemon() {
     Water: {
       color: "bg-water",
       text: "text-water",
+      border: "border-water",
       hover_bg: "hover:bg-water",
       hover_b: "hover:border-water",
       dark_hover_bg: "dark:hover:bg-water",
@@ -291,7 +309,7 @@ export default function Pokemon() {
                       selectionModalRef.current.show();
                     }}
                     ref={selectedRef}
-                    className="relative flex justify-center items-center dark:text-white text-5xl w-[80px] poke_l:w-[90px] h-[70px] rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow dark:shadow-shadow_w cursor-pointer"
+                    className="relative flex justify-center items-center dark:text-white text-5xl w-[80px] poke_l:w-[90px] h-[70px] rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow cursor-pointer dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w"
                   >
                     {selectablePokes.length > 0 ? (
                       <img
@@ -400,20 +418,20 @@ export default function Pokemon() {
       )}
       {/* Selection Dialog */}
       <dialog
-        className={`${
-          pokeTypes[pokemon.type[0]].color
-        } rounded-xl top-64 absolute z-50 `}
+        className={`${pokeTypes[pokemon.type[0]].color} ${
+          pokeTypes[pokemon.type[0]].border
+        } bg-opacity-50 border-2 rounded-xl top-64 absolute z-50 shadow-shadow_w dark:shadow-shadow_w `}
         ref={selectionModalRef}
       >
-        <div className="grid grid-cols-3 gap-4">
-          {selectablePokes.length > 0 &&
+        <div className="max-w-[700px] flex flex-wrap justify-center items-center gap-4">
+          {selectablePokes.length > 0 ? (
             selectablePokes.map((pokemon) => (
               <div
                 key={pokemon.name.french}
                 className="pokemon w-[230px] h-[250px] bg-pokemonBg dark:bg-elementbBg_w relative rounded-xl cursor-pointer transition-all duration-300 ease-linear"
               >
                 <button
-                  className="absolute -top-1 -right-1 bg-white py-1 px-2 z-50 rounded-3xl"
+                  className="absolute -top-1 -right-1 bg-white py-1 px-2 z-50 rounded-3xl hover:bg-pokefigt hover:text-white transition-all duration-300 ease-linear"
                   onClick={() => removeFromSelection(pokemon)}
                 >
                   remove
@@ -459,7 +477,14 @@ export default function Pokemon() {
                   </div>
                 </NavLink>
               </div>
-            ))}
+            ))
+          ) : (
+            <img
+              src="../images/openball.png"
+              alt="no selected pokemon"
+              className="w-[230px]"
+            />
+          )}
         </div>
       </dialog>
     </>

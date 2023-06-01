@@ -330,7 +330,10 @@ export default function Fight() {
               </div>
             </div>
             {!battleHasStarted && !playerNameSelected && (
-              <form onSubmit={handlePlayerNameSubmit}>
+              <form
+                onSubmit={handlePlayerNameSubmit}
+                className="flex flex-col gap-4"
+              >
                 <input
                   type="text"
                   name="search"
@@ -339,9 +342,11 @@ export default function Fight() {
                   spellCheck="false"
                   onChange={handlePlayerNameInput}
                   value={playerName}
-                  className="text-elementbBg"
+                  className=" px-3 font-pokefont text-2xl w-[390px] h-[60px] bg-elementbBg bg-opacity-90 border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt focus:bg-pokefigt focus:bg-opacity-50 focus:border-pokefigt dark:focus:bg-pokefigt dark:focus:bg-opacity-50 dark:focus:border-pokefigt dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:shadow-shadow_w dark:hover:bg-pokefigt dark:hover:bg-opacity-50 dark:hover:border-pokefigt focus:outline-none"
                 />
-                <button>Go!</button>
+                <button className="[390px] h-[40px] bg-elementbBg bg-opacity-90 border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:shadow-shadow_w dark:hover:bg-pokefigt dark:hover:bg-opacity-50 dark:hover:border-pokefigt">
+                  Enter your name!
+                </button>
               </form>
             )}
 
@@ -445,7 +450,7 @@ export default function Fight() {
           <div className="flex gap-4 absolute bottom-[-20px]">
             <div
               onClick={reset}
-              className="w-[255px] h-[41px] bg-elementbBg bg-opacity-90 border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w "
+              className="w-[255px] h-[41px] bg-elementbBg bg-opacity-90 border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:shadow-shadow_w "
             >
               next fight
             </div>
