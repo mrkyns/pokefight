@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { DataContext } from "./DataContext";
 
 export const FightContext = createContext();
@@ -9,11 +9,12 @@ export default function FightContextProvider({ children }) {
   const [randomWildPokemon, setRandomWildPokemon] = useState({});
   const [playerName, setPlayerName] = useState("");
   const [playerNameSelected, setPlayerNameSelected] = useState(false);
+  const [catchedPokemon, setCatchedPokemon] = useState([]);
 
   const [topPlayers, setTopPlayers] = useState([]);
   const { allPokemons, setAllPokemons } = useContext(DataContext);
 
-  // loading variables for seting loader
+  // loading variables for settings loader
   const [leaderLoading, setLeaderLoading] = useState(true);
 
   const fetchWildPokemon = async () => {
@@ -49,13 +50,16 @@ export default function FightContextProvider({ children }) {
   };
   const handlePlayerNameSubmit = (e) => {
     e.preventDefault();
-    setPlayerName(e.target.children[0].value);
+    setPlayerName(
+      e.target.children[0].value[0].toUpperCase() +
+        e.target.children[0].value.slice(1).toLowerCase()
+    );
     setPlayerNameSelected(true);
   };
 
   const fetchTopPlayers = async () => {
     try {
-      const res = await fetch("https://pokefight-api.onrender.com/players/");
+      const res = await fetch("https://pokefight-api.onrender.com/players/top");
       const data = await res.json();
       if (!data.data.length) return;
       setTopPlayers(data.data);
@@ -63,6 +67,28 @@ export default function FightContextProvider({ children }) {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  useEffect(() => {
+    const fetchPlayersPokemons = async (playerName) => {
+      const res = await fetch(
+        `https://pokefight-api.onrender.com/players/${playerName}`
+      );
+      const data = await res.json();
+      setCatchedPokemon(data.data);
+      console.log("Data for player: ", data);
+    };
+
+    if (playerNameSelected) fetchPlayersPokemons(playerName);
+  }, [playerNameSelected, playerName]);
+
+  const catchPokemon = async (playerName, pokeId) => {
+    const res = await fetch(
+      `https://pokefight-api.onrender.com/players/${playerName}/${pokeId}`,
+      { method: "PUT" }
+    );
+    const data = await res.json();
+    setCatchedPokemon(data.data);
   };
 
   const multiplier = {
@@ -180,6 +206,8 @@ export default function FightContextProvider({ children }) {
         fetchTopPlayers,
         topPlayers,
         leaderLoading,
+        catchPokemon,
+        catchedPokemon,
       }}
     >
       {children}
