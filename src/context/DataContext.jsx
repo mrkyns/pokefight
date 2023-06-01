@@ -180,6 +180,7 @@ export default function DataContextProvider({ children }) {
       value={{
         IQO,
         allPokemons,
+        setAllPokemons,
         creators,
         checkedTypes,
         setCheckedTypes,

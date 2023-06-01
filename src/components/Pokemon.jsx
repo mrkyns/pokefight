@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import LogoSm from "./LogoSm";
 import { DataContext } from "../context/DataContext";
 import { FightContext } from "../context/FightContext";
@@ -17,6 +17,13 @@ export default function Pokemon() {
   const selectedRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectionModalRef = useRef(null);
+  const [isInSelection, setIsInSelection] = useState(false);
+
+  useEffect(() => {
+    const pokemonIsInSelection =
+      selectablePokes.filter((poke) => poke.id === pokemon.id).length === 1;
+    setIsInSelection(pokemonIsInSelection);
+  }, [selectablePokes]);
 
   const pokeTypes = {
     Bug: {
@@ -311,27 +318,47 @@ export default function Pokemon() {
                   </div>
                 </div>
                 {/* select pokemon button */}
-                <button
-                  onClick={() => {
-                    addToSelection(pokemon);
-                    if (!selectablePokes.includes(pokemon)) {
-                      selectedRef.current.classList.add("animate-ping");
+                {isInSelection ? (
+                  <button
+                    className={`h-[70px] flex justify-center items-center font-pokefont text-3xl ${
+                      pokeTypes[pokemon.type[0]].color
+                    } bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w ${
+                      pokeTypes[pokemon.type[0]].hover_bg
+                    } hover:bg-opacity-50 ${
+                      pokeTypes[pokemon.type[0]].hover_b
+                    } ${
+                      pokeTypes[pokemon.type[0]].dark_hover_bg
+                    } dark:hover:bg-opacity-50 ${
+                      pokeTypes[pokemon.type[0]].dark_hover_b
+                    }`}
+                  >
+                    pokemon selected
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      addToSelection(pokemon);
+                      if (!selectablePokes.includes(pokemon)) {
+                        selectedRef.current.classList.add("animate-ping");
 
-                      setTimeout(() => {
-                        selectedRef.current.classList.remove("animate-ping");
-                      }, 325);
-                    }
-                  }}
-                  className={`h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w ${
-                    pokeTypes[pokemon.type[0]].hover_bg
-                  } hover:bg-opacity-50 ${pokeTypes[pokemon.type[0]].hover_b} ${
-                    pokeTypes[pokemon.type[0]].dark_hover_bg
-                  } dark:hover:bg-opacity-50 ${
-                    pokeTypes[pokemon.type[0]].dark_hover_b
-                  } cursor-pointer dark:cursor-pointer`}
-                >
-                  select pokemon
-                </button>
+                        setTimeout(() => {
+                          selectedRef.current.classList.remove("animate-ping");
+                        }, 325);
+                      }
+                    }}
+                    className={`h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w ${
+                      pokeTypes[pokemon.type[0]].hover_bg
+                    } hover:bg-opacity-50 ${
+                      pokeTypes[pokemon.type[0]].hover_b
+                    } ${
+                      pokeTypes[pokemon.type[0]].dark_hover_bg
+                    } dark:hover:bg-opacity-50 ${
+                      pokeTypes[pokemon.type[0]].dark_hover_b
+                    } cursor-pointer dark:cursor-pointer`}
+                  >
+                    select pokemon
+                  </button>
+                )}
                 {/* go to fight button */}
                 <NavLink
                   to="/fight"

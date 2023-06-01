@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
+import { DataContext } from "./DataContext";
 
 export const FightContext = createContext();
 
@@ -10,6 +11,8 @@ export default function FightContextProvider({ children }) {
   const [playerNameSelected, setPlayerNameSelected] = useState(false);
 
   const [topPlayers, setTopPlayers] = useState([]);
+
+  const { allPokemons, setAllPokemons } = useContext(DataContext);
 
   const fetchWildPokemon = async () => {
     const randomNum = Math.floor(Math.random() * 809);
@@ -32,6 +35,10 @@ export default function FightContextProvider({ children }) {
   };
 
   const removeFromSelection = (pokemon) => {
+    const isNotInAllPokemons =
+      allPokemons.filter((poke) => poke.id === pokemon.id).length !== 1;
+    if (isNotInAllPokemons) setAllPokemons((prev) => [...prev, pokemon]);
+
     setSelectablePokes((prev) => prev.filter((poke) => poke.id !== pokemon.id));
   };
 
