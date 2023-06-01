@@ -18,6 +18,8 @@ export default function Fight() {
     handlePlayerNameInput,
     handlePlayerNameSubmit,
     fetchTopPlayers,
+    catchPokemon,
+    catchedPokemon,
   } = useContext(FightContext);
 
   const winCountPlayer = useRef(0);
@@ -219,35 +221,38 @@ export default function Fight() {
           {/* selected pokemons */}
           <div className="absolute left-[-45px] top-[17px] flex flex-col gap-6 z-30">
             {/* pokemon selected card start */}
-            {selectablePokes.length > 0 &&
-              selectablePokes.map((poke, ind) => (
-                <div
-                  key={poke.name.english + ind}
-                  onClick={() => {
-                    setSelectedPokemon(poke);
-                    setBattleHasStarted(false);
-                  }}
-                  className="fight_select-poke overflow-hidden flex flex-col justify-center gap-[2px]"
-                >
-                  <div className="absolute w-[85px] h-[100px] flex justify-center items-center bg-elementbBg dark:bg-elementbBg_w rounded-xl z-10">
-                    <img
-                      src={poke.sprite}
-                      alt={poke.name.english}
-                      className="w-[90%]"
-                    />
-                  </div>
-                  <span className="ml-[83px] bg-pokefigt bg-opacity-50 rounded-e-xl px-3 border-2 border-pokefigt font-pokefont text-xl translate-x-[-250px] transition-all duration-300 ease-linear">
-                    {poke.name.english}
-                  </span>
-                  <p className="ml-[83px] bg-pokemonBg dark:bg-white rounded-e-xl px-3 text-l translate-x-[-250px]  transition-all duration-300 ease-linear">
-                    H:{poke.base.HP}, A:{poke.base.Attack}, D:
-                    {poke.base.Defense},
-                    <br />
-                    SA:{poke.base["Sp. Attack"]}, SD:{poke.base["Sp. Defense"]},
-                    S:{poke.base.Speed}
-                  </p>
-                </div>
-              ))}
+            {catchedPokemon.length > 0 &&
+              catchedPokemon.map(
+                (poke, ind) =>
+                  ind < 6 && (
+                    <div
+                      key={poke.name.english + ind}
+                      onClick={() => {
+                        setSelectedPokemon(poke);
+                        setBattleHasStarted(false);
+                      }}
+                      className="fight_select-poke overflow-hidden flex flex-col justify-center gap-[2px]"
+                    >
+                      <div className="absolute w-[85px] h-[100px] flex justify-center items-center bg-elementbBg dark:bg-elementbBg_w rounded-xl z-10">
+                        <img
+                          src={poke.sprite}
+                          alt={poke.name.english}
+                          className="w-[90%]"
+                        />
+                      </div>
+                      <span className="ml-[83px] bg-pokefigt bg-opacity-50 rounded-e-xl px-3 border-2 border-pokefigt font-pokefont text-xl translate-x-[-250px] transition-all duration-300 ease-linear">
+                        {poke.name.english}
+                      </span>
+                      <p className="ml-[83px] bg-pokemonBg dark:bg-white rounded-e-xl px-3 text-l translate-x-[-250px]  transition-all duration-300 ease-linear">
+                        H:{poke.base.HP}, A:{poke.base.Attack}, D:
+                        {poke.base.Defense},
+                        <br />
+                        SA:{poke.base["Sp. Attack"]}, SD:
+                        {poke.base["Sp. Defense"]}, S:{poke.base.Speed}
+                      </p>
+                    </div>
+                  )
+              )}
           </div>
           {/* player names */}
           <div className="w-full flex justify-between px-8 pt-5 pb-8">
@@ -446,6 +451,16 @@ export default function Fight() {
               points={appliedPoints}
             />
           )}
+          {/* Button to catch defeated pokemon*/}
+          {battleHasStarted && victoriesPlayer.length > 3 && (
+            <button
+              onClick={() => catchPokemon(playerName, randomWildPokemon.id)}
+              className="absolute bottom-0 right-0 bg-fighting py-2 px-4 rounded cursor-pointer"
+            >
+              Catch it!
+            </button>
+          )}
+
           {/* buttons to restart and to go to leader board */}
           <div className="flex gap-4 absolute bottom-[-20px]">
             <div
