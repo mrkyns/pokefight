@@ -3,9 +3,10 @@ import { DataContext } from "../context/DataContext";
 import { ThemeContext } from "../context/ThemeContext";
 import { NavLink } from "react-router-dom";
 import LogoCreator from "./LogoCreator";
+import Loader from "./Loader";
 
 export default function () {
-  const { creators } = useContext(DataContext);
+  const { creators, creatorsLoading } = useContext(DataContext);
   const { darkMode } = useContext(ThemeContext);
   const left = creators?.slice(0, 2);
   const right = creators?.slice(2, 4);
@@ -16,6 +17,7 @@ export default function () {
 
   return (
     <>
+      {creatorsLoading ? <Loader /> : null}
       <div className="mt-[60px] flex justify-center gap-[700px]">
         {/* left column */}
         <div className="flex justify-between flex-col h-[370px]">

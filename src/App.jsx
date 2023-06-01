@@ -17,7 +17,6 @@ function App() {
     <div className="text-white dark:text-black font-code box-border bg-pattern bg-auto bg-repeat bg-black dark:bg-bgColor min-h-screen flex flex-col items-center">
       <Navigation />
 
-      <Loader />
       {/* <Logo />
       <h1 className="font-pokefont text-6xl text-white">
         i gota fight them all !!!
@@ -31,6 +30,8 @@ function App() {
         <Route path="/creators" element={<Creators />} />
         <Route path="/creators/:name" element={<Creator />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/load" element={<Loader />} />
       </Routes>
       <span className="block my-10 opacity-20">
         PokeFight | Group 05 | WBS Cooding School 2023

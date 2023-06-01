@@ -45,6 +45,7 @@ export default function Filter() {
       hover: "hover:bg-bug",
       hover_dark: "dark:hover:bg-bug",
       after: "checked:after:bg-bug",
+      after_dark: "dark:checked:after:bg-bug",
     },
     Dark: {
       ref: refDark,
@@ -52,6 +53,7 @@ export default function Filter() {
       hover: "hover:bg-dark",
       hover_dark: "dark:hover:bg-dark",
       after: "checked:after:bg-dark",
+      after_dark: "checked:dark:after:bg-dark",
     },
     Dragon: {
       ref: refDragon,
@@ -59,6 +61,7 @@ export default function Filter() {
       hover: "hover:bg-dragon",
       hover_dark: "dark:hover:bg-dragon",
       after: "checked:after:bg-dragon",
+      after_dark: "checked:dark:after:bg-dark",
     },
     Electric: {
       ref: refElectric,
@@ -66,6 +69,7 @@ export default function Filter() {
       hover: "hover:bg-electric",
       hover_dark: "dark:hover:bg-electric",
       after: "checked:after:bg-electric",
+      after_dark: "checked:dark:after:bg-electric",
     },
     Fairy: {
       ref: refFairy,
@@ -73,6 +77,7 @@ export default function Filter() {
       hover: "hover:bg-fairy",
       hover_dark: "dark:hover:bg-fairy",
       after: "checked:after:bg-fairy",
+      after_dark: "checked:dark:after:bg-fairy",
     },
     Fighting: {
       ref: refFighting,
@@ -80,6 +85,7 @@ export default function Filter() {
       hover: "hover:bg-fighting",
       hover_dark: "dark:hover:bg-fighting",
       after: "checked:after:bg-fighting",
+      after_dark: "checked:dark:after:bg-fighting",
     },
     Fire: {
       ref: refFire,
@@ -87,6 +93,7 @@ export default function Filter() {
       hover: "hover:bg-fire",
       hover_dark: "dark:hover:bg-fire",
       after: "checked:after:bg-fire",
+      after_dark: "checked:dark:after:bg-fire",
     },
     Flying: {
       ref: refFlying,
@@ -94,6 +101,7 @@ export default function Filter() {
       hover: "hover:bg-flying",
       hover_dark: "dark:hover:bg-flying",
       after: "checked:after:bg-flying",
+      after_dark: "checked:dark:after:bg-flying",
     },
     Ghost: {
       ref: refGhost,
@@ -101,6 +109,7 @@ export default function Filter() {
       hover: "hover:bg-ghost",
       hover_dark: "dark:hover:bg-ghost",
       after: "checked:after:bg-ghost",
+      after_dark: "checked:dark:after:bg-ghost",
     },
     Grass: {
       ref: refGrass,
@@ -108,6 +117,7 @@ export default function Filter() {
       hover: "hover:bg-grass",
       hover_dark: "dark:hover:bg-grass",
       after: "checked:after:bg-grass",
+      after_dark: "checked:dark:after:bg-grass",
     },
     Ground: {
       ref: refGround,
@@ -115,6 +125,7 @@ export default function Filter() {
       hover: "hover:bg-ground",
       hover_dark: "dark:hover:bg-ground",
       after: "checked:after:bg-ground",
+      after_dark: "checked:dark:after:bg-ground",
     },
     Ice: {
       ref: refIce,
@@ -122,6 +133,7 @@ export default function Filter() {
       hover: "hover:bg-ice",
       hover_dark: "dark:hover:bg-ice",
       after: "checked:after:bg-ice",
+      after_dark: "checked:dark:after:bg-ice",
     },
     Normal: {
       ref: refNormal,
@@ -129,6 +141,7 @@ export default function Filter() {
       hover: "hover:bg-normal",
       hover_dark: "dark:hover:bg-normal",
       after: "checked:after:bg-normal",
+      after_dark: "checked:dark:after:bg-normal",
     },
     Poison: {
       ref: refPoison,
@@ -136,6 +149,7 @@ export default function Filter() {
       hover: "hover:bg-poison",
       hover_dark: "dark:hover:bg-poison",
       after: "checked:after:bg-poison",
+      after_dark: "checked:dark:after:bg-poison",
     },
     Psychic: {
       ref: refPsychic,
@@ -143,6 +157,7 @@ export default function Filter() {
       hover: "hover:bg-psyhic",
       hover_dark: "dark:hover:bg-psyhic",
       after: "checked:after:bg-psyhic",
+      after_dark: "checked:dark:after:bg-psyhic",
     },
     Rock: {
       ref: refRock,
@@ -150,6 +165,7 @@ export default function Filter() {
       hover: "hover:bg-rock",
       hover_dark: "dark:hover:bg-rock",
       after: "checked:after:bg-rock",
+      after_dark: "checked:dark:after:bg-rock",
     },
     Steel: {
       ref: refSteel,
@@ -157,6 +173,7 @@ export default function Filter() {
       hover: "hover:bg-steel",
       hover_dark: "dark:hover:bg-steel",
       after: "checked:after:bg-steel",
+      after_dark: "checked:dark:after:bg-steel",
     },
     Water: {
       ref: refWater,
@@ -164,6 +181,7 @@ export default function Filter() {
       hover: "hover:bg-water",
       hover_dark: "dark:hover:bg-water",
       after: "checked:after:bg-water",
+      after_dark: "checked:dark:after:bg-water",
     },
   };
   const refsArr = Object.keys(pokeTypes).map((type) => pokeTypes[type].ref);
@@ -262,7 +280,7 @@ export default function Filter() {
                   name="pokemons"
                   id={type}
                   value={type}
-                  className={`appearance-none h-8 w-32 bg-pokemonBg dark:bg-elementbBg_w cursor-pointer opacity-80 hover:opacity-30 hover:checked:opacity-90 ${pokeTypes[type].color} ${pokeTypes[type].hover} ${pokeTypes[type].hover_dark} hover:after:blur-sm checked:after:blur-sm after:content-[''] after:inset-0 after:absolute ${pokeTypes[type].after} rounded-lg after:rounded-xl absolute -z-10 transition-all duration-200`}
+                  className={`appearance-none h-8 w-32 bg-pokemonBg dark:bg-elementbBg_w cursor-pointer opacity-80 hover:opacity-30 hover:checked:opacity-90 ${pokeTypes[type].color} ${pokeTypes[type].hover} ${pokeTypes[type].hover_dark} hover:after:blur-sm checked:after:blur-sm after:content-[''] after:inset-0 after:absolute ${pokeTypes[type].after} ${pokeTypes[type].after_dark} rounded-lg after:rounded-xl absolute -z-10 transition-all duration-200`}
                 />
                 {type}
               </label>

@@ -1,13 +1,21 @@
 import { useContext, useRef, useState } from "react";
 import Filter from "./Filter";
 import LogoSm from "./LogoSm";
+import Loader from "./Loader";
 import { DataContext } from "../context/DataContext";
 import { FightContext } from "../context/FightContext";
 import { NavLink } from "react-router-dom";
+import NoSearchResult from "./NoSearchResult";
 
 export default function Pokedex() {
-  const { allPokemons, pokemonSerial, pokeAmount, page, setPage } =
-    useContext(DataContext);
+  const {
+    allPokemons,
+    allPokemonsLoading,
+    pokemonSerial,
+    pokeAmount,
+    page,
+    setPage,
+  } = useContext(DataContext);
   const { selectablePokes, removeFromSelection } = useContext(FightContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectionModalRef = useRef(null);
@@ -82,6 +90,7 @@ export default function Pokedex() {
 
   return (
     <>
+      {allPokemonsLoading ? <Loader /> : null}
       <div className="grid items-center justify-center w-full">
         <div className="flex justify-center mb-9 mt-9 poke_l:mt-0 ">
           <LogoSm />
@@ -129,7 +138,13 @@ export default function Pokedex() {
             <Filter />
           </div>
           {/* pokemons */}
-          <div className="relative max-w-[1080px] bg-elementbBg dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow font-code p-6 grid poke_xl:grid-cols-4 poke_l:grid-cols-2 poke_data:grid-cols-3 tablet_s:grid-cols-3 pokedex_1:grid-cols-2 gap-4  justify-items-center mt-4 poke_l:mt-0">
+          <div
+            className={`relative max-w-[1080px] bg-elementbBg dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow font-code p-6 ${
+              allPokemons.length > 0
+                ? "grid poke_xl:grid-cols-4 poke_l:grid-cols-2 poke_data:grid-cols-3 tablet_s:grid-cols-3 pokedex_1:grid-cols-2 gap-4  justify-items-center mt-4 poke_l:mt-0"
+                : "flex justify-center items-center"
+            }`}
+          >
             {/* Load more button */}
 
             <div className="absolute top-[-15px] right-0 flex justify-center gap-4">
@@ -152,7 +167,7 @@ export default function Pokedex() {
             </div>
 
             {/* List of Pokemons */}
-            {allPokemons.length > 0 &&
+            {allPokemons.length > 0 ? (
               allPokemons?.map(
                 (pokemon, ind) =>
                   ind < 12 && (
@@ -200,7 +215,10 @@ export default function Pokedex() {
                       {/* pokemon car end */}
                     </NavLink>
                   )
-              )}
+              )
+            ) : (
+              <NoSearchResult />
+            )}
           </div>
         </div>
       </div>
@@ -216,11 +234,11 @@ export default function Pokedex() {
       )}
       {/* Selection Dialog */}
       <dialog
-        className="bg-pokedex rounded-xl top-64 absolute z-50 "
+        className="bg-pokedex bg-opacity-50 border-2 border-pokedex shadow-shadow_w rounded-xl top-64 absolute z-50 "
         ref={selectionModalRef}
       >
-        <div className="grid grid-cols-3 gap-4">
-          {selectablePokes.length > 0 &&
+        <div className="max-w-[700px] flex flex-wrap justify-center items-center gap-4">
+          {selectablePokes.length > 0 ? (
             selectablePokes.map((pokemon) => (
               <div
                 // to={`/pokedex/${pokemon.id}`}
@@ -232,7 +250,7 @@ export default function Pokedex() {
                 className="pokemon w-[230px] h-[250px] bg-pokemonBg dark:bg-elementbBg_w relative rounded-xl cursor-pointer transition-all duration-300 ease-linear"
               >
                 <button
-                  className="absolute -top-1 -right-1 bg-white py-1 px-2 z-50 rounded-3xl"
+                  className="absolute -top-1 -right-1 bg-white py-1 px-2 z-50 rounded-3xl hover:bg-pokefigt hover:text-white transition-all duration-300 ease-linear"
                   onClick={() => removeFromSelection(pokemon)}
                 >
                   remove
@@ -278,7 +296,14 @@ export default function Pokedex() {
                   </div>
                 </NavLink>
               </div>
-            ))}
+            ))
+          ) : (
+            <img
+              src="../images/openball.png"
+              alt="no selected pokemon"
+              className="w-[230px]"
+            />
+          )}
         </div>
       </dialog>
     </>
