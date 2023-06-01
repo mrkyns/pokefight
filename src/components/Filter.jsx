@@ -185,11 +185,12 @@ export default function Filter() {
       (checkboxRef) => checkboxRef.current.checked
     );
     console.log("form change");
-    // console.log(checkedPokeTypes);
+    console.log("checked boxes: ", checkedPokeTypes.length);
     setCheckedTypes((prev) => {
       const newItem = checkedPokeTypes.filter((item) => !prev.includes(item));
       // console.log("new: ", newItem);
-      if (!newItem.length) return [...checkedPokeTypes];
+      if (checkedPokeTypes.length === 0) return [];
+      else if (!newItem.length) return [...checkedPokeTypes];
       else if (prev.length === 2) {
         // console.log("last prev: ", prev[0]);
         prev[0].current.checked = false;

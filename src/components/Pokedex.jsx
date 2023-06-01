@@ -223,11 +223,11 @@ export default function Pokedex() {
           {selectablePokes.length > 0 &&
             selectablePokes.map((pokemon) => (
               <div
-                to={`/pokedex/${pokemon.id}`}
-                onClick={() => {
-                  setIsModalOpen(false);
-                  selectionModalRef.current.close();
-                }}
+                // to={`/pokedex/${pokemon.id}`}
+                // onClick={() => {
+                //   setIsModalOpen(false);
+                //   selectionModalRef.current.close();
+                // }}
                 key={pokemon.name.french}
                 className="pokemon w-[230px] h-[250px] bg-pokemonBg dark:bg-elementbBg_w relative rounded-xl cursor-pointer transition-all duration-300 ease-linear"
               >

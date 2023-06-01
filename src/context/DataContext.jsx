@@ -52,6 +52,7 @@ export default function DataContextProvider({ children }) {
   });
 
   useEffect(() => {
+    console.log("checked types: ", checkedTypes);
     setQueryObj((prev) => {
       const pokeTypes =
         checkedTypes.length > 0 && checkedTypes !== undefined
@@ -59,7 +60,7 @@ export default function DataContextProvider({ children }) {
               if (ref.current?.value !== undefined) return ref.current?.value;
               else return;
             })
-          : [...prev.type];
+          : [];
       const insertTypes = pokeTypes.filter((item) => item !== undefined);
       return {
         type: insertTypes.slice(0, 2),
