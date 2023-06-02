@@ -19,7 +19,6 @@ export default function Pokemon() {
   const pokemon = [...allPokemons, ...selectablePokes, ...catchedPokemon]?.find(
     (pokemon) => pokemon.id === Number(id)
   );
-  console.log(pokemon);
 
   const selectedRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -212,7 +211,13 @@ export default function Pokemon() {
           <div className="absolute w-[690px] bottom-0 right-[-15px] flex justify-center gap-3 origin-top-right rotate-90">
             {pokemon.type.map((type) => (
               <div
-                className={`w-[130px] h-[30px] rounded-xl ${pokeTypes[type].color} flex justify-center items-center`}
+                className={`w-[130px] h-[30px] rounded-xl ${
+                  pokeTypes[type].color
+                } ${
+                  ["Normal", "Fairy", "Flying"].includes(type)
+                    ? "text-elementbBg"
+                    : ""
+                } flex justify-center items-center`}
               >
                 {type}
               </div>

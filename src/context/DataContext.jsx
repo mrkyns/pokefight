@@ -57,7 +57,6 @@ export default function DataContextProvider({ children }) {
   });
 
   useEffect(() => {
-    console.log("checked types: ", checkedTypes);
     setQueryObj((prev) => {
       const pokeTypes =
         checkedTypes.length > 0 && checkedTypes !== undefined
@@ -92,18 +91,6 @@ export default function DataContextProvider({ children }) {
     maxSpeed,
     page,
   ]);
-  console.log(queryObj);
-
-  // useEffect(() => {
-  //   const fetchEmAll = async () => {
-  //     console.log("fetching all");
-  //     const res = await fetch("https://pokefight-api.onrender.com/pokemons/");
-  //     const data = await res.json();
-
-  //     setAllPokemons(data.data);
-  //   };
-  //   // fetchEmAll();
-  // }, []);
 
   useEffect(() => {
     const fetchCreators = async () => {
@@ -118,8 +105,6 @@ export default function DataContextProvider({ children }) {
 
   // Fetch by filter
   useEffect(() => {
-    console.log("Query changed!: ", queryObj);
-
     const fetchByFilters = async (queryObj) => {
       try {
         const res = await fetch(
@@ -134,7 +119,6 @@ export default function DataContextProvider({ children }) {
           }
         );
         const data = await res.json();
-        console.log("amount: ", data.amount);
         setAllPokemons(data.data);
         setPokeAmount(data.amount);
         setAllPokemonsLoading(false);
@@ -142,12 +126,8 @@ export default function DataContextProvider({ children }) {
         console.log(error.message);
       }
     };
-
     fetchByFilters(queryObj);
   }, [queryObj]);
-
-  console.log(allPokemons);
-  // // console.log(creators);
 
   //function to create serial number for pokemon pokemonSerial(pokemon.id)
   const pokemonSerial = (id) => {
@@ -170,7 +150,6 @@ export default function DataContextProvider({ children }) {
         `https://pokefight-api.onrender.com/pokemons/${trimmedQuery}`
       );
       const data = await res.json();
-      // console.log("data.data: ", data.data);
       if (!data.data.length) return;
       setAllPokemons((prev) => [...prev, data.data[0]]);
       setPokeAmount((prev) => prev++);
@@ -179,10 +158,6 @@ export default function DataContextProvider({ children }) {
     };
     fetchOne(singleSearch);
   }, [singleSearch]);
-
-  // Fetch random Wild Pokemon
-
-  // console.log(singleSearch);
 
   return (
     <DataContext.Provider

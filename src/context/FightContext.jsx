@@ -24,7 +24,6 @@ export default function FightContextProvider({ children }) {
       `https://pokefight-api.onrender.com/pokemons/${randomNum}`
     );
     const data = await res.json();
-    // console.log("data.data: ", data.data);
     if (!data.data.length) return;
     setRandomWildPokemon(data.data[0]);
   };
@@ -62,7 +61,6 @@ export default function FightContextProvider({ children }) {
     try {
       const res = await fetch("https://pokefight-api.onrender.com/players/top");
       const data = await res.json();
-      console.log("top players: ", data);
       if (!data.data.length) return;
       setTopPlayers(data.data);
       setLeaderLoading(false);
@@ -78,7 +76,6 @@ export default function FightContextProvider({ children }) {
       );
       const data = await res.json();
       setCatchedPokemon(data.data);
-      console.log("Data for player: ", data);
     };
 
     if (playerNameSelected) fetchPlayersPokemons(playerName);

@@ -5,15 +5,11 @@ import { NavLink } from "react-router-dom";
 import LogoCreator from "./LogoCreator";
 import Loader from "./Loader";
 
-export default function () {
+export default function Creators() {
   const { creators, creatorsLoading } = useContext(DataContext);
   const { darkMode } = useContext(ThemeContext);
   const left = creators?.slice(0, 2);
   const right = creators?.slice(2, 4);
-
-  // console.log(left[0].name.split(" ").shift().toLowerCase());
-  // console.log(left);
-  // console.log(right);
 
   return (
     <>
@@ -75,6 +71,7 @@ export default function () {
         <a
           href="https://react.dev/"
           target="_blank"
+          rel="noreferrer"
           className="react flex relative justify-center items-center  w-[140px] h-[50px] bg-elementbBg rounded-xl shadow-shadow dark:bg-bgColor dark:shadow-shadow_w transition-all duration-300 ease-linear overflow-hidden"
         >
           <span className=" transition-all duration-300 ease-linear">
@@ -99,6 +96,7 @@ export default function () {
         <a
           href="https://nodejs.org/en"
           target="_blank"
+          rel="noreferrer"
           className="node flex relative justify-center items-center  w-[140px] h-[50px] bg-elementbBg rounded-xl shadow-shadow dark:bg-bgColor dark:shadow-shadow_w transition-all duration-300 ease-linear overflow-hidden"
         >
           <span className=" transition-all duration-300 ease-linear">
@@ -123,6 +121,7 @@ export default function () {
         <a
           href="https://www.mongodb.com/"
           target="_blank"
+          rel="noreferrer"
           className="mongo flex relative justify-center items-center  w-[140px] h-[50px] bg-elementbBg rounded-xl shadow-shadow dark:bg-bgColor dark:shadow-shadow_w transition-all duration-300 ease-linear overflow-hidden"
         >
           <span className=" transition-all duration-300 ease-linear">
@@ -147,6 +146,7 @@ export default function () {
         <a
           href="https://tailwindcss.com/"
           target="_blank"
+          rel="noreferrer"
           className="tailwind flex relative justify-center items-center  w-[140px] h-[50px] bg-elementbBg rounded-xl shadow-shadow dark:bg-bgColor dark:shadow-shadow_w transition-all duration-300 ease-linear overflow-hidden"
         >
           <span className=" transition-all duration-300 ease-linear">

@@ -17,8 +17,6 @@ export default function Filter() {
     setPage,
   } = useContext(DataContext);
 
-  // console.log(queryObj);
-
   const refBug = useRef(null);
   const refDark = useRef(null);
   const refDragon = useRef(null);
@@ -202,15 +200,12 @@ export default function Filter() {
     const checkedPokeTypes = refsArr.filter(
       (checkboxRef) => checkboxRef.current.checked
     );
-    console.log("form change");
-    console.log("checked boxes: ", checkedPokeTypes.length);
+
     setCheckedTypes((prev) => {
       const newItem = checkedPokeTypes.filter((item) => !prev.includes(item));
-      // console.log("new: ", newItem);
       if (checkedPokeTypes.length === 0) return [];
       else if (!newItem.length) return [...checkedPokeTypes];
       else if (prev.length === 2) {
-        // console.log("last prev: ", prev[0]);
         prev[0].current.checked = false;
         return [prev[1], ...newItem];
       } else if (prev.length === 1) {

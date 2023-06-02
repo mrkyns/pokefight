@@ -83,7 +83,7 @@ export default function Fight() {
       "Sp. Attack",
       "Sp. Defense",
       "Speed",
-    ].map((stat, ind) => {
+    ].map((stat) => {
       return playerMultipliers.length === 0
         ? selectedPokemon.base[stat]
         : playerMultipliers.reduce(
@@ -99,7 +99,7 @@ export default function Fight() {
       "Sp. Attack",
       "Sp. Defense",
       "Speed",
-    ].map((stat, ind) => {
+    ].map((stat) => {
       return wildMultipliers.length === 0
         ? randomWildPokemon.base[stat]
         : wildMultipliers.reduce(
@@ -107,7 +107,6 @@ export default function Fight() {
             randomWildPokemon.base[stat]
           );
     });
-    // console.log("Battle start: ", playerPoints, wildPoints);
 
     const points = [
       "HP",
@@ -134,9 +133,6 @@ export default function Fight() {
     const victoriesWildCalc = wildPoints.filter(
       (point, ind) => point > playerPoints[ind]
     );
-
-    console.log("victories");
-
     setAppliedPoints(points);
     setVictoriesPlayer(victoriesPLayerCalc);
     setVictoriesWild(victoriesWildCalc);
@@ -150,7 +146,6 @@ export default function Fight() {
     const updatePlayerScores = async () => {
       const gameIsWon = victoriesPlayer.length > victoriesWild.length ? 1 : 0;
       const gameIsLost = victoriesPlayer.length < victoriesWild.length ? 1 : 0;
-      console.log("POINTS: ", appliedPoints);
       try {
         const res = await fetch("https://pokefight-api.onrender.com/players/", {
           method: "PUT",
@@ -166,7 +161,6 @@ export default function Fight() {
           }),
         });
         const data = await res.json();
-        console.log("update: ", data.data);
         fetchTopPlayers();
       } catch (error) {
         console.log(error.message);
@@ -203,8 +197,6 @@ export default function Fight() {
       color: "bg-[rgb(200,_152,_27)]",
     },
   };
-
-  console.log(selectablePokes);
 
   return (
     <>
@@ -348,7 +340,7 @@ export default function Fight() {
                   type="text"
                   name="search"
                   id="search"
-                  autoFocus="true"
+                  autoFocus
                   spellCheck="false"
                   onChange={handlePlayerNameInput}
                   value={playerName}

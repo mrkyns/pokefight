@@ -3,15 +3,13 @@ import { DataContext } from "../context/DataContext";
 import LogoSm from "./LogoSm";
 import { NavLink, useParams } from "react-router-dom";
 
-export default function () {
+export default function Creator() {
   const { creators } = useContext(DataContext);
   const { name } = useParams();
   // const pokemon = allPokemons?.find((pokemon) => pokemon.id === Number(id));
   const [creator] = creators.filter(
     ({ ["name"]: value }) => value && value.toLowerCase().includes(name)
   );
-
-  console.log(creators);
 
   return (
     <div className="grid items-center justify-center w-full">
@@ -50,7 +48,7 @@ export default function () {
           <div className="w-[560px] h-[630px] bg-elementbBg dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow overflow-hidden z-10">
             <img
               src={creator.image}
-              alt={`image of ${creator.name}`}
+              alt={creator.name}
               className="w-full h-full object-cover absolute rounded-xl z-10"
             />
           </div>
