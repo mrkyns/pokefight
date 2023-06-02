@@ -19,7 +19,9 @@ export default function Fight() {
     handlePlayerNameSubmit,
     fetchTopPlayers,
     catchPokemon,
-    catchedPokemon,
+    challengedWild,
+    setRandomWildPokemon,
+    setChallengedWild,
   } = useContext(FightContext);
 
   const winCountPlayer = useRef(0);
@@ -32,7 +34,8 @@ export default function Fight() {
   const [appliedPoints, setAppliedPoints] = useState(0);
 
   const reset = async () => {
-    await fetchWildPokemon();
+    if (!Object.keys(challengedWild).length) await fetchWildPokemon();
+    else setRandomWildPokemon(challengedWild);
     setBattleHasStarted(false);
     setSelectedPokemon({});
     setAppliedPoints(0);
@@ -466,10 +469,13 @@ export default function Fight() {
           {/* buttons to restart and to go to leader board */}
           <div className="flex gap-4 absolute bottom-[-20px]">
             <div
-              onClick={reset}
+              onClick={() => {
+                setChallengedWild({});
+                reset();
+              }}
               className="w-[255px] h-[41px] bg-elementbBg bg-opacity-90 border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:shadow-shadow_w "
             >
-              next fight
+              random fight
             </div>
             <NavLink
               to={"/leaderboard"}

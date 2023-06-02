@@ -119,8 +119,16 @@ export default function Pokedex() {
               >
                 {catchedPokemon.length > 0 ? (
                   <img
-                    src={catchedPokemon[catchedPokemon.length - 1].sprite}
-                    alt={catchedPokemon[catchedPokemon.length - 1].name.english}
+                    src={
+                      catchedPokemon[
+                        Math.floor(Math.random() * catchedPokemon.length)
+                      ].sprite
+                    }
+                    alt={
+                      catchedPokemon[
+                        Math.floor(Math.random() * catchedPokemon.length)
+                      ].name.english
+                    }
                   />
                 ) : (
                   <img
@@ -132,6 +140,11 @@ export default function Pokedex() {
 
                 <span className="absolute top-[-12px] right-[-12px] flex justify-center items-center bg-elementbBg w-[25px] p-1 rounded-full text-[16px]">
                   {catchedPokemon.length}
+                </span>
+                <span
+                  className={`absolute bottom-[-12px] left-[-12px] flex justify-center items-center bg-elementbBg w-[25px] p-1 rounded-full text-[16px]`}
+                >
+                  {selectablePokes.length}
                 </span>
               </div>
             </div>
