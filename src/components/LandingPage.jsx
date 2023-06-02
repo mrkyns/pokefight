@@ -31,7 +31,7 @@ export default function LandingPage() {
             type="text"
             name="search"
             id="search"
-            autoFocus="true"
+            autoFocus
             spellCheck="false"
             onChange={handlePlayerNameInput}
             value={playerName}

@@ -17,8 +17,7 @@ export default function Pokedex() {
     page,
     setPage,
   } = useContext(DataContext);
-  const { selectablePokes, removeFromSelection, catchedPokemon } =
-    useContext(FightContext);
+  const { selectablePokes, catchedPokemon } = useContext(FightContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectionModalRef = useRef(null);
 
@@ -88,7 +87,7 @@ export default function Pokedex() {
 
   const handleLoadPrev = () => {
     if (prevCanBeLoaded) setPage((prev) => prev - 1);
-  }; // console.log("thise is my pokemons", allPokemons);
+  };
 
   return (
     <>

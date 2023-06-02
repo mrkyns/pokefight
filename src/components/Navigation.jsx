@@ -162,7 +162,7 @@ export default function Navigation() {
               type="text"
               name="search"
               id="search"
-              autoFocus="true"
+              autoFocus
               spellCheck="false"
               onChange={handleInput}
               className={searchInput}

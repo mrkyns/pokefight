@@ -7,10 +7,6 @@ export default function FightStats({
   wildMultipliers,
   playerMultipliers,
 }) {
-  console.log("start");
-
-  console.log("Pl: ", playerMultipliers, "Wi: ", wildMultipliers);
-
   return (
     <div className="flex flex-col justify-between">
       {["HP", "Attack", "Defense", "Sp. Attack", "Sp. Defense", "Speed"].map(
@@ -41,15 +37,6 @@ export default function FightStats({
               : `${Math.round(
                   ((wildPoints - playerPoints) / wildPoints) * 100
                 )}%`;
-          // console.log(
-          //   stat,
-          //   " ",
-          //   playerPoints,
-          //   wildPoints,
-          //   statDiff,
-          //   winCountPlayer,
-          //   winCountWild
-          // );
           return (
             <div
               key={stat + ind}

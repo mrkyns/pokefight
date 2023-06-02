@@ -52,7 +52,7 @@ export default function SelectionDialog({
         <div className="absolute -top-6 right-36">
           {catchedPokemon[0].id !== shownArr[0].id && (
             <button
-              className="absolute top-0 left-0  w-[150px] h-[30px] rounded-xl flex justify-center items-center bg-white hover:text-white  border-2 border-elementbBg transition-all duration-300 ease-linear cursor-pointer hover:bg-pokedex  hover:border-elementbBg dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:hover:bg-pokedex  dark:hover:border-white dark:hover:text-white"
+              className="absolute top-0 right-0  w-[150px] h-[30px] rounded-xl flex justify-center items-center bg-white hover:text-white  border-2 border-elementbBg transition-all duration-300 ease-linear cursor-pointer hover:bg-pokedex  hover:border-elementbBg dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:hover:bg-pokedex  dark:hover:border-white dark:hover:text-white"
               onClick={() => setPage((prev) => prev - 1)}
             >
               prev
@@ -61,7 +61,7 @@ export default function SelectionDialog({
           {catchedPokemon[catchedPokemon.length - 1].id !==
             shownArr[shownArr.length - 1].id && (
             <button
-              className="absolute top-0 right-0  w-[150px] h-[30px] rounded-xl flex justify-center items-center bg-white hover:text-white  border-2 border-elementbBg transition-all duration-300 ease-linear cursor-pointer hover:bg-pokedex  hover:border-elementbBg dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:hover:bg-pokedex  dark:hover:border-white dark:hover:text-white"
+              className="absolute top-0 left-0  w-[150px] h-[30px] rounded-xl flex justify-center items-center bg-white hover:text-white  border-2 border-elementbBg transition-all duration-300 ease-linear cursor-pointer hover:bg-pokedex  hover:border-elementbBg dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:hover:bg-pokedex  dark:hover:border-white dark:hover:text-white"
               onClick={() => setPage((prev) => prev + 1)}
             >
               next

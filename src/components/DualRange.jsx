@@ -47,14 +47,6 @@ export default function DualRange({
         onMouseUp={() => setExtMax(dynamicMax)}
         onChange={({ target }) => {
           if (!target.value < dynamicMin) setDynamicMax(+target.value);
-          // console.log(
-          //   "t: ",
-          //   target.value,
-          //   "min: ",
-          //   dynamicMin,
-          //   "max: ",
-          //   dynamicMax
-          // );
         }}
       />
       <div
