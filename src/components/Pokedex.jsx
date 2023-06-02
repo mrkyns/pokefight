@@ -6,6 +6,7 @@ import { DataContext } from "../context/DataContext";
 import { FightContext } from "../context/FightContext";
 import { NavLink } from "react-router-dom";
 import NoSearchResult from "./NoSearchResult";
+import SelectionDialog from "./SelectionDialog";
 
 export default function Pokedex() {
   const {
@@ -16,7 +17,8 @@ export default function Pokedex() {
     page,
     setPage,
   } = useContext(DataContext);
-  const { selectablePokes, removeFromSelection } = useContext(FightContext);
+  const { selectablePokes, removeFromSelection, catchedPokemon } =
+    useContext(FightContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectionModalRef = useRef(null);
 
@@ -115,12 +117,10 @@ export default function Pokedex() {
                 }}
                 className="flex justify-center items-center relative dark:text-white text-5xl w-[90px] poke_l:w-[100px] h-[80px] rounded-xl bg-pokedex border-2 border-pokedex bg-opacity-50 shadow-shadow dark:shadow-shadow_w cursor-pointer"
               >
-                {selectablePokes.length > 0 ? (
+                {catchedPokemon.length > 0 ? (
                   <img
-                    src={selectablePokes[selectablePokes.length - 1].sprite}
-                    alt={
-                      selectablePokes[selectablePokes.length - 1].name.english
-                    }
+                    src={catchedPokemon[catchedPokemon.length - 1].sprite}
+                    alt={catchedPokemon[catchedPokemon.length - 1].name.english}
                   />
                 ) : (
                   <img
@@ -131,7 +131,7 @@ export default function Pokedex() {
                 )}
 
                 <span className="absolute top-[-12px] right-[-12px] flex justify-center items-center bg-elementbBg w-[25px] p-1 rounded-full text-[16px]">
-                  {selectablePokes.length}
+                  {catchedPokemon.length}
                 </span>
               </div>
             </div>
@@ -223,89 +223,12 @@ export default function Pokedex() {
         </div>
       </div>
       {/* Dialog Backdrop */}
-      {isModalOpen && (
-        <div
-          onClick={() => {
-            setIsModalOpen(false);
-            selectionModalRef.current.close();
-          }}
-          className="absolute top-0 left-0 h-full w-full bg-pokedex opacity-40 blur-3xl saturate-50 z-10"
-        ></div>
-      )}
-      {/* Selection Dialog */}
-      <dialog
-        className="bg-pokedex bg-opacity-50 border-2 border-pokedex shadow-shadow_w rounded-xl top-64 absolute z-50 "
-        ref={selectionModalRef}
-      >
-        <div className="max-w-[700px] flex flex-wrap justify-center items-center gap-4">
-          {selectablePokes.length > 0 ? (
-            selectablePokes.map((pokemon) => (
-              <div
-                // to={`/pokedex/${pokemon.id}`}
-                // onClick={() => {
-                //   setIsModalOpen(false);
-                //   selectionModalRef.current.close();
-                // }}
-                key={pokemon.name.french}
-                className="pokemon w-[230px] h-[250px] bg-pokemonBg dark:bg-elementbBg_w relative rounded-xl cursor-pointer transition-all duration-300 ease-linear"
-              >
-                <button
-                  className="absolute -top-1 -right-1 bg-white py-1 px-2 z-50 rounded-3xl hover:bg-pokefigt hover:text-white transition-all duration-300 ease-linear"
-                  onClick={() => removeFromSelection(pokemon)}
-                >
-                  remove
-                </button>
-                <NavLink
-                  to={`/pokedex/${pokemon.id}`}
-                  onClick={() => {
-                    setIsModalOpen(false);
-                    selectionModalRef.current.close();
-                  }}
-                >
-                  <span className="absolute m-2 font-pokefont text-xl z-10">
-                    {pokemonSerial(pokemon.id)}
-                  </span>
-                  <img
-                    src={pokemon.sprite}
-                    alt={pokemon.name.english}
-                    className="z-10 absolute top-[-15px]"
-                  />
-                  <h2 className="absolute bottom-0 w-full h-[30px] flex justify-center items-center  bg-elementbBg dark:bg-white rounded-xl z-20 transition-all duration-300 ease-linear">
-                    {pokemon.name.english}
-                  </h2>
-                  {/* function for type checking */}
-                  <div className="flex z-0  overflow-hidden rounded-xl">
-                    {pokemon.type.length === 1 ? (
-                      <p
-                        className={`w-full h-[245px] flex justify-center items-end pb-4 ${
-                          pokeTypes[pokemon.type[0]].color
-                        } translate-y-[260px] transition-all duration-300 ease-linear`}
-                      >
-                        {pokemon.type[0]}
-                      </p>
-                    ) : (
-                      pokemon.type.map((type, ind) => (
-                        <p
-                          key={type + ind}
-                          className={`w-1/2 h-[245px] flex justify-center items-end pb-4 ${pokeTypes[type].color} translate-y-[260px] transition-all duration-300 ease-linear`}
-                        >
-                          {type}
-                        </p>
-                      ))
-                    )}
-                  </div>
-                </NavLink>
-              </div>
-            ))
-          ) : (
-            <img
-              src="../images/openball.png"
-              alt="no selected pokemon"
-              className="w-[230px]"
-            />
-          )}
-        </div>
-      </dialog>
+      <SelectionDialog
+        setIsModalOpen={setIsModalOpen}
+        isModalOpen={isModalOpen}
+        selectionModalRef={selectionModalRef}
+        pokeTypes={pokeTypes}
+      />
     </>
   );
 }

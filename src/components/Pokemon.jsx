@@ -4,26 +4,32 @@ import { DataContext } from "../context/DataContext";
 import { FightContext } from "../context/FightContext";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
+import SelectionDialog from "./SelectionDialog";
 
 export default function Pokemon() {
-  const { allPokemons, pokemonSerial } = useContext(DataContext);
-  const { addToSelection, selectablePokes, removeFromSelection } =
+  const { allPokemons } = useContext(DataContext);
+  const { addToSelection, selectablePokes, catchedPokemon } =
     useContext(FightContext);
   const { id } = useParams();
-  const pokemon = [...allPokemons, ...selectablePokes]?.find(
+  const pokemon = [...allPokemons, ...selectablePokes, ...catchedPokemon]?.find(
     (pokemon) => pokemon.id === Number(id)
   );
   console.log(pokemon);
+
   const selectedRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectionModalRef = useRef(null);
   const [isInSelection, setIsInSelection] = useState(false);
+  const [isCatched, setIsCatched] = useState(false);
 
   useEffect(() => {
     const pokemonIsInSelection =
       selectablePokes.filter((poke) => poke.id === pokemon.id).length === 1;
     setIsInSelection(pokemonIsInSelection);
-  }, [selectablePokes]);
+    const pokemonIsCatched =
+      catchedPokemon.filter((poke) => poke.id === pokemon.id).length === 1;
+    setIsCatched(pokemonIsCatched);
+  }, [selectablePokes, catchedPokemon, pokemon]);
 
   const pokeTypes = {
     Bug: {
@@ -311,12 +317,11 @@ export default function Pokemon() {
                     ref={selectedRef}
                     className="relative flex justify-center items-center dark:text-white text-5xl w-[80px] poke_l:w-[90px] h-[70px] rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow cursor-pointer dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w"
                   >
-                    {selectablePokes.length > 0 ? (
+                    {catchedPokemon.length > 0 ? (
                       <img
-                        src={selectablePokes[selectablePokes.length - 1].sprite}
+                        src={catchedPokemon[catchedPokemon.length - 1].sprite}
                         alt={
-                          selectablePokes[selectablePokes.length - 1].name
-                            .english
+                          catchedPokemon[catchedPokemon.length - 1].name.english
                         }
                       />
                     ) : (
@@ -331,7 +336,7 @@ export default function Pokemon() {
                         pokeTypes[pokemon.type[0]].color
                       } w-[25px] p-1 rounded-full text-[16px]`}
                     >
-                      {selectablePokes.length}
+                      {catchedPokemon.length}
                     </span>
                   </div>
                 </div>
@@ -352,7 +357,7 @@ export default function Pokemon() {
                   >
                     pokemon selected
                   </button>
-                ) : (
+                ) : isCatched ? (
                   <button
                     onClick={() => {
                       addToSelection(pokemon);
@@ -375,6 +380,20 @@ export default function Pokemon() {
                     } cursor-pointer dark:cursor-pointer`}
                   >
                     select pokemon
+                  </button>
+                ) : (
+                  <button
+                    className={`h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w ${
+                      pokeTypes[pokemon.type[0]].hover_bg
+                    } hover:bg-opacity-50 ${
+                      pokeTypes[pokemon.type[0]].hover_b
+                    } ${
+                      pokeTypes[pokemon.type[0]].dark_hover_bg
+                    } dark:hover:bg-opacity-50 ${
+                      pokeTypes[pokemon.type[0]].dark_hover_b
+                    } cursor-default`}
+                  >
+                    go catch it!
                   </button>
                 )}
                 {/* go to fight button */}
@@ -405,88 +424,12 @@ export default function Pokemon() {
         </div>
       </div>
       {/* Dialog Backdrop */}
-      {isModalOpen && (
-        <div
-          onClick={() => {
-            setIsModalOpen(false);
-            selectionModalRef.current.close();
-          }}
-          className={`absolute top-0 left-0 h-full w-full ${
-            pokeTypes[pokemon.type[0]].color
-          } opacity-40 blur-3xl saturate-50 z-10`}
-        ></div>
-      )}
-      {/* Selection Dialog */}
-      <dialog
-        className={`${pokeTypes[pokemon.type[0]].color} ${
-          pokeTypes[pokemon.type[0]].border
-        } bg-opacity-50 border-2 rounded-xl top-64 absolute z-50 shadow-shadow_w dark:shadow-shadow_w `}
-        ref={selectionModalRef}
-      >
-        <div className="max-w-[700px] flex flex-wrap justify-center items-center gap-4">
-          {selectablePokes.length > 0 ? (
-            selectablePokes.map((pokemon) => (
-              <div
-                key={pokemon.name.french}
-                className="pokemon w-[230px] h-[250px] bg-pokemonBg dark:bg-elementbBg_w relative rounded-xl cursor-pointer transition-all duration-300 ease-linear"
-              >
-                <button
-                  className="absolute -top-1 -right-1 bg-white py-1 px-2 z-50 rounded-3xl hover:bg-pokefigt hover:text-white transition-all duration-300 ease-linear"
-                  onClick={() => removeFromSelection(pokemon)}
-                >
-                  remove
-                </button>
-                <NavLink
-                  to={`/pokedex/${pokemon.id}`}
-                  onClick={() => {
-                    setIsModalOpen(false);
-                    selectionModalRef.current.close();
-                  }}
-                >
-                  <span className="absolute m-2 font-pokefont text-xl z-10">
-                    {pokemonSerial(pokemon.id)}
-                  </span>
-                  <img
-                    src={pokemon.sprite}
-                    alt={pokemon.name.english}
-                    className="z-10 absolute top-[-15px]"
-                  />
-                  <h2 className="absolute bottom-0 w-full h-[30px] flex justify-center items-center  bg-elementbBg dark:bg-white rounded-xl z-20 transition-all duration-300 ease-linear">
-                    {pokemon.name.english}
-                  </h2>
-                  {/* function for type checking */}
-                  <div className="flex z-0  overflow-hidden rounded-xl">
-                    {pokemon.type.length === 1 ? (
-                      <p
-                        className={`w-full h-[245px] flex justify-center items-end pb-4 ${
-                          pokeTypes[pokemon.type[0]].color
-                        } translate-y-[260px] transition-all duration-300 ease-linear`}
-                      >
-                        {pokemon.type[0]}
-                      </p>
-                    ) : (
-                      pokemon.type.map((type, ind) => (
-                        <p
-                          key={type + ind}
-                          className={`w-1/2 h-[245px] flex justify-center items-end pb-4 ${pokeTypes[type].color} translate-y-[260px] transition-all duration-300 ease-linear`}
-                        >
-                          {type}
-                        </p>
-                      ))
-                    )}
-                  </div>
-                </NavLink>
-              </div>
-            ))
-          ) : (
-            <img
-              src="../images/openball.png"
-              alt="no selected pokemon"
-              className="w-[230px]"
-            />
-          )}
-        </div>
-      </dialog>
+      <SelectionDialog
+        setIsModalOpen={setIsModalOpen}
+        isModalOpen={isModalOpen}
+        selectionModalRef={selectionModalRef}
+        pokeTypes={pokeTypes}
+      />
     </>
   );
 }
