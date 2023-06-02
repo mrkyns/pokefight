@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { DataContext } from "../context/DataContext";
 import { FightContext } from "../context/FightContext";
@@ -16,6 +16,15 @@ export default function SelectionDialog({
     addToSelection,
   } = useContext(FightContext);
   const { pokemonSerial } = useContext(DataContext);
+
+  const [page, setPage] = useState(0);
+  const [shownArr, setShownArr] = useState(
+    catchedPokemon.slice(0 + page * 6, 6 + page * 6)
+  );
+
+  useEffect(() => {
+    setShownArr(catchedPokemon.slice(0 + page * 6, 6 + page * 6));
+  }, [page]);
 
   const handleSelectionOrRemoveBtn = (pokemon) => {
     const isAlreadySelected =
@@ -37,12 +46,31 @@ export default function SelectionDialog({
       )}
       {/* Selection Dialog */}
       <dialog
-        className="bg-pokedex bg-opacity-50 border-2 border-pokedex shadow-shadow_w rounded-xl top-64 absolute z-50 "
+        className="bg-pokedex bg-opacity-50 border-2 border-pokedex shadow-shadow_w rounded-xl top-64 absolute z-50 overflow-visible"
         ref={selectionModalRef}
       >
+        <div className="absolute -top-6 right-36">
+          {catchedPokemon[0].id !== shownArr[0].id && (
+            <button
+              className="absolute top-0 left-0  w-[150px] h-[30px] rounded-xl flex justify-center items-center bg-white hover:text-white  border-2 border-elementbBg transition-all duration-300 ease-linear cursor-pointer hover:bg-pokedex  hover:border-elementbBg dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:hover:bg-pokedex  dark:hover:border-white dark:hover:text-white"
+              onClick={() => setPage((prev) => prev - 1)}
+            >
+              prev
+            </button>
+          )}
+          {catchedPokemon[catchedPokemon.length - 1].id !==
+            shownArr[shownArr.length - 1].id && (
+            <button
+              className="absolute top-0 right-0  w-[150px] h-[30px] rounded-xl flex justify-center items-center bg-white hover:text-white  border-2 border-elementbBg transition-all duration-300 ease-linear cursor-pointer hover:bg-pokedex  hover:border-elementbBg dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:hover:bg-pokedex  dark:hover:border-white dark:hover:text-white"
+              onClick={() => setPage((prev) => prev + 1)}
+            >
+              next
+            </button>
+          )}
+        </div>
         <div className="max-w-[700px] flex flex-wrap justify-center items-center gap-4">
           {catchedPokemon.length > 0 ? (
-            catchedPokemon.map((pokemon) => (
+            shownArr.map((pokemon) => (
               <div
                 // to={`/pokedex/${pokemon.id}`}
                 // onClick={() => {
