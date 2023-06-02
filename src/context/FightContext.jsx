@@ -10,6 +10,7 @@ export default function FightContextProvider({ children }) {
   const [playerName, setPlayerName] = useState("");
   const [playerNameSelected, setPlayerNameSelected] = useState(false);
   const [catchedPokemon, setCatchedPokemon] = useState([]);
+  const [challengedWild, setChallengedWild] = useState({});
 
   const [topPlayers, setTopPlayers] = useState([]);
   const { allPokemons, setAllPokemons } = useContext(DataContext);
@@ -18,7 +19,7 @@ export default function FightContextProvider({ children }) {
   const [leaderLoading, setLeaderLoading] = useState(true);
 
   const fetchWildPokemon = async () => {
-    const randomNum = Math.floor(Math.random() * 809);
+    const randomNum = Math.floor(Math.random() * 809) + 1;
     const res = await fetch(
       `https://pokefight-api.onrender.com/pokemons/${randomNum}`
     );
@@ -209,6 +210,8 @@ export default function FightContextProvider({ children }) {
         leaderLoading,
         catchPokemon,
         catchedPokemon,
+        challengedWild,
+        setChallengedWild,
       }}
     >
       {children}

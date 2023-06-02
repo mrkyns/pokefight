@@ -8,8 +8,13 @@ import SelectionDialog from "./SelectionDialog";
 
 export default function Pokemon() {
   const { allPokemons } = useContext(DataContext);
-  const { addToSelection, selectablePokes, catchedPokemon } =
-    useContext(FightContext);
+  const {
+    addToSelection,
+    selectablePokes,
+    catchedPokemon,
+    setChallengedWild,
+    removeFromSelection,
+  } = useContext(FightContext);
   const { id } = useParams();
   const pokemon = [...allPokemons, ...selectablePokes, ...catchedPokemon]?.find(
     (pokemon) => pokemon.id === Number(id)
@@ -338,11 +343,19 @@ export default function Pokemon() {
                     >
                       {catchedPokemon.length}
                     </span>
+                    <span
+                      className={`absolute bottom-[-12px] left-[-12px] flex justify-center items-center ${
+                        pokeTypes[pokemon.type[0]].color
+                      } w-[25px] p-1 rounded-full text-[16px]`}
+                    >
+                      {selectablePokes.length}
+                    </span>
                   </div>
                 </div>
                 {/* select pokemon button */}
                 {isInSelection ? (
                   <button
+                    onClick={() => removeFromSelection(pokemon)}
                     className={`h-[70px] flex justify-center items-center font-pokefont text-3xl ${
                       pokeTypes[pokemon.type[0]].color
                     } bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w ${
@@ -382,7 +395,11 @@ export default function Pokemon() {
                     select pokemon
                   </button>
                 ) : (
-                  <button
+                  <NavLink
+                    onClick={() => {
+                      setChallengedWild(pokemon);
+                    }}
+                    to={"/fight"}
                     className={`h-[70px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w ${
                       pokeTypes[pokemon.type[0]].hover_bg
                     } hover:bg-opacity-50 ${
@@ -391,10 +408,10 @@ export default function Pokemon() {
                       pokeTypes[pokemon.type[0]].dark_hover_bg
                     } dark:hover:bg-opacity-50 ${
                       pokeTypes[pokemon.type[0]].dark_hover_b
-                    } cursor-default`}
+                    } cursor-pointer`}
                   >
                     go catch it!
-                  </button>
+                  </NavLink>
                 )}
                 {/* go to fight button */}
                 <NavLink
