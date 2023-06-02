@@ -65,6 +65,16 @@ module.exports = {
           "0%": { opacity: "1" },
           "100%": { opacity: "0" },
         },
+        input_name: {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(-500px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0px)",
+          },
+        },
         appear: {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
@@ -83,6 +93,7 @@ module.exports = {
       animation: {
         landingPage: "landingPage 1.5s 2s 2 ease-in-out forwards",
         welcomme: "welcomme 1s 1s ease-in-out forwards",
+        input_name: "input_name 1s 5s ease-in-out forwards",
         appear: "appear 300ms ease-out both",
         grow: "grow 400ms ease-out both",
         ping: "ping 300ms linear forwards",

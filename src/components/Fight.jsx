@@ -4,6 +4,7 @@ import { FightContext } from "../context/FightContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import FightStats from "./FightStats";
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function Fight() {
   const {
@@ -23,6 +24,7 @@ export default function Fight() {
     setRandomWildPokemon,
     setChallengedWild,
   } = useContext(FightContext);
+  const { pokeTypes } = useContext(ThemeContext);
 
   const winCountPlayer = useRef(0);
   const winCountWild = useRef(0);
@@ -230,12 +232,32 @@ export default function Fight() {
                       }}
                       className="fight_select-poke overflow-hidden flex flex-col justify-center gap-[2px]"
                     >
-                      <div className="absolute w-[85px] h-[100px] flex justify-center items-center bg-elementbBg dark:bg-elementbBg_w rounded-xl z-10">
+                      <div className="absolute w-[85px] h-[100px] flex justify-center items-center overflow-hidden bg-elementbBg dark:bg-elementbBg_w rounded-xl z-10">
                         <img
                           src={poke.sprite}
                           alt={poke.name.english}
                           className="w-[90%]"
                         />
+                        {poke.type.length === 1 ? (
+                          <p
+                            className={`absolute w-full h-full flex justify-center items-center ${
+                              pokeTypes[poke.type[0]].color
+                            } translate-x-[-90px] transition-all duration-300 ease-linear`}
+                          >
+                            {poke.type[0]}
+                          </p>
+                        ) : (
+                          <p className="type_no_border absolute w-full h-full flex flex-col">
+                            {poke.type.map((type, ind) => (
+                              <p
+                                key={type + ind}
+                                className={`w-full h-1/2 flex justify-center items-center ${pokeTypes[type].color} translate-x-[-90px] transition-all duration-300 ease-linear`}
+                              >
+                                {type}
+                              </p>
+                            ))}
+                          </p>
+                        )}
                       </div>
                       <span className="ml-[83px] bg-pokefigt bg-opacity-50 rounded-e-xl px-3 border-2 border-pokefigt font-pokefont text-xl translate-x-[-250px] transition-all duration-300 ease-linear">
                         {poke.name.english}
