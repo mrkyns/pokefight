@@ -61,6 +61,7 @@ export default function FightContextProvider({ children }) {
     try {
       const res = await fetch("https://pokefight-api.onrender.com/players/top");
       const data = await res.json();
+      console.log("top players: ", data);
       if (!data.data.length) return;
       setTopPlayers(data.data);
       setLeaderLoading(false);
@@ -72,7 +73,7 @@ export default function FightContextProvider({ children }) {
   useEffect(() => {
     const fetchPlayersPokemons = async (playerName) => {
       const res = await fetch(
-        `https://pokefight-api.onrender.com/players/${playerName}`
+        `https://pokefight-api.onrender.com/players/catchedPokes/${playerName}`
       );
       const data = await res.json();
       setCatchedPokemon(data.data);
@@ -84,7 +85,7 @@ export default function FightContextProvider({ children }) {
 
   const catchPokemon = async (playerName, pokeId) => {
     const res = await fetch(
-      `https://pokefight-api.onrender.com/players/${playerName}/${pokeId}`,
+      `https://pokefight-api.onrender.com/players/catchedPokes/${playerName}/${pokeId}`,
       { method: "PUT" }
     );
     const data = await res.json();

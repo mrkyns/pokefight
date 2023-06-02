@@ -15,7 +15,7 @@ export default function Leaderboard() {
   useEffect(() => {
     fetchTopPlayers();
   }, []);
-
+  console.log(topPlayers);
   return (
     <>
       {leaderLoading ? <Loader /> : null}
@@ -60,6 +60,13 @@ export default function Leaderboard() {
                       <h3 className="opacity-50">loses</h3>
                       <span className="font-pokefont text-2xl">
                         {player.lostGames}
+                      </span>
+                    </div>
+                    {/* Pokemons catched} */}
+                    <div className="flex flex-col items-center">
+                      <h3 className="opacity-50">pokes</h3>
+                      <span className="font-pokefont text-2xl">
+                        {player.catchedPokemons.length}
                       </span>
                     </div>
                     {/* fights numbers */}

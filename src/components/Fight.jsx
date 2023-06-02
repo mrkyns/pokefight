@@ -201,6 +201,8 @@ export default function Fight() {
     },
   };
 
+  console.log(selectablePokes);
+
   return (
     <>
       <div className="flex justify-center mb-9">
@@ -221,8 +223,8 @@ export default function Fight() {
           {/* selected pokemons */}
           <div className="absolute left-[-45px] top-[17px] flex flex-col gap-6 z-30">
             {/* pokemon selected card start */}
-            {catchedPokemon.length > 0 &&
-              catchedPokemon.map(
+            {selectablePokes.length > 0 &&
+              selectablePokes.map(
                 (poke, ind) =>
                   ind < 6 && (
                     <div
