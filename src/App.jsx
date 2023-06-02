@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router";
-import Loader from "./components/Loader";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import Pokedex from "./components/Pokedex";
@@ -8,7 +7,6 @@ import Fight from "./components/Fight";
 import Creators from "./components/Creators";
 import Creator from "./components/Creator";
 import Leaderboard from "./components/Leaderboard";
-import NoSearchResult from "./components/NoSearchResult";
 
 function App() {
   const dark = true;
@@ -31,7 +29,6 @@ function App() {
         <Route path="/creators/:name" element={<Creator />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/load" element={<Loader />} />
       </Routes>
       <span className="block my-10 opacity-20">
         PokeFight | Group 05 | WBS Cooding School 2023

@@ -22,25 +22,30 @@ export default function LandingPage() {
         </h1>
       </div>
       {!playerNameSelected && (
-        <form
-          onSubmit={handlePlayerNameSubmit}
-          className="flex flex-col gap-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-appear"
+        <div
+          className="absolute top-80 opacity-0 translate-y-[-500px] animate-appear w-[550px] h-[200px] py-6 bg-black bg-opacity-80 backdrop-blur-sm border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl dark:bg-bgColor dark:bg-opacity-80 dark:border-white dark:shadow-shadow_w animate-input_name"
           style={{ animationDelay: "1.5s" }}
         >
-          <input
-            type="text"
-            name="search"
-            id="search"
-            autoFocus
-            spellCheck="false"
-            onChange={handlePlayerNameInput}
-            value={playerName}
-            className=" px-3 font-pokefont text-2xl w-[390px] h-[60px] bg-elementbBg bg-opacity-90 border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt focus:bg-pokefigt focus:bg-opacity-50 focus:border-pokefigt dark:focus:bg-pokefigt dark:focus:bg-opacity-50 dark:focus:border-pokefigt dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:shadow-shadow_w dark:hover:bg-pokefigt dark:hover:bg-opacity-50 dark:hover:border-pokefigt focus:outline-none"
-          />
-          <button className="[390px] h-[40px] bg-elementbBg bg-opacity-90 border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:shadow-shadow_w dark:hover:bg-pokefigt dark:hover:bg-opacity-50 dark:hover:border-pokefigt">
-            Enter your name!
-          </button>
-        </form>
+          <form
+            onSubmit={handlePlayerNameSubmit}
+            className="flex flex-col gap-4"
+          >
+            <input
+              type="text"
+              name="search"
+              id="search"
+              autoFocus
+              spellCheck="false"
+              onChange={handlePlayerNameInput}
+              value={playerName}
+              placeholder="Enter your name!"
+              className="px-3 font-pokefont text-2xl w-[480px] h-[60px] bg-elementbBg bg-opacity-90 border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt focus:bg-pokefigt focus:bg-opacity-50 focus:border-pokefigt dark:focus:bg-pokefigt dark:focus:bg-opacity-50 dark:focus:border-pokefigt dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:shadow-shadow_w dark:hover:bg-pokefigt dark:hover:bg-opacity-50 dark:hover:border-pokefigt focus:outline-none"
+            />
+            <button className="[480px] h-[40px] bg-elementbBg bg-opacity-90 border-2 border-elementbBg shadow-shadow flex justify-center items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:shadow-shadow_w dark:hover:bg-pokefigt dark:hover:bg-opacity-50 dark:hover:border-pokefigt">
+              Confirm
+            </button>
+          </form>
+        </div>
       )}
     </>
   );

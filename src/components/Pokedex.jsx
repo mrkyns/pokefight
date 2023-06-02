@@ -7,6 +7,7 @@ import { FightContext } from "../context/FightContext";
 import { NavLink } from "react-router-dom";
 import NoSearchResult from "./NoSearchResult";
 import SelectionDialog from "./SelectionDialog";
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function Pokedex() {
   const {
@@ -18,65 +19,9 @@ export default function Pokedex() {
     setPage,
   } = useContext(DataContext);
   const { selectablePokes, catchedPokemon } = useContext(FightContext);
+  const { pokeTypes } = useContext(ThemeContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectionModalRef = useRef(null);
-
-  const pokeTypes = {
-    Bug: {
-      color: "bg-bug",
-    },
-    Dark: {
-      color: "bg-dark",
-    },
-    Dragon: {
-      color: "bg-dragon",
-    },
-    Electric: {
-      color: "bg-electric",
-    },
-    Fairy: {
-      color: "bg-fairy",
-    },
-    Fighting: {
-      color: "bg-fighting",
-    },
-    Fire: {
-      color: "bg-fire",
-    },
-    Flying: {
-      color: "bg-flying",
-    },
-    Ghost: {
-      color: "bg-ghost",
-    },
-    Grass: {
-      color: "bg-grass",
-    },
-    Ground: {
-      color: "bg-ground",
-    },
-    Ice: {
-      color: "bg-ice",
-    },
-    Normal: {
-      color: "bg-normal",
-    },
-    Poison: {
-      color: "bg-poison",
-    },
-    Psychic: {
-      color: "bg-psyhic",
-    },
-    Rock: {
-      color: "bg-rock",
-    },
-    Steel: {
-      color: "bg-steel",
-    },
-    Water: {
-      color: "bg-water",
-    },
-  };
 
   const moreCanBeLoaded = (page + 1) * 12 < pokeAmount;
   const prevCanBeLoaded = (page + 1) * 12 > 12;

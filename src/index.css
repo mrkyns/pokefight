@@ -392,8 +392,11 @@ body {
   transition: all 0.3s ease;
 }
 
-.fight_select-poke:hover div {
+.fight_select-poke:hover .type_border {
   border: 2px solid var(--fight);
+}
+.type_no_border {
+  border: 0;
 }
 
 .fight_select-poke:hover span {

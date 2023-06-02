@@ -68,7 +68,7 @@ export default function SelectionDialog({
             </button>
           )}
         </div>
-        <div className="max-w-[700px] flex flex-wrap justify-center items-center gap-4">
+        <div className="max-w-[760px] flex flex-wrap justify-center items-center gap-4">
           {catchedPokemon.length > 0 ? (
             shownArr.map((pokemon) => (
               <div
