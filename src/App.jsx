@@ -7,6 +7,8 @@ import Fight from "./components/Fight";
 import Creators from "./components/Creators";
 import Creator from "./components/Creator";
 import Leaderboard from "./components/Leaderboard";
+import FightPlayerPokemon from "./components/FightPlayerPokemon";
+import FightWildPokemon from "./components/FightWildPokemon";
 
 function App() {
   const dark = true;
@@ -28,7 +30,8 @@ function App() {
         <Route path="/creators" element={<Creators />} />
         <Route path="/creators/:name" element={<Creator />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/player" element={<FightPlayerPokemon />} />
+        <Route path="/wild" element={<FightWildPokemon />} />
       </Routes>
       <span className="block my-10 opacity-20">
         PokeFight | Group 05 | WBS Cooding School 2023
