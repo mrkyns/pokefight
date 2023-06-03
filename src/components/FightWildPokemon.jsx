@@ -2,11 +2,39 @@ export default function FightWildPokemon() {
   return (
     <div className="w-[240px]">
       {/* image for wild pokemon */}
-      <div className="w-[240px] h-[210px] bg-elementbBg rounded-xl border-2 border-elementbBg dark:bg-elementbBg_w dark:border-elementbBg_w">
+      <div className="relative w-[240px] h-[210px] bg-elementbBg rounded-xl border-2 border-elementbBg dark:bg-elementbBg_w dark:border-elementbBg_w">
+        <div className="w-full h-full -translate-y-3">
+          <img
+            src="../images/001.png"
+            alt="a wild pokemon"
+            className="w-full h-full object-contain animate-hit"
+          />
+        </div>
+        {/* comic effects */}
         <img
-          className="w-full h-full object-contain -translate-y-3"
-          src="../images/001.png"
-          alt="a wild pokemon"
+          src="../images/bang.png"
+          alt="bang"
+          className="w-[140px] absolute top-[-50px] left-[-50px] opacity-0 animate-comic"
+        />
+        <img
+          src="../images/ouch.png"
+          alt="ouch"
+          className="w-[140px] absolute top-[20px] left-[40px] opacity-0 animate-comic"
+        />
+        <img
+          src="../images/pow.png"
+          alt="pow"
+          className="w-[140px] absolute top-[-50px] right-[-50px] opacity-0 animate-comic"
+        />
+        <img
+          src="../images/wham.png"
+          alt="wham"
+          className="w-[140px] absolute top-[40px] left-[-50px] opacity-0 animate-comic"
+        />
+        <img
+          src="../images/zap.png"
+          alt="zap"
+          className="w-[140px] absolute top-[40px] right-[-50px] opacity-0 animate-comic"
         />
       </div>
       {/* {battleHasStarted && (

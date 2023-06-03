@@ -89,6 +89,26 @@ module.exports = {
           "50%": { transform: "scale(1.2)" },
           "100%": { transform: "scale(1)" },
         },
+        comic: {
+          "0%": { opacity: "0" },
+          "20%": {
+            opacity: "1",
+            transform: "scale(1)",
+          },
+          "40%": { transform: "scale(1.2)" },
+          "60%": { transform: "scale(1.2)" },
+          "80%": {
+            transform: "scale(1)",
+            opacity: "1",
+          },
+          "100%": { opacity: "0" },
+        },
+        hit: {
+          "0%": { transform: "translateX(0)" },
+          "20%": { transform: "translateX(20px)" },
+          "40%": { transform: "translateY(-20px)" },
+          "60%": { transform: "translateX(-100px)" },
+        },
       },
       animation: {
         landingPage: "landingPage 1.5s 2s 2 ease-in-out forwards",
@@ -97,6 +117,8 @@ module.exports = {
         appear: "appear 300ms ease-out both",
         grow: "grow 400ms ease-out both",
         ping: "ping 300ms linear forwards",
+        comic: "comic 2s linear forwards",
+        hit: "hit 650ms linear forwards",
       },
     },
   },
