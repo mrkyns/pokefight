@@ -7,8 +7,8 @@ export default function Result({ isPlayerWinner, isTie, pokemon, points }) {
       {isTie ? (
         <>
           <div className="font-pokefont relative">
-            <div className="text-9xl block">draw</div>
-            <div className="w-[160px] text-3xl leading-7">
+            <div className="text-[110px] block">draw</div>
+            <div className="w-[160px] text-3xl leading-7 mt-[-30px]">
               at least no one lost
             </div>
             <div>{points} points</div>
@@ -25,8 +25,8 @@ export default function Result({ isPlayerWinner, isTie, pokemon, points }) {
         <>
           {" "}
           <div className="font-pokefont relative">
-            <div className="text-9xl block">winner</div>
-            <div className="w-[100px] text-3xl leading-7">
+            <div className="text-[110px] block">winner</div>
+            <div className="w-[100px] text-3xl leading-7 mt-[-30px]">
               winner poke dinner
             </div>
             <div>{points} points</div>
@@ -34,7 +34,7 @@ export default function Result({ isPlayerWinner, isTie, pokemon, points }) {
               <img
                 src={pokemon.sprite}
                 alt={pokemon.name.english}
-                className="absolute w-[200px] top-16 right-10"
+                className="absolute w-[200px] top-14 right-4"
               />
             </div>
           </div>
@@ -42,8 +42,10 @@ export default function Result({ isPlayerWinner, isTie, pokemon, points }) {
       ) : (
         <>
           <div className="font-pokefont relative">
-            <div className="text-9xl block">defeat</div>
-            <div className="w-[100px] text-3xl leading-7">ouch that hurt!</div>
+            <div className="text-[110px] block">defeat</div>
+            <div className="w-[100px] text-3xl leading-7 mt-[-30px]">
+              ouch that hurt!
+            </div>
             <div>{points} points</div>
             <div>
               <img
