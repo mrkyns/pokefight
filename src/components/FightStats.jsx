@@ -8,7 +8,7 @@ export default function FightStats({
   playerMultipliers,
 }) {
   return (
-    <div className="flex flex-col justify-between">
+    <div className="flex flex-col gap-4">
       {["HP", "Attack", "Defense", "Sp. Attack", "Sp. Defense", "Speed"].map(
         (stat, ind) => {
           const playerPoints =
