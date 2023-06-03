@@ -479,7 +479,7 @@ export default function Fight() {
                   ))}
               </div>
               {Object.keys(randomWildPokemon).length > 0 && (
-                <div className="my-8 max-w-[210px] absolute right-5 -bottom-[200px]">
+                <div className="my-8 max-w-[240px] absolute -bottom-[200px]">
                   <h2 className="font-pokefont text-xl mb-4">weakness</h2>
                   <div className="flex justify-start gap-4 flex-wrap">
                     {[
@@ -536,10 +536,10 @@ export default function Fight() {
                 catchPokemon(playerName, randomWildPokemon.id);
                 setIsCatchedFeedback(true);
               }}
-              className="absolute bottom-2 right-2 py-2 px-4 rounded cursor-pointer flex w-[240px] h-[60px] appearance-none"
+              className="absolute w-[280px] bottom-[40px] right-[40px] py-2 px-4 rounded cursor-pointer flex appearance-none"
             >
               <div
-                className={`w-[90%] font-pokefont text-2xl ${
+                className={`w-[90%] h-[50px] font-pokefont text-2xl ${
                   isCatchedFeedback ? "bg-pokefigt" : "bg-elementbBg"
                 } bg-opacity-50 border-2 border-elementbBg shadow-shadow flex justify-start px-3 items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w`}
               >
@@ -552,7 +552,7 @@ export default function Fight() {
                     : "../images/catchball.gif"
                 }
                 alt="catch em poke ball"
-                className="w-[80px] absolute right-0 top-[-10px]"
+                className="w-[80px] absolute right-0 top-[-7px]"
               />
             </button>
           )}
