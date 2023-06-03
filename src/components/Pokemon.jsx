@@ -16,6 +16,7 @@ export default function Pokemon() {
     catchedPokemon,
     setChallengedWild,
     removeFromSelection,
+    multiplier,
   } = useContext(FightContext);
   const { id } = useParams();
   const pokemon = [...allPokemons, ...selectablePokes, ...catchedPokemon]?.find(
@@ -267,14 +268,40 @@ export default function Pokemon() {
               </div>
             </div>
             {/* classes for image and backgoround light */}
-            <div className="w-full tablet:w-[60%] flex justify-center items-center relative">
+            <div className="w-full tablet:w-[60%] flex flex-col justify-start items-center relative">
+              <div className="mx-10 flex justify-between gap-4">
+                <h2 className="font-pokefont text-xl mb-4">weakness</h2>
+                <div className="flex justify-start gap-4 flex-wrap">
+                  {[
+                    ...new Set(
+                      pokemon.type.reduce(
+                        (weaknesses, type) => [
+                          ...weaknesses,
+                          ...multiplier[type].half,
+                          ...multiplier[type].zero,
+                        ],
+                        []
+                      )
+                    ),
+                  ].map((type) => {
+                    return (
+                      <div className="relative flex">
+                        <div
+                          className={`absolute left-[-5px] top-[4px] w-[20px] h-[20px] rounded-full ${pokeTypes[type].color}`}
+                        ></div>
+                        <span className="z-10">{type.toLowerCase()}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
               <img
                 src={pokemon.sprite}
                 alt={pokemon.name.english}
-                className="z-10"
+                className="z-10 mt-[-80px]"
               />
               <div
-                className={`absolute w-[350px] h-[350px] ${
+                className={`absolute w-[350px] h-[350px] top-[110px] ${
                   pokeTypes[pokemon.type[0]].color
                 } rounded-full blur-2xl`}
               ></div>
