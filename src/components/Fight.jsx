@@ -5,6 +5,8 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import FightStats from "./FightStats";
 import { ThemeContext } from "../context/ThemeContext";
+import FightPlayerPokemon from "./FightPlayerPokemon";
+import FightWildPokemon from "./FightWildPokemon";
 
 export default function Fight() {
   const {
@@ -20,6 +22,7 @@ export default function Fight() {
     handlePlayerNameSubmit,
     fetchTopPlayers,
     catchPokemon,
+    catchedPokemon,
     challengedWild,
     setRandomWildPokemon,
     setChallengedWild,
@@ -31,9 +34,11 @@ export default function Fight() {
   const [battleHasStarted, setBattleHasStarted] = useState(false);
   const [victoriesPlayer, setVictoriesPlayer] = useState([]);
   const [victoriesWild, setVictoriesWild] = useState([]);
+  const [playerVictoriesMap, setPlayerVictoriesMap] = useState([]);
   const [playerMultipliers, setPlayerMultipliers] = useState([]);
   const [wildMultipliers, setWildMultipliers] = useState([]);
   const [appliedPoints, setAppliedPoints] = useState(0);
+  const [isCatchedFeedback, setIsCatchedFeedback] = useState(false);
 
   const reset = async () => {
     if (!Object.keys(challengedWild).length) await fetchWildPokemon();
@@ -109,6 +114,14 @@ export default function Fight() {
             randomWildPokemon.base[stat]
           );
     });
+
+    setPlayerVictoriesMap(
+      playerPoints.map((playerP, ind) => {
+        if (playerP > wildPoints[ind]) return 1;
+        if (playerP < wildPoints[ind]) return 0;
+        else return 2;
+      })
+    );
 
     const points = [
       "HP",
@@ -294,20 +307,30 @@ export default function Fight() {
           {/* pokemon image and fight stistic */}
           <div className="w-full flex justify-between px-8 relative">
             <div>
-              <div className="flex justify-center items-center w-[240px] h-[210px] rounded-xl border-2 border-elementbBg dark:border-elementbBg_w overflow-hidden transition-all duration-300 ease-linear cursor-pointer z-[5]">
-                <div className="flex justify-center items-center w-[240px] h-[210px] z-10 bg-elementbBg dark:bg-elementbBg_w border-2 border-elementbBg dark:border-elementbBg_w">
+              <div className="flex justify-center items-center w-[240px] h-[210px] rounded-xl border-2 border-elementbBg dark:border-elementbBg_w  transition-all duration-300 ease-linear cursor-pointer z-[5] overflow-visible">
+                <div className="flex justify-center items-center w-[240px] h-[210px] z-10 bg-elementbBg dark:bg-elementbBg_w border-2 border-elementbBg dark:border-elementbBg_w overflow-visible">
                   {Object.keys(selectedPokemon).length > 0 && (
-                    <img
-                      className="w-full h-full object-contain -translate-y-3"
-                      src={
-                        Object.keys(selectedPokemon).length > 0 &&
-                        selectedPokemon.sprite
-                      }
-                      alt={`a wild ${
-                        Object.keys(selectedPokemon).length > 0 &&
-                        selectedPokemon.name.english
-                      }!`}
-                    />
+                    <>
+                      {!battleHasStarted && (
+                        <img
+                          className="w-full h-full object-contain -translate-y-3 scale-x-[-1]"
+                          src={
+                            Object.keys(selectedPokemon).length > 0 &&
+                            selectedPokemon.sprite
+                          }
+                          alt={`${playerName} ${
+                            Object.keys(selectedPokemon).length > 0 &&
+                            selectedPokemon.name.english
+                          }!`}
+                        />
+                      )}
+                      <FightPlayerPokemon
+                        pokemon={selectedPokemon}
+                        playerVictoriesMap={playerVictoriesMap}
+                        battleHasStarted={battleHasStarted}
+                        isPlayer={true}
+                      />
+                    </>
                   )}
                 </div>
               </div>
@@ -391,19 +414,27 @@ export default function Fight() {
             {/* Wild Pokemon */}
             <div>
               <div className="w-[240px] h-[210px] bg-elementbBg rounded-xl border-2 border-elementbBg dark:bg-elementbBg_w dark:border-elementbBg_w">
-                {Object.keys(randomWildPokemon).length > 0 && (
-                  <img
-                    className="w-full h-full object-contain -translate-y-3"
-                    src={
-                      Object.keys(randomWildPokemon).length > 0 &&
-                      randomWildPokemon.sprite
-                    }
-                    alt={`a wild ${
-                      Object.keys(randomWildPokemon).length > 0 &&
-                      randomWildPokemon.name.english
-                    }!`}
-                  />
-                )}
+                {Object.keys(randomWildPokemon).length > 0 &&
+                  (!battleHasStarted ? (
+                    <img
+                      className="w-full h-full object-contain -translate-y-3"
+                      src={
+                        Object.keys(randomWildPokemon).length > 0 &&
+                        randomWildPokemon.sprite
+                      }
+                      alt={`a wild ${
+                        Object.keys(randomWildPokemon).length > 0 &&
+                        randomWildPokemon.name.english
+                      }!`}
+                    />
+                  ) : (
+                    <FightPlayerPokemon
+                      pokemon={randomWildPokemon}
+                      playerVictoriesMap={playerVictoriesMap}
+                      battleHasStarted={battleHasStarted}
+                      isPlayer={false}
+                    />
+                  ))}
               </div>
               {battleHasStarted && (
                 <div className="w-[240px] flex justify-center gap-2 absolute bottom-[-15px] pointer-events-none z-10">
@@ -447,6 +478,34 @@ export default function Fight() {
                     </div>
                   ))}
               </div>
+              {Object.keys(randomWildPokemon).length > 0 && (
+                <div className="my-8 max-w-[210px] absolute right-5 -bottom-[200px]">
+                  <h2 className="font-pokefont text-xl mb-4">weakness</h2>
+                  <div className="flex justify-start gap-4 flex-wrap">
+                    {[
+                      ...new Set(
+                        randomWildPokemon.type.reduce(
+                          (weaknesses, type) => [
+                            ...weaknesses,
+                            ...multiplier[type].half,
+                            ...multiplier[type].zero,
+                          ],
+                          []
+                        )
+                      ),
+                    ].map((type) => {
+                      return (
+                        <div className="relative flex">
+                          <div
+                            className={`absolute left-[-5px] top-[4px] w-[20px] h-[20px] rounded-full ${pokeTypes[type].color}`}
+                          ></div>
+                          <span className="z-10">{type.toLowerCase()}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           {/* button to start fight */}
@@ -473,10 +532,28 @@ export default function Fight() {
           {/* Button to catch defeated pokemon*/}
           {battleHasStarted && victoriesPlayer.length > 3 && (
             <button
-              onClick={() => catchPokemon(playerName, randomWildPokemon.id)}
-              className="absolute bottom-0 right-0 bg-fighting py-2 px-4 rounded cursor-pointer"
+              onClick={() => {
+                catchPokemon(playerName, randomWildPokemon.id);
+                setIsCatchedFeedback(true);
+              }}
+              className="absolute bottom-2 right-2 py-2 px-4 rounded cursor-pointer flex w-[240px] h-[60px] appearance-none"
             >
-              Catch it!
+              <div
+                className={`w-[90%] font-pokefont text-2xl ${
+                  isCatchedFeedback ? "bg-pokefigt" : "bg-elementbBg"
+                } bg-opacity-50 border-2 border-elementbBg shadow-shadow flex justify-start px-3 items-center rounded-xl transition-all duration-300 ease-linear cursor-pointer hover:bg-pokefigt hover:bg-opacity-50 hover:border-pokefigt dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w`}
+              >
+                Catch it!
+              </div>
+              <img
+                src={
+                  isCatchedFeedback
+                    ? "../images/pokeball.gif"
+                    : "../images/catchball.gif"
+                }
+                alt="catch em poke ball"
+                className="w-[80px] absolute right-0 top-[-10px]"
+              />
             </button>
           )}
 

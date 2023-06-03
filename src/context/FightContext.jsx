@@ -183,6 +183,43 @@ export default function FightContextProvider({ children }) {
     },
   };
 
+  const pickEffect = (ind) => {
+    const comicEffects = [
+      <img
+        src="../images/bang.png"
+        alt="bang"
+        className="w-[140px] absolute top-[-50px] left-[-50px] opacity-0 animate-comic"
+        style={{ animationDelay: `${ind * 750}ms` }}
+      />,
+      <img
+        src="../images/ouch.png"
+        alt="ouch"
+        className="w-[140px] absolute top-[20px] left-[40px] opacity-0 animate-comic"
+        style={{ animationDelay: `${ind * 750}ms` }}
+      />,
+      <img
+        src="../images/pow.png"
+        alt="pow"
+        className="w-[140px] absolute top-[-50px] right-[-50px] opacity-0 animate-comic"
+        style={{ animationDelay: `${ind * 750}ms` }}
+      />,
+      <img
+        src="../images/wham.png"
+        alt="wham"
+        className="w-[140px] absolute top-[40px] left-[-50px] opacity-0 animate-comic"
+        style={{ animationDelay: `${ind * 750}ms` }}
+      />,
+      <img
+        src="../images/zap.png"
+        alt="zap"
+        className="w-[140px] absolute top-[40px] right-[-50px] opacity-0 animate-comic"
+        style={{ animationDelay: `${ind * 750}ms` }}
+      />,
+    ];
+
+    return comicEffects[Math.floor(Math.random() * comicEffects.length)];
+  };
+
   return (
     <FightContext.Provider
       value={{
@@ -209,6 +246,7 @@ export default function FightContextProvider({ children }) {
         catchedPokemon,
         challengedWild,
         setChallengedWild,
+        pickEffect,
       }}
     >
       {children}

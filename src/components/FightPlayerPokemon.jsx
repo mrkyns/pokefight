@@ -1,41 +1,57 @@
-export default function FightPlayerPokemon() {
+import { useContext } from "react";
+import { FightContext } from "../context/FightContext";
+
+export default function FightPlayerPokemon({
+  pokemon,
+  playerVictoriesMap,
+  battleHasStarted,
+  isPlayer,
+}) {
+  const { pickEffect } = useContext(FightContext);
+  const effectMap = isPlayer
+    ? playerVictoriesMap
+    : playerVictoriesMap.map((round) => {
+        if (round === 0) return 1;
+        if (round === 1) return 0;
+        else return 2;
+      });
+
   return (
-    <div className="w-[240px]">
+    <>
+      {/* <div className="w-[240px]"> */}
       {/* image for wild pokemon */}
-      <div className="relative w-[240px] h-[210px] bg-elementbBg rounded-xl border-2 border-elementbBg dark:bg-elementbBg_w dark:border-elementbBg_w">
-        <div className="w-full h-full -translate-y-3 scale-x-[-1]">
-          <img
-            src="../images/001.png"
-            alt="a wild pokemon"
-            className="w-full h-full object-contain animate-hit"
-          />
+      <div className="relative w-[240px] h-[210px] bg-elementbBg rounded-xl border-2 border-elementbBg dark:bg-elementbBg_w dark:border-elementbBg_w overflow-visible">
+        <div
+          className={`w-full h-full -translate-y-3 ${
+            isPlayer ? "scale-x-[-1]" : ""
+          }`}
+        >
+          {battleHasStarted &&
+            effectMap.map((round, ind) =>
+              ind < 5 ? (
+                <img
+                  src={pokemon.sprite}
+                  alt={pokemon.name.english}
+                  className={`absolute top-2 left-3  w-full h-full object-contain opacity-0 ${
+                    round === 1 ? "animate-hit" : "animate-visible"
+                  }`}
+                  style={{ animationDelay: `${ind * 750}ms` }}
+                />
+              ) : (
+                <img
+                  src={pokemon.sprite}
+                  alt={pokemon.name.english}
+                  className={`absolute top-2 left-3  w-full h-full object-contain opacity-0 ${
+                    round === 1 ? "animate-lastHit" : "animate-appearInstantly"
+                  } `}
+                  style={{ animationDelay: `${ind * 750}ms` }}
+                />
+              )
+            )}
         </div>
         {/* comic effects */}
-        <img
-          src="../images/bang.png"
-          alt="bang"
-          className="w-[140px] absolute top-[-50px] left-[-50px] opacity-0 animate-comic"
-        />
-        <img
-          src="../images/ouch.png"
-          alt="ouch"
-          className="w-[140px] absolute top-[20px] left-[40px] opacity-0 animate-comic"
-        />
-        <img
-          src="../images/pow.png"
-          alt="pow"
-          className="w-[140px] absolute top-[-50px] right-[-50px] opacity-0 animate-comic"
-        />
-        <img
-          src="../images/wham.png"
-          alt="wham"
-          className="w-[140px] absolute top-[40px] left-[-50px] opacity-0 animate-comic"
-        />
-        <img
-          src="../images/zap.png"
-          alt="zap"
-          className="w-[140px] absolute top-[40px] right-[-50px] opacity-0 animate-comic"
-        />
+        {battleHasStarted &&
+          effectMap.map((round, ind) => (round === 0 ? pickEffect(ind) : null))}
       </div>
 
       {/* {battleHasStarted && (
@@ -58,7 +74,7 @@ export default function FightPlayerPokemon() {
       )} */}
 
       {/* stast for random wild pokemon */}
-      <div className="flex justify-between">
+      {/* <div className="flex justify-between">
         <div className="fight_stat_hp w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4 animate-appear">
           <h4 className="text-sm opacity-50">hp</h4>
           <span className="font-pokefont text-xl">60</span>
@@ -82,9 +98,9 @@ export default function FightPlayerPokemon() {
         <div className="fight_stat_spp w-[35px] h-[60px] flex flex-col items-center justify-center rounded-xl mt-4 animate-appear">
           <h4 className="text-sm opacity-50">sp</h4>
           <span className="font-pokefont text-xl">60</span>
-        </div>
+        </div> */}
 
-        {/* {battleHasStarted &&
+      {/* {battleHasStarted &&
           ["HP", "Attack", "Defense", "Sp. Attack", "Sp. Defense", "Speed"].map(
             (stat, ind) => (
               <div
@@ -100,7 +116,8 @@ export default function FightPlayerPokemon() {
               </div>
             )
           )} */}
-      </div>
-    </div>
+      {/* </div> */}
+      {/* </div> */}
+    </>
   );
 }
