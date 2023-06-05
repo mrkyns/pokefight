@@ -56,8 +56,10 @@ export default function Pokedex() {
               {/* selected pokemons with nitification */}
               <div
                 onClick={() => {
-                  setIsModalOpen(true);
-                  selectionModalRef.current.show();
+                  if (catchedPokemon.length > 0) {
+                    setIsModalOpen(true);
+                    selectionModalRef.current.show();
+                  }
                 }}
                 className="flex justify-center items-center relative dark:text-white text-5xl w-[90px] poke_l:w-[100px] h-[80px] rounded-xl bg-pokedex border-2 border-pokedex bg-opacity-50 shadow-shadow dark:shadow-shadow_w cursor-pointer"
               >
@@ -180,12 +182,14 @@ export default function Pokedex() {
         </div>
       </div>
       {/* Dialog Backdrop */}
-      <SelectionDialog
-        setIsModalOpen={setIsModalOpen}
-        isModalOpen={isModalOpen}
-        selectionModalRef={selectionModalRef}
-        pokeTypes={pokeTypes}
-      />
+      {catchedPokemon.length > 0 && (
+        <SelectionDialog
+          setIsModalOpen={setIsModalOpen}
+          isModalOpen={isModalOpen}
+          selectionModalRef={selectionModalRef}
+          pokeTypes={pokeTypes}
+        />
+      )}
     </>
   );
 }

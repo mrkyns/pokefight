@@ -49,7 +49,7 @@ export default function SelectionDialog({
         className="bg-pokedex bg-opacity-50 border-2 border-pokedex shadow-shadow_w rounded-xl top-64 absolute z-50 overflow-visible"
         ref={selectionModalRef}
       >
-        <div className="absolute -top-6 right-36">
+        <div className="absolute -top-8 right-28">
           {catchedPokemon[0].id !== shownArr[0].id && (
             <button
               className="absolute top-0 right-0  w-[150px] h-[30px] rounded-xl flex justify-center items-center bg-white hover:text-white  border-2 border-elementbBg transition-all duration-300 ease-linear cursor-pointer hover:bg-pokedex  hover:border-elementbBg dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:hover:bg-pokedex  dark:hover:border-white dark:hover:text-white"
