@@ -33,6 +33,16 @@ export default function SelectionDialog({
     else addToSelection(pokemon);
   };
 
+  const addRandom = () => {
+    const randomIndex = Math.floor(Math.random() * catchedPokemon.length);
+    if (
+      !selectablePokes.find(
+        (poke) => poke.id === catchedPokemon[randomIndex].id
+      )
+    )
+      addToSelection(catchedPokemon[randomIndex]);
+  };
+
   return (
     <>
       {isModalOpen && (
@@ -144,6 +154,12 @@ export default function SelectionDialog({
             />
           )}
         </div>
+        <button
+          className="absolute -bottom-8 -left-8 px-4  h-[30px] rounded-xl flex justify-center items-center bg-white hover:text-white  border-2 border-elementbBg transition-all duration-300 ease-linear cursor-pointer hover:bg-pokedex  hover:border-elementbBg dark:bg-bgColor dark:bg-opacity-90 dark:border-white dark:hover:bg-pokedex  dark:hover:border-white dark:hover:text-white"
+          onClick={addRandom}
+        >
+          add random Pokemon
+        </button>
       </dialog>
     </>
   );
