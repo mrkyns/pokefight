@@ -259,14 +259,14 @@ export default function Pokemon() {
                   </NavLink>
                 )}
                 {/* go to fight button */}
-                <NavLink
+                {/* <NavLink
                   to="/fight"
                   className="pokemon_fight h-[95px] flex justify-center items-center font-pokefont text-3xl bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow transition-all duration-300 ease-linear cursor-pointer overflow-hidden relative dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w"
                 >
                   <span className="transition-all duration-300 ease-linear cursor-pointer">
                     go to fight
                   </span>
-                </NavLink>
+                </NavLink> */}
               </div>
             </div>
             {/* classes for image and backgoround light */}
@@ -291,7 +291,16 @@ export default function Pokemon() {
                         <div
                           className={`absolute left-[-5px] top-[4px] w-[20px] h-[20px] rounded-full ${pokeTypes[type].color}`}
                         ></div>
-                        <span className="z-10">{type.toLowerCase()}</span>
+                        <span
+                          className={`z-10 ${
+                            multiplier[pokemon.type[0]].zero.includes(type) ||
+                            multiplier[pokemon.type[1]]?.zero.includes(type)
+                              ? "font-bold"
+                              : ""
+                          }`}
+                        >
+                          {type.toLowerCase()}
+                        </span>
                       </div>
                     );
                   })}

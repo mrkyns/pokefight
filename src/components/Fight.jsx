@@ -499,7 +499,20 @@ export default function Fight() {
                           <div
                             className={`absolute left-[-5px] top-[4px] w-[20px] h-[20px] rounded-full ${pokeTypes[type].color}`}
                           ></div>
-                          <span className="z-10">{type.toLowerCase()}</span>
+                          <span
+                            className={`z-10 ${
+                              multiplier[
+                                randomWildPokemon.type[0]
+                              ].zero.includes(type) ||
+                              multiplier[
+                                randomWildPokemon.type[1]
+                              ]?.zero.includes(type)
+                                ? "font-bold"
+                                : ""
+                            }`}
+                          >
+                            {type.toLowerCase()}
+                          </span>
                         </div>
                       );
                     })}
