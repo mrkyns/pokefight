@@ -159,8 +159,10 @@ export default function Pokemon() {
                   {/* selected pokemons with nitification */}
                   <div
                     onClick={() => {
-                      setIsModalOpen(true);
-                      selectionModalRef.current.show();
+                      if (catchedPokemon.length > 0) {
+                        setIsModalOpen(true);
+                        selectionModalRef.current.show();
+                      }
                     }}
                     ref={selectedRef}
                     className="relative flex justify-center items-center dark:text-white text-5xl w-[80px] poke_l:w-[90px] h-[70px] rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow cursor-pointer dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w"
@@ -310,12 +312,14 @@ export default function Pokemon() {
         </div>
       </div>
       {/* Dialog Backdrop */}
-      <SelectionDialog
-        setIsModalOpen={setIsModalOpen}
-        isModalOpen={isModalOpen}
-        selectionModalRef={selectionModalRef}
-        pokeTypes={pokeTypes}
-      />
+      {catchedPokemon.length > 0 && (
+        <SelectionDialog
+          setIsModalOpen={setIsModalOpen}
+          isModalOpen={isModalOpen}
+          selectionModalRef={selectionModalRef}
+          pokeTypes={pokeTypes}
+        />
+      )}
     </>
   );
 }
