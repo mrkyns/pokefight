@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import FightStats from "./FightStats";
 import { ThemeContext } from "../context/ThemeContext";
 import FightPlayerPokemon from "./FightPlayerPokemon";
+import SelectionDialog from "./SelectionDialog";
 
 export default function Fight() {
   const {
@@ -21,6 +22,7 @@ export default function Fight() {
     handlePlayerNameSubmit,
     fetchTopPlayers,
     catchPokemon,
+    catchedPokemon,
     challengedWild,
     setRandomWildPokemon,
     setChallengedWild,
@@ -37,6 +39,10 @@ export default function Fight() {
   const [wildMultipliers, setWildMultipliers] = useState([]);
   const [appliedPoints, setAppliedPoints] = useState(0);
   const [isCatchedFeedback, setIsCatchedFeedback] = useState(false);
+
+  const selectedRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const selectionModalRef = useRef(null);
 
   const catchBallRef = useRef(null);
 
@@ -220,13 +226,50 @@ export default function Fight() {
       </div>
       <div className="flex flex-col gap-4">
         {/* title */}
-        <div className="flex justify-between font-pokefont text-5xl w-[1080px] h-[80px] p-4 rounded-xl bg-pokefigt border-2 border-pokefigt bg-opacity-50 shadow-shadow dark:shadow-shadow_w dark:text-white">
+        <div className="relative flex justify-between font-pokefont text-5xl w-[1080px] h-[80px] p-4 rounded-xl bg-pokefigt border-2 border-pokefigt bg-opacity-50 shadow-shadow dark:shadow-shadow_w dark:text-white">
           <span>Fight</span>
           <img
             src="./images/fight.png"
             alt="icon for pokedex"
             className="w-[48px]"
           />
+          <div
+            onClick={() => {
+              if (catchedPokemon.length > 0) {
+                setIsModalOpen(true);
+                selectionModalRef.current.show();
+              }
+            }}
+            ref={selectedRef}
+            className="absolute top-0 -left-28  flex justify-center items-center dark:text-white text-5xl w-[80px] poke_l:w-[90px] h-[80px] rounded-xl bg-elementbBg border-2 border-elementbBg bg-opacity-50 shadow-shadow cursor-pointer dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w"
+          >
+            {catchedPokemon.length > 0 ? (
+              <img
+                src={catchedPokemon[0].sprite}
+                alt={catchedPokemon[0].name.english}
+              />
+            ) : (
+              <img
+                src="../images/openball.png"
+                alt="1st selected pokemon"
+                className="w-[90%]"
+              />
+            )}
+            <span
+              className={`absolute top-[-12px] right-[-12px] flex justify-center items-center ${
+                pokeTypes[catchedPokemon[0].type[0]].color
+              } w-[25px] p-1 rounded-full text-[16px]`}
+            >
+              {catchedPokemon.length}
+            </span>
+            <span
+              className={`absolute bottom-[-12px] left-[-12px] flex justify-center items-center ${
+                pokeTypes[catchedPokemon[0].type[0]].color
+              } w-[25px] p-1 rounded-full text-[16px]`}
+            >
+              {selectablePokes.length}
+            </span>
+          </div>
         </div>
         {/* content */}
         <div className="min-w-[1080px] min-h-[650px] bg-elementbBg bg-opacity-50 rounded-xl border-2 border-elementbBg shadow-shadow font-code p-6 flex flex-col items-center gap-4 justify-items-center relative mb-[20px] dark:bg-bgColor dark:bg-opacity-50 dark:border-white dark:shadow-shadow_w">
@@ -597,6 +640,15 @@ export default function Fight() {
           </div>
         </div>
       </div>
+      {/* Dialog Backdrop */}
+      {catchedPokemon.length > 0 && (
+        <SelectionDialog
+          setIsModalOpen={setIsModalOpen}
+          isModalOpen={isModalOpen}
+          selectionModalRef={selectionModalRef}
+          pokeTypes={pokeTypes}
+        />
+      )}
     </>
   );
 }
