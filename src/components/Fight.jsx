@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 import FightStats from "./FightStats";
 import { ThemeContext } from "../context/ThemeContext";
 import FightPlayerPokemon from "./FightPlayerPokemon";
-import FightWildPokemon from "./FightWildPokemon";
 
 export default function Fight() {
   const {
@@ -22,7 +21,6 @@ export default function Fight() {
     handlePlayerNameSubmit,
     fetchTopPlayers,
     catchPokemon,
-    catchedPokemon,
     challengedWild,
     setRandomWildPokemon,
     setChallengedWild,
@@ -39,6 +37,8 @@ export default function Fight() {
   const [wildMultipliers, setWildMultipliers] = useState([]);
   const [appliedPoints, setAppliedPoints] = useState(0);
   const [isCatchedFeedback, setIsCatchedFeedback] = useState(false);
+
+  const catchBallRef = useRef(null);
 
   const reset = async () => {
     if (!Object.keys(challengedWild).length) await fetchWildPokemon();
@@ -548,8 +548,14 @@ export default function Fight() {
               onClick={() => {
                 catchPokemon(playerName, randomWildPokemon.id);
                 setIsCatchedFeedback(true);
+                catchBallRef.current.classList.add("animate-ping");
+
+                setTimeout(() => {
+                  catchBallRef.current.classList.remove("animate-ping");
+                }, 325);
               }}
-              className="absolute w-[280px] bottom-[40px] right-[40px] py-2 px-4 rounded cursor-pointer flex appearance-none"
+              className="absolute w-[280px] bottom-[40px] right-[40px] py-2 px-4 rounded cursor-pointer flex appearance-none animate-appear"
+              style={{ animationDelay: "5s" }}
             >
               <div
                 className={`w-[90%] h-[50px] font-pokefont text-2xl ${
@@ -559,6 +565,7 @@ export default function Fight() {
                 Catch it!
               </div>
               <img
+                ref={catchBallRef}
                 src={
                   isCatchedFeedback
                     ? "../images/pokeball.gif"
