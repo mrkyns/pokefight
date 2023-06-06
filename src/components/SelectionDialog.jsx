@@ -60,6 +60,14 @@ export default function SelectionDialog({
         ref={selectionModalRef}
       >
         <div className="relative">
+          <div className="absolute top-[-70px] left-[-20px] flex gap-4">
+            <div className="px-4 h-[40px] rounded-xl flex justify-center items-center bg-elementbBg bg-opacity-50 text-white dark:text-black border-2 border-elementbBg dark:bg-bgColor dark:bg-opacity-90 dark:border-white">
+              collected: {catchedPokemon.length} / 809
+            </div>
+            <div className="px-4 h-[40px] rounded-xl flex justify-center items-center bg-elementbBg bg-opacity-50 text-white dark:text-black border-2 border-elementbBg dark:bg-bgColor dark:bg-opacity-90 dark:border-white">
+              selected: {selectablePokes.length} / 6
+            </div>
+          </div>
           <div className="absolute top-[-70px] right-[-20px] flex gap-4">
             {catchedPokemon[0].id !== shownArr[0].id && (
               <button
@@ -112,7 +120,7 @@ export default function SelectionDialog({
                       selectionModalRef.current.close();
                     }}
                   >
-                    <span className="absolute m-2 font-pokefont text-xl z-10">
+                    <span className="absolute m-2 font-pokefont text-xl z-5">
                       {pokemonSerial(pokemon.id)}
                     </span>
                     <img
