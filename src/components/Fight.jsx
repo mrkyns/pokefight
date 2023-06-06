@@ -255,20 +255,24 @@ export default function Fight() {
                 className="w-[90%]"
               />
             )}
-            <span
-              className={`absolute top-[-12px] right-[-12px] flex justify-center items-center ${
-                pokeTypes[catchedPokemon[0].type[0]].color
-              } w-[25px] p-1 rounded-full text-[16px]`}
-            >
-              {catchedPokemon.length}
-            </span>
-            <span
-              className={`absolute bottom-[-12px] left-[-12px] flex justify-center items-center ${
-                pokeTypes[catchedPokemon[0].type[0]].color
-              } w-[25px] p-1 rounded-full text-[16px]`}
-            >
-              {selectablePokes.length}
-            </span>
+            {catchedPokemon.length > 0 && (
+              <>
+                <span
+                  className={`absolute top-[-12px] right-[-12px] flex justify-center items-center ${
+                    pokeTypes[catchedPokemon[0].type[0]].color
+                  } w-[25px] p-1 rounded-full text-[16px]`}
+                >
+                  {catchedPokemon.length}
+                </span>
+                <span
+                  className={`absolute bottom-[-12px] left-[-12px] flex justify-center items-center ${
+                    pokeTypes[catchedPokemon[0].type[0]].color
+                  } w-[25px] p-1 rounded-full text-[16px]`}
+                >
+                  {selectablePokes.length}
+                </span>
+              </>
+            )}
           </div>
         </div>
         {/* content */}

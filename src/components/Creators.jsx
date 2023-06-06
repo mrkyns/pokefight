@@ -8,8 +8,8 @@ import Loader from "./Loader";
 export default function Creators() {
   const { creators, creatorsLoading } = useContext(DataContext);
   const { darkMode } = useContext(ThemeContext);
-  const left = creators?.slice(0, 2);
-  const right = creators?.slice(2, 4);
+  const left = Object.keys(creators).length ? creators?.slice(0, 2) : null;
+  const right = Object.keys(creators).length ? creators?.slice(2, 4) : null;
 
   return (
     <>
@@ -18,41 +18,49 @@ export default function Creators() {
         {/* left column */}
         <div className="flex justify-between flex-col h-[370px]">
           {/* creator link start */}
-          {left.map((creator) => (
-            <NavLink
-              to={`/creators/${creator.name.split(" ").shift().toLowerCase()}`}
-              className="creator_left relative w-[360px]"
-            >
-              <span className="absolute font-pokefont text-5xl py-3 px-4 top-[350px] left-2 rounded-xl origin-top-left w-[350px] h-[100px] rotate-[-90deg] border-2 border-pokecreator bg-pokecreator bg-opacity-50 transition-all duration-300 ease-linear">
-                {creator.name.split(" ").shift()}
-              </span>
-              <div className="absolute w-[360px] h-[350px] bg-pokedex rounded-xl border-2 border-elementbBg shadow-shadow dark:bg-bgColor dark:border-white dark:shadow-shadow_w transition-all duration-300 ease-linear overflow-hidden">
-                <img
-                  src={creator.image}
-                  alt={`imgae of ${creator.name}`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </NavLink>
-          ))}
+          {left &&
+            left.map((creator) => (
+              <NavLink
+                to={`/creators/${creator.name
+                  .split(" ")
+                  .shift()
+                  .toLowerCase()}`}
+                className="creator_left relative w-[360px]"
+              >
+                <span className="absolute font-pokefont text-5xl py-3 px-4 top-[350px] left-2 rounded-xl origin-top-left w-[350px] h-[100px] rotate-[-90deg] border-2 border-pokecreator bg-pokecreator bg-opacity-50 transition-all duration-300 ease-linear">
+                  {creator.name.split(" ").shift()}
+                </span>
+                <div className="absolute w-[360px] h-[350px] bg-pokedex rounded-xl border-2 border-elementbBg shadow-shadow dark:bg-bgColor dark:border-white dark:shadow-shadow_w transition-all duration-300 ease-linear overflow-hidden">
+                  <img
+                    src={creator.image}
+                    alt={`imgae of ${creator.name}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </NavLink>
+            ))}
           {/* creator link end */}
         </div>
         {/* right column */}
         <div className="flex justify-between flex-col h-[370px]">
           {/* creator link start */}
-          {right.map((creator) => (
-            <NavLink
-              to={`/creators/${creator.name.split(" ").shift().toLowerCase()}`}
-              className="creator_right relative w-[360px]"
-            >
-              <span className="absolute font-pokefont text-5xl py-3 px-4 top-[350px] right-2 rounded-xl origin-top-right w-[350px] h-[100px] rotate-[90deg] border-2 border-pokecreator bg-pokecreator bg-opacity-50 transition-all duration-300 ease-linear">
-                {creator.name.split(" ").shift()}
-              </span>
-              <div className="absolute w-[360px] h-[350px] bg-elementbBg rounded-xl border-2 border-elementbBg shadow-shadow dark:bg-bgColor dark:border-white dark:shadow-shadow_w transition-all duration-300 ease-linear overflow-hidden">
-                <img src={creator.image} alt={`imgae of ${creator.name}`} />
-              </div>
-            </NavLink>
-          ))}
+          {right &&
+            right.map((creator) => (
+              <NavLink
+                to={`/creators/${creator.name
+                  .split(" ")
+                  .shift()
+                  .toLowerCase()}`}
+                className="creator_right relative w-[360px]"
+              >
+                <span className="absolute font-pokefont text-5xl py-3 px-4 top-[350px] right-2 rounded-xl origin-top-right w-[350px] h-[100px] rotate-[90deg] border-2 border-pokecreator bg-pokecreator bg-opacity-50 transition-all duration-300 ease-linear">
+                  {creator.name.split(" ").shift()}
+                </span>
+                <div className="absolute w-[360px] h-[350px] bg-elementbBg rounded-xl border-2 border-elementbBg shadow-shadow dark:bg-bgColor dark:border-white dark:shadow-shadow_w transition-all duration-300 ease-linear overflow-hidden">
+                  <img src={creator.image} alt={`imgae of ${creator.name}`} />
+                </div>
+              </NavLink>
+            ))}
           {/* creator link end */}
         </div>
       </div>
