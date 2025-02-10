@@ -27,7 +27,7 @@ function App() {
         <Route path="/pokedex" element={<Pokedex />} />
         <Route path="/pokedex/:id" element={<Pokemon />} />
         <Route path="/fight" element={<Fight />} />
-        <Route path="/creators" element={<Creators />} />
+        <Route path="/creators" element={<Pokedex />} />
         <Route path="/creators/:name" element={<Creator />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/player" element={<FightPlayerPokemon />} />
